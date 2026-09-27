@@ -1,0 +1,14 @@
+{
+  "name": "FarmCalc - FCR và giá hòa vốn",
+  "short_name": "FarmCalc",
+  "description": "Tính FCR, giá hòa vốn và chi phí cám",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f2f6f3",
+  "theme_color": "#153a30",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"}
+  ]
+}
