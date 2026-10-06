@@ -9,8 +9,8 @@
       "description": "TĂHH dạng mảnh gà thịt từ 01 ngày đến 14 ngày tuổi",
       "protein": 21.0,
       "bag": 25,
-      "priceKg": 14286,
-      "invoiceBag": 357150,
+      "priceKg": 14586.0,
+      "invoiceBag": 364650.0,
       "sourceRow": 6
     },
     {
@@ -21,8 +21,8 @@
       "description": "TĂHH dạng mảnh gà thịt từ 15 ngày đến 29 ngày tuổi",
       "protein": 20.0,
       "bag": 25,
-      "priceKg": 14009,
-      "invoiceBag": 350225,
+      "priceKg": 14309.0,
+      "invoiceBag": 357725.0,
       "sourceRow": 7
     },
     {
@@ -33,8 +33,8 @@
       "description": "TĂHH dạng viên gà thịt từ 30 ngày đến 42 ngày tuổi",
       "protein": 19.0,
       "bag": 25,
-      "priceKg": 13722,
-      "invoiceBag": 343050,
+      "priceKg": 14022.0,
+      "invoiceBag": 350550.0,
       "sourceRow": 8
     },
     {
@@ -45,8 +45,8 @@
       "description": "TĂHH dạng viên gà thịt từ 43 ngày đến xuất chuồng",
       "protein": 18.0,
       "bag": 25,
-      "priceKg": 13337,
-      "invoiceBag": 333425,
+      "priceKg": 13637.0,
+      "invoiceBag": 340925.0,
       "sourceRow": 9
     },
     {
@@ -57,8 +57,8 @@
       "description": "TĂHH dạng mảnh gà thịt từ 01 ngày đến 14 ngày tuổi",
       "protein": 21.0,
       "bag": 25,
-      "priceKg": 14556,
-      "invoiceBag": 363900,
+      "priceKg": 14856.0,
+      "invoiceBag": 371400.0,
       "sourceRow": 10
     },
     {
@@ -69,8 +69,8 @@
       "description": "TĂHH dạng mảnh gà thịt từ 15 ngày đến 28 ngày tuổi",
       "protein": 19.0,
       "bag": 25,
-      "priceKg": 14259,
-      "invoiceBag": 356475,
+      "priceKg": 14559.0,
+      "invoiceBag": 363975.0,
       "sourceRow": 11
     },
     {
@@ -81,8 +81,8 @@
       "description": "TĂHH dạng viên gà thịt từ 29 ngày đến xuất chuồng",
       "protein": 17.0,
       "bag": 25,
-      "priceKg": 13912,
-      "invoiceBag": 347800,
+      "priceKg": 14212.0,
+      "invoiceBag": 355300.0,
       "sourceRow": 12
     },
     {
@@ -93,8 +93,8 @@
       "description": "TĂĐĐ gà thịt từ 01ngày tuổi đến xuất chuồng",
       "protein": 42.0,
       "bag": 25,
-      "priceKg": 19489.4,
-      "invoiceBag": 487235.00000000006,
+      "priceKg": 19789.4,
+      "invoiceBag": 494735.00000000006,
       "sourceRow": 13
     },
     {
@@ -105,8 +105,8 @@
       "description": "TĂHH dạng viên cho gà thịt từ 33 ngày tuổi - xuất chuồng",
       "protein": 17.0,
       "bag": 25,
-      "priceKg": 13114,
-      "invoiceBag": 327850,
+      "priceKg": 13414.0,
+      "invoiceBag": 335350.0,
       "sourceRow": 14
     },
     {
@@ -117,8 +117,8 @@
       "description": "TĂHH dạng mảnh gà thịt bán công nghiệp từ 1 ngày đến 30 ngày tuổi",
       "protein": 18.0,
       "bag": 25,
-      "priceKg": 13458,
-      "invoiceBag": 336450,
+      "priceKg": 13758.0,
+      "invoiceBag": 343950.0,
       "sourceRow": 15
     },
     {
@@ -129,8 +129,8 @@
       "description": "TĂHH dạng viên cho gà thịt từ 29 - 42 ngày tuổi",
       "protein": 16.0,
       "bag": 25,
-      "priceKg": 12040,
-      "invoiceBag": 301000,
+      "priceKg": 12340.0,
+      "invoiceBag": 308500.0,
       "sourceRow": 16
     },
     {
@@ -141,8 +141,8 @@
       "description": "TĂHH dạng viên cho gà thịt từ 1 - 20 ngày tuổi",
       "protein": 21.0,
       "bag": 25,
-      "priceKg": 13680,
-      "invoiceBag": 342000,
+      "priceKg": 13980.0,
+      "invoiceBag": 349500.0,
       "sourceRow": 17
     },
     {
@@ -153,8 +153,8 @@
       "description": "TĂHH dạng viên cho gà thịt từ 21 - 42 ngày tuổi",
       "protein": 19.0,
       "bag": 25,
-      "priceKg": 13380,
-      "invoiceBag": 334500,
+      "priceKg": 13680.0,
+      "invoiceBag": 342000.0,
       "sourceRow": 18
     },
     {
@@ -165,8 +165,8 @@
       "description": "TĂHH dạng viên cho gà thịt từ 43 ngày tuổi - xuất chuồng",
       "protein": 18.0,
       "bag": 25,
-      "priceKg": 13065,
-      "invoiceBag": 326625,
+      "priceKg": 13365.0,
+      "invoiceBag": 334125.0,
       "sourceRow": 19
     },
     {
@@ -177,8 +177,8 @@
       "description": "Gà thịt nuôi bán công nghiệp từ 43 ngày - xuất chuồng",
       "protein": 16.0,
       "bag": 25,
-      "priceKg": 11840,
-      "invoiceBag": 296000,
+      "priceKg": 12140.0,
+      "invoiceBag": 303500.0,
       "sourceRow": 20
     },
     {
@@ -189,8 +189,8 @@
       "description": "Thức ăn hỗn hợp siêu cấp cho gà thịt từ 01 ngày đến 10 ngày ( Siêu úm )",
       "protein": 21.0,
       "bag": 25,
-      "priceKg": 14340,
-      "invoiceBag": 358500,
+      "priceKg": 14640.0,
+      "invoiceBag": 366000.0,
       "sourceRow": 21
     },
     {
@@ -201,8 +201,8 @@
       "description": "Thức ăn HH cho gà thịt trước khi bán 2 tuần ( Siêu vỗ béo )",
       "protein": 18.0,
       "bag": 25,
-      "priceKg": 12948,
-      "invoiceBag": 323700,
+      "priceKg": 13248.0,
+      "invoiceBag": 331200.0,
       "sourceRow": 22
     },
     {
@@ -213,8 +213,8 @@
       "description": "TAWHH dạng mảnh cho gà hậu bị từ 1 ngày - 7 tuần tuổi",
       "protein": 16.0,
       "bag": 25,
-      "priceKg": 11970,
-      "invoiceBag": 299250,
+      "priceKg": 12270.0,
+      "invoiceBag": 306750.0,
       "sourceRow": 24
     },
     {
@@ -225,8 +225,8 @@
       "description": "TĂHH dảng mảnh cho gà đẻ hậu bị (từ 8 tuần đến 18 tuần tuổi)",
       "protein": 15.5,
       "bag": 25,
-      "priceKg": 10670,
-      "invoiceBag": 266750,
+      "priceKg": 10970.0,
+      "invoiceBag": 274250.0,
       "sourceRow": 25
     },
     {
@@ -237,8 +237,8 @@
       "description": "TĂHH dạng mảnh cho gà đẻ trứng thương phẩm (trên 19 tuần tuổi)",
       "protein": 17.0,
       "bag": 25,
-      "priceKg": 10700,
-      "invoiceBag": 267500,
+      "priceKg": 11000.0,
+      "invoiceBag": 275000.0,
       "sourceRow": 26
     },
     {
@@ -249,8 +249,8 @@
       "description": "TĂHH dạng mảnh cho gà đẻ trứng thương phẩm (trên 40 tuần tuổi)",
       "protein": 16.0,
       "bag": 25,
-      "priceKg": 10530,
-      "invoiceBag": 263250,
+      "priceKg": 10830.0,
+      "invoiceBag": 270750.0,
       "sourceRow": 27
     },
     {
@@ -261,8 +261,8 @@
       "description": "Giống bộ mẹ màu từ 23 - 60 tuần tuổi",
       "protein": 16.0,
       "bag": 25,
-      "priceKg": 11030,
-      "invoiceBag": 275750,
+      "priceKg": 11330.0,
+      "invoiceBag": 283250.0,
       "sourceRow": 28
     },
     {
@@ -273,8 +273,8 @@
       "description": "TĂHH dạng mảnh cho gà đẻ trứng thương phẩm (trên 19 tuần tuổi)",
       "protein": 17.0,
       "bag": 25,
-      "priceKg": 10060,
-      "invoiceBag": 251500,
+      "priceKg": 10360.0,
+      "invoiceBag": 259000.0,
       "sourceRow": 29
     },
     {
@@ -285,8 +285,8 @@
       "description": "TĂHH dạng mảnh cho gà đẻ Siêu trứng trắng từ 18 tuần đến loại thải",
       "protein": 17.0,
       "bag": 25,
-      "priceKg": 10015,
-      "invoiceBag": 250375,
+      "priceKg": 10315.0,
+      "invoiceBag": 257875.0,
       "sourceRow": 30
     },
     {
@@ -297,8 +297,8 @@
       "description": "TĂHH dạng bột dành cho cút hậu bị",
       "protein": 22.0,
       "bag": 25,
-      "priceKg": 12160,
-      "invoiceBag": 304000,
+      "priceKg": 12460.0,
+      "invoiceBag": 311500.0,
       "sourceRow": 32
     },
     {
@@ -309,8 +309,8 @@
       "description": "TĂHH dạng bột dành cho cút đẻ",
       "protein": 19.5,
       "bag": 25,
-      "priceKg": 10915,
-      "invoiceBag": 272875,
+      "priceKg": 11215.0,
+      "invoiceBag": 280375.0,
       "sourceRow": 33
     },
     {
@@ -321,8 +321,8 @@
       "description": "TĂHH dạng viên cho vịt, ngan thịt từ 1 ngày đến 21 ngày tuổi",
       "protein": 19.0,
       "bag": 25,
-      "priceKg": 12313,
-      "invoiceBag": 307825,
+      "priceKg": 12613.0,
+      "invoiceBag": 315325.0,
       "sourceRow": 35
     },
     {
@@ -333,8 +333,8 @@
       "description": "TĂHH dạng viên cho vịt, ngan thịt từ 21 ngày đến xuất chuồng",
       "protein": 17.0,
       "bag": 25,
-      "priceKg": 11813,
-      "invoiceBag": 295325,
+      "priceKg": 12113.0,
+      "invoiceBag": 302825.0,
       "sourceRow": 36
     },
     {
@@ -345,8 +345,8 @@
       "description": "TĂHH dạng viên cho vịt, ngan thịt từ 29 - xuất bán",
       "protein": null,
       "bag": 40,
-      "priceKg": 10413,
-      "invoiceBag": 416520,
+      "priceKg": 10713.0,
+      "invoiceBag": 428520.0,
       "sourceRow": 37
     },
     {
@@ -357,8 +357,8 @@
       "description": "TĂHH dạng viên cho vịt, ngan từ 1 ngày tuổi trở lên",
       "protein": 15.0,
       "bag": 25,
-      "priceKg": 10781,
-      "invoiceBag": 269525,
+      "priceKg": 11081.0,
+      "invoiceBag": 277025.0,
       "sourceRow": 38
     },
     {
@@ -369,8 +369,8 @@
       "description": "TĂHH dạng viên cho vịt đẻ",
       "protein": 19.0,
       "bag": 40,
-      "priceKg": 10480,
-      "invoiceBag": 419200,
+      "priceKg": 10780.0,
+      "invoiceBag": 431200.0,
       "sourceRow": 39
     },
     {
@@ -381,8 +381,8 @@
       "description": "TĂHH dạng viên cho vịt đẻ",
       "protein": 19.0,
       "bag": 40,
-      "priceKg": 10780,
-      "invoiceBag": 431200,
+      "priceKg": 11080.0,
+      "invoiceBag": 443200.0,
       "sourceRow": 40
     },
     {
@@ -393,8 +393,8 @@
       "description": "TĂHH dạng viên dành cho lợn nái đẻ,mang thai (nái địa phương, nái lai).",
       "protein": 13.0,
       "bag": 25,
-      "priceKg": 11610,
-      "invoiceBag": 290250,
+      "priceKg": 11910.0,
+      "invoiceBag": 297750.0,
       "sourceRow": 42
     },
     {
@@ -405,8 +405,8 @@
       "description": "TĂĐĐ lợn thịt từ tập ăn đến xuất chuồng.",
       "protein": 46.5,
       "bag": 20,
-      "priceKg": 21304,
-      "invoiceBag": 426080,
+      "priceKg": 21604.0,
+      "invoiceBag": 432080.0,
       "sourceRow": 43
     },
     {
@@ -417,8 +417,8 @@
       "description": "TĂHH dạng viên dành cho lợn từ 7ngày tuổi đến 15kg.",
       "protein": 19.0,
       "bag": 2,
-      "priceKg": 60830,
-      "invoiceBag": 121660,
+      "priceKg": 61130.0,
+      "invoiceBag": 122260.0,
       "sourceRow": 45
     },
     {
@@ -429,8 +429,8 @@
       "description": "TĂHH dạng viên dành cho lợn từ 7ngày tuổi đến 15kg.",
       "protein": 19.0,
       "bag": 20,
-      "priceKg": 60830,
-      "invoiceBag": 1216600,
+      "priceKg": 61130.0,
+      "invoiceBag": 1222600.0,
       "sourceRow": 46
     },
     {
@@ -441,8 +441,8 @@
       "description": "Cốm sữa cho lợn con theo mẹ",
       "protein": 20.0,
       "bag": 20,
-      "priceKg": 25454,
-      "invoiceBag": 509080,
+      "priceKg": 25754.0,
+      "invoiceBag": 515080.0,
       "sourceRow": 47
     },
     {
@@ -453,8 +453,8 @@
       "description": "TĂHH cho lợn con tập ăn đến 20kg",
       "protein": 19.0,
       "bag": 20,
-      "priceKg": 21487,
-      "invoiceBag": 429740,
+      "priceKg": 21787.0,
+      "invoiceBag": 435740.0,
       "sourceRow": 48
     },
     {
@@ -465,8 +465,8 @@
       "description": "TĂHH dạng viên dành cho lợn từ 7ngày tuổi đến 15kg.",
       "protein": 19.0,
       "bag": 25,
-      "priceKg": 19130,
-      "invoiceBag": 478250,
+      "priceKg": 19430.0,
+      "invoiceBag": 485750.0,
       "sourceRow": 49
     },
     {
@@ -477,8 +477,8 @@
       "description": "TĂHH dạng viên dành cho lợn con đến 25 kg",
       "protein": 19.0,
       "bag": 25,
-      "priceKg": 14465,
-      "invoiceBag": 361625,
+      "priceKg": 14765.0,
+      "invoiceBag": 369125.0,
       "sourceRow": 50
     },
     {
@@ -489,8 +489,8 @@
       "description": "TĂHH dạng viên dành cho lợn thịt siêu nạc từ 10kg đến 40kg.",
       "protein": 19.0,
       "bag": 25,
-      "priceKg": 14165,
-      "invoiceBag": 354125,
+      "priceKg": 14465.0,
+      "invoiceBag": 361625.0,
       "sourceRow": 51
     },
     {
@@ -501,8 +501,8 @@
       "description": "TĂHH dạng viên cho lợn ngoại xuất khẩu từ 15kg đến 30kg.",
       "protein": 18.0,
       "bag": 25,
-      "priceKg": 12970,
-      "invoiceBag": 324250,
+      "priceKg": 13270.0,
+      "invoiceBag": 331750.0,
       "sourceRow": 52
     },
     {
@@ -513,8 +513,8 @@
       "description": "TĂHH dạng viên dành cho lợn thịt siêu thịt từ 12 - 25kg",
       "protein": 18.5,
       "bag": 25,
-      "priceKg": 12220,
-      "invoiceBag": 305500,
+      "priceKg": 12520.0,
+      "invoiceBag": 313000.0,
       "sourceRow": 53
     },
     {
@@ -525,8 +525,8 @@
       "description": "TĂHH dạng viên cho lợn thịt từ 25kg đến xuất chuồng.",
       "protein": 16.5,
       "bag": 25,
-      "priceKg": 12236,
-      "invoiceBag": 305900,
+      "priceKg": 12536.0,
+      "invoiceBag": 313400.0,
       "sourceRow": 54
     },
     {
@@ -537,8 +537,8 @@
       "description": "TĂHH dạng viên cho lợn nái mang thai.",
       "protein": 14.0,
       "bag": 25,
-      "priceKg": 12120,
-      "invoiceBag": 303000,
+      "priceKg": 12420.0,
+      "invoiceBag": 310500.0,
       "sourceRow": 55
     },
     {
@@ -549,8 +549,8 @@
       "description": "TĂHH dạng viên cho lợn nái nuôi con.",
       "protein": 16.0,
       "bag": 25,
-      "priceKg": 13670,
-      "invoiceBag": 341750,
+      "priceKg": 13970.0,
+      "invoiceBag": 349250.0,
       "sourceRow": 56
     },
     {
@@ -561,8 +561,8 @@
       "description": "TĂHH dạng viên cho lợn nái mang thai.",
       "protein": 14.0,
       "bag": 25,
-      "priceKg": 12670,
-      "invoiceBag": 316750,
+      "priceKg": 12970.0,
+      "invoiceBag": 324250.0,
       "sourceRow": 57
     },
     {
@@ -573,8 +573,8 @@
       "description": "TĂHH dạng viên cho lợn nái nuôi con.",
       "protein": 16.0,
       "bag": 25,
-      "priceKg": 14220,
-      "invoiceBag": 355500,
+      "priceKg": 14520.0,
+      "invoiceBag": 363000.0,
       "sourceRow": 58
     },
     {
@@ -585,8 +585,8 @@
       "description": "TĂHH dạng viên dành cho heo con từ 15 -25 kg",
       "protein": 16.5,
       "bag": 25,
-      "priceKg": 14411,
-      "invoiceBag": 360275,
+      "priceKg": 14711.0,
+      "invoiceBag": 367775.0,
       "sourceRow": 60
     },
     {
@@ -597,8 +597,8 @@
       "description": "TĂHH dạng viên dành cho heo thịt từ 25 - 50kg",
       "protein": 15.5,
       "bag": 25,
-      "priceKg": 14115,
-      "invoiceBag": 352875,
+      "priceKg": 14415.0,
+      "invoiceBag": 360375.0,
       "sourceRow": 61
     },
     {
@@ -609,8 +609,8 @@
       "description": "TĂHH dạng viên dành cho heo thịt từ 50kg - xuất",
       "protein": 14.5,
       "bag": 25,
-      "priceKg": 12920,
-      "invoiceBag": 323000,
+      "priceKg": 13220.0,
+      "invoiceBag": 330500.0,
       "sourceRow": 62
     },
     {
@@ -621,8 +621,8 @@
       "description": "TĂHH dạng mảnh gà thịt từ 01 ngày đến 14 ngày tuổi",
       "protein": 20.5,
       "bag": 25,
-      "priceKg": 14286,
-      "invoiceBag": 357150,
+      "priceKg": 14586.0,
+      "invoiceBag": 364650.0,
       "sourceRow": 64
     },
     {
@@ -633,8 +633,8 @@
       "description": "TĂHH dạng mảnh gà thịt từ 15 ngày đến 29 ngày tuổi",
       "protein": 19.5,
       "bag": 25,
-      "priceKg": 14009,
-      "invoiceBag": 350225,
+      "priceKg": 14309.0,
+      "invoiceBag": 357725.0,
       "sourceRow": 65
     },
     {
@@ -645,8 +645,8 @@
       "description": "TĂHH dạng viên gà thịt từ 30 ngày đến 42 ngày tuổi",
       "protein": 19.0,
       "bag": 25,
-      "priceKg": 13722,
-      "invoiceBag": 343050,
+      "priceKg": 14022.0,
+      "invoiceBag": 350550.0,
       "sourceRow": 66
     },
     {
@@ -657,8 +657,8 @@
       "description": "TĂHH dạng viên gà thịt từ 43 ngày đến xuất chuồng",
       "protein": 17.5,
       "bag": 25,
-      "priceKg": 13837,
-      "invoiceBag": 345925,
+      "priceKg": 14137.0,
+      "invoiceBag": 353425.0,
       "sourceRow": 67
     },
     {
@@ -669,8 +669,8 @@
       "description": "TĂHH dạng mảnh gà thịt từ 01 ngày đến 14 ngày tuổi",
       "protein": 20.5,
       "bag": 25,
-      "priceKg": 14286,
-      "invoiceBag": 357150,
+      "priceKg": 14586.0,
+      "invoiceBag": 364650.0,
       "sourceRow": 6
     },
     {
@@ -681,8 +681,8 @@
       "description": "TĂHH dạng mảnh gà thịt từ 15 ngày đến 29 ngày tuổi",
       "protein": 19.5,
       "bag": 25,
-      "priceKg": 14009,
-      "invoiceBag": 350225,
+      "priceKg": 14309.0,
+      "invoiceBag": 357725.0,
       "sourceRow": 7
     },
     {
@@ -693,8 +693,8 @@
       "description": "TĂHH dạng viên gà thịt từ 30 ngày đến 42 ngày tuổi",
       "protein": 19.0,
       "bag": 25,
-      "priceKg": 13722,
-      "invoiceBag": 343050,
+      "priceKg": 14022.0,
+      "invoiceBag": 350550.0,
       "sourceRow": 8
     },
     {
@@ -705,8 +705,8 @@
       "description": "TĂHH dạng viên gà thịt từ 43 ngày đến xuất chuồng",
       "protein": 17.5,
       "bag": 25,
-      "priceKg": 13337,
-      "invoiceBag": 333425,
+      "priceKg": 13637.0,
+      "invoiceBag": 340925.0,
       "sourceRow": 9
     },
     {
@@ -717,8 +717,8 @@
       "description": "TĂHH dạng mảnh gà thịt từ 01 ngày đến 14 ngày tuổi",
       "protein": 20.5,
       "bag": 25,
-      "priceKg": 14556,
-      "invoiceBag": 363900,
+      "priceKg": 14856.0,
+      "invoiceBag": 371400.0,
       "sourceRow": 10
     },
     {
@@ -729,8 +729,8 @@
       "description": "TĂHH dạng mảnh gà thịt từ 15 ngày đến 28 ngày tuổi",
       "protein": 19.0,
       "bag": 25,
-      "priceKg": 14259,
-      "invoiceBag": 356475,
+      "priceKg": 14559.0,
+      "invoiceBag": 363975.0,
       "sourceRow": 11
     },
     {
@@ -741,8 +741,8 @@
       "description": "TĂHH dạng viên gà thịt từ 29 ngày đến xuất chuồng",
       "protein": 17.0,
       "bag": 25,
-      "priceKg": 13912,
-      "invoiceBag": 347800,
+      "priceKg": 14212.0,
+      "invoiceBag": 355300.0,
       "sourceRow": 12
     },
     {
@@ -753,8 +753,8 @@
       "description": "TĂĐĐ gà thịt từ 01ngày tuổi đến xuất chuồng",
       "protein": 42.0,
       "bag": 25,
-      "priceKg": 19489.4,
-      "invoiceBag": 487235.00000000006,
+      "priceKg": 19789.4,
+      "invoiceBag": 494735.00000000006,
       "sourceRow": 13
     },
     {
@@ -765,8 +765,8 @@
       "description": "TĂHH dạng viên cho gà thịt từ 33 ngày tuổi - xuất chuồng",
       "protein": 17.0,
       "bag": 25,
-      "priceKg": 13114,
-      "invoiceBag": 327850,
+      "priceKg": 13414.0,
+      "invoiceBag": 335350.0,
       "sourceRow": 14
     },
     {
@@ -777,8 +777,8 @@
       "description": "TĂHH dạng mảnh gà thịt bán công nghiệp từ 1 ngày đến 30 ngày tuổi",
       "protein": 18.0,
       "bag": 25,
-      "priceKg": 13458,
-      "invoiceBag": 336450,
+      "priceKg": 13758.0,
+      "invoiceBag": 343950.0,
       "sourceRow": 15
     },
     {
@@ -789,8 +789,8 @@
       "description": "TĂHH dạng viên cho gà thịt từ 29 - 42 ngày tuổi",
       "protein": 16.0,
       "bag": 25,
-      "priceKg": 12040,
-      "invoiceBag": 301000,
+      "priceKg": 12340.0,
+      "invoiceBag": 308500.0,
       "sourceRow": 16
     },
     {
@@ -801,8 +801,8 @@
       "description": "TĂHH dạng viên cho gà thịt từ 1 - 20 ngày tuổi",
       "protein": 21.0,
       "bag": 25,
-      "priceKg": 13680,
-      "invoiceBag": 342000,
+      "priceKg": 13980.0,
+      "invoiceBag": 349500.0,
       "sourceRow": 17
     },
     {
@@ -813,8 +813,8 @@
       "description": "TĂHH dạng viên cho gà thịt từ 21 - 42 ngày tuổi",
       "protein": 19.0,
       "bag": 25,
-      "priceKg": 13380,
-      "invoiceBag": 334500,
+      "priceKg": 13680.0,
+      "invoiceBag": 342000.0,
       "sourceRow": 18
     },
     {
@@ -825,8 +825,8 @@
       "description": "TĂHH dạng viên cho gà thịt từ 43 ngày tuổi - xuất chuồng",
       "protein": 18.0,
       "bag": 25,
-      "priceKg": 13065,
-      "invoiceBag": 326625,
+      "priceKg": 13365.0,
+      "invoiceBag": 334125.0,
       "sourceRow": 19
     },
     {
@@ -837,8 +837,8 @@
       "description": "Gà thịt từ 29 - xuất",
       "protein": 15.0,
       "bag": 25,
-      "priceKg": 11840,
-      "invoiceBag": 296000,
+      "priceKg": 12140.0,
+      "invoiceBag": 303500.0,
       "sourceRow": 20
     },
     {
@@ -849,8 +849,8 @@
       "description": "Thức ăn hỗn hợp siêu cấp cho gà thịt từ 01 ngày đến 10 ngày ( Siêu úm )",
       "protein": 21.0,
       "bag": 25,
-      "priceKg": 14340,
-      "invoiceBag": 358500,
+      "priceKg": 14640.0,
+      "invoiceBag": 366000.0,
       "sourceRow": 21
     },
     {
@@ -861,8 +861,8 @@
       "description": "Thức ăn HH cho gà thịt trước khi bán 2 tuần ( Siêu vỗ béo )",
       "protein": 18.0,
       "bag": 25,
-      "priceKg": 12948,
-      "invoiceBag": 323700,
+      "priceKg": 13248.0,
+      "invoiceBag": 331200.0,
       "sourceRow": 22
     },
     {
@@ -873,8 +873,8 @@
       "description": "TAWHH dạng mảnh cho gà hậu bị từ 1 ngày - 7 tuần tuổi",
       "protein": 16.0,
       "bag": 25,
-      "priceKg": 11970,
-      "invoiceBag": 299250,
+      "priceKg": 12270.0,
+      "invoiceBag": 306750.0,
       "sourceRow": 24
     },
     {
@@ -885,8 +885,8 @@
       "description": "TĂHH dảng mảnh cho gà đẻ hậu bị (từ 8 tuần đến 18 tuần tuổi)",
       "protein": 15.5,
       "bag": 25,
-      "priceKg": 10670,
-      "invoiceBag": 266750,
+      "priceKg": 10970.0,
+      "invoiceBag": 274250.0,
       "sourceRow": 25
     },
     {
@@ -897,8 +897,8 @@
       "description": "TĂHH dạng mảnh cho gà đẻ trứng thương phẩm (trên 19 tuần tuổi)",
       "protein": 17.0,
       "bag": 25,
-      "priceKg": 10700,
-      "invoiceBag": 267500,
+      "priceKg": 11000.0,
+      "invoiceBag": 275000.0,
       "sourceRow": 26
     },
     {
@@ -909,8 +909,8 @@
       "description": "TĂHH dạng mảnh cho gà đẻ trứng thương phẩm (trên 40 tuần tuổi)",
       "protein": 16.0,
       "bag": 25,
-      "priceKg": 10530,
-      "invoiceBag": 263250,
+      "priceKg": 10830.0,
+      "invoiceBag": 270750.0,
       "sourceRow": 27
     },
     {
@@ -921,8 +921,8 @@
       "description": "Giống bộ mẹ màu từ 23 - 60 tuần tuổi",
       "protein": 16.0,
       "bag": 25,
-      "priceKg": 11030,
-      "invoiceBag": 275750,
+      "priceKg": 11330.0,
+      "invoiceBag": 283250.0,
       "sourceRow": 28
     },
     {
@@ -933,8 +933,8 @@
       "description": "TĂHH dạng mảnh cho gà đẻ trứng thương phẩm (trên 19 tuần tuổi)",
       "protein": 17.0,
       "bag": 25,
-      "priceKg": 10060,
-      "invoiceBag": 251500,
+      "priceKg": 10360.0,
+      "invoiceBag": 259000.0,
       "sourceRow": 29
     },
     {
@@ -945,8 +945,8 @@
       "description": "TĂHH dạng mảnh cho gà đẻ Siêu trứng trắng từ 18 tuần đến loại thải",
       "protein": 17.0,
       "bag": 25,
-      "priceKg": 10015,
-      "invoiceBag": 250375,
+      "priceKg": 10315.0,
+      "invoiceBag": 257875.0,
       "sourceRow": 30
     },
     {
@@ -957,8 +957,8 @@
       "description": "TĂHH dạng bột dành cho cút hậu bị",
       "protein": 22.0,
       "bag": 25,
-      "priceKg": 12160,
-      "invoiceBag": 304000,
+      "priceKg": 12460.0,
+      "invoiceBag": 311500.0,
       "sourceRow": 32
     },
     {
@@ -969,8 +969,8 @@
       "description": "TĂHH dạng bột dành cho cút đẻ",
       "protein": 19.5,
       "bag": 25,
-      "priceKg": 10915,
-      "invoiceBag": 272875,
+      "priceKg": 11215.0,
+      "invoiceBag": 280375.0,
       "sourceRow": 33
     },
     {
@@ -981,8 +981,8 @@
       "description": "TĂHH dạng viên cho vịt, ngan thịt từ 1 ngày đến 21 ngày tuổi",
       "protein": 19.0,
       "bag": 25,
-      "priceKg": 12313,
-      "invoiceBag": 307825,
+      "priceKg": 12613.0,
+      "invoiceBag": 315325.0,
       "sourceRow": 35
     },
     {
@@ -993,8 +993,8 @@
       "description": "TĂHH dạng viên cho vịt, ngan thịt từ 21 ngày đến xuất chuồng",
       "protein": 17.0,
       "bag": 25,
-      "priceKg": 11813,
-      "invoiceBag": 295325,
+      "priceKg": 12113.0,
+      "invoiceBag": 302825.0,
       "sourceRow": 36
     },
     {
@@ -1005,8 +1005,8 @@
       "description": "TĂHH dạng viên cho vịt, ngan thịt từ 29 - xuất bán",
       "protein": null,
       "bag": 40,
-      "priceKg": 10413,
-      "invoiceBag": 416520,
+      "priceKg": 10713.0,
+      "invoiceBag": 428520.0,
       "sourceRow": 37
     },
     {
@@ -1017,8 +1017,8 @@
       "description": "TĂHH dạng viên cho vịt, ngan từ 1 ngày tuổi trở lên",
       "protein": 15.0,
       "bag": 25,
-      "priceKg": 10781,
-      "invoiceBag": 269525,
+      "priceKg": 11081.0,
+      "invoiceBag": 277025.0,
       "sourceRow": 38
     },
     {
@@ -1029,8 +1029,8 @@
       "description": "TĂHH dạng viên cho vịt đẻ",
       "protein": 19.0,
       "bag": 40,
-      "priceKg": 10480,
-      "invoiceBag": 419200,
+      "priceKg": 10780.0,
+      "invoiceBag": 431200.0,
       "sourceRow": 39
     },
     {
@@ -1041,8 +1041,8 @@
       "description": "TĂHH dạng viên cho vịt đẻ",
       "protein": 19.0,
       "bag": 40,
-      "priceKg": 10780,
-      "invoiceBag": 431200,
+      "priceKg": 11080.0,
+      "invoiceBag": 443200.0,
       "sourceRow": 40
     },
     {
@@ -1053,8 +1053,8 @@
       "description": "TĂHH dạng viên dành cho lợn nái đẻ,mang thai (nái địa phương, nái lai).",
       "protein": 13.0,
       "bag": 25,
-      "priceKg": 11710,
-      "invoiceBag": 292750,
+      "priceKg": 12010.0,
+      "invoiceBag": 300250.0,
       "sourceRow": 42
     },
     {
@@ -1065,8 +1065,8 @@
       "description": "TĂĐĐ lợn thịt từ tập ăn đến xuất chuồng.",
       "protein": 46.5,
       "bag": 20,
-      "priceKg": 21404,
-      "invoiceBag": 428080,
+      "priceKg": 21704.0,
+      "invoiceBag": 434080.0,
       "sourceRow": 43
     },
     {
@@ -1077,8 +1077,8 @@
       "description": "TĂHH dạng viên dành cho lợn từ 7ngày tuổi đến 15kg.",
       "protein": 19.0,
       "bag": 2,
-      "priceKg": 60830,
-      "invoiceBag": 121660,
+      "priceKg": 61130.0,
+      "invoiceBag": 122260.0,
       "sourceRow": 45
     },
     {
@@ -1089,7 +1089,7 @@
       "description": "TĂHH dạng viên dành cho lợn từ 7ngày tuổi đến 15kg.",
       "protein": 19.0,
       "bag": 20,
-      "priceKg": 60830,
+      "priceKg": 61130.0,
       "invoiceBag": null,
       "sourceRow": 46
     },
@@ -1101,8 +1101,8 @@
       "description": "Cốm sữa cho lợn con theo mẹ",
       "protein": 20.0,
       "bag": 20,
-      "priceKg": 25454,
-      "invoiceBag": 509080,
+      "priceKg": 25754.0,
+      "invoiceBag": 515080.0,
       "sourceRow": 47
     },
     {
@@ -1113,8 +1113,8 @@
       "description": "TĂHH cho lợn con tập ăn đến 20kg",
       "protein": 19.0,
       "bag": 20,
-      "priceKg": 21487,
-      "invoiceBag": 429740,
+      "priceKg": 21787.0,
+      "invoiceBag": 435740.0,
       "sourceRow": 48
     },
     {
@@ -1125,8 +1125,8 @@
       "description": "TĂHH dạng viên dành cho lợn từ 7ngày tuổi đến 15kg.",
       "protein": 19.0,
       "bag": 25,
-      "priceKg": 19130,
-      "invoiceBag": 478250,
+      "priceKg": 19430.0,
+      "invoiceBag": 485750.0,
       "sourceRow": 49
     },
     {
@@ -1137,8 +1137,8 @@
       "description": "TĂHH dạng viên dành cho lợn con đến 25 kg",
       "protein": 19.0,
       "bag": 25,
-      "priceKg": 14465,
-      "invoiceBag": 361625,
+      "priceKg": 14765.0,
+      "invoiceBag": 369125.0,
       "sourceRow": 50
     },
     {
@@ -1149,8 +1149,8 @@
       "description": "TĂHH dạng viên dành cho lợn thịt siêu nạc từ 10kg đến 40kg.",
       "protein": 19.0,
       "bag": 25,
-      "priceKg": 14165,
-      "invoiceBag": 354125,
+      "priceKg": 14465.0,
+      "invoiceBag": 361625.0,
       "sourceRow": 51
     },
     {
@@ -1161,8 +1161,8 @@
       "description": "TĂHH dạng viên cho lợn ngoại xuất khẩu từ 15kg đến 30kg.",
       "protein": 18.0,
       "bag": 25,
-      "priceKg": 12970,
-      "invoiceBag": 324250,
+      "priceKg": 13270.0,
+      "invoiceBag": 331750.0,
       "sourceRow": 52
     },
     {
@@ -1173,8 +1173,8 @@
       "description": "TĂHH dạng viên cho lợn thịt từ 25kg đến xuất chuồng.",
       "protein": 16.5,
       "bag": 25,
-      "priceKg": 12236,
-      "invoiceBag": 305900,
+      "priceKg": 12536.0,
+      "invoiceBag": 313400.0,
       "sourceRow": 53
     },
     {
@@ -1185,8 +1185,8 @@
       "description": "TĂHH dạng viên dành cho lợn thịt siêu thịt từ 12 - 25kg",
       "protein": 18.5,
       "bag": 25,
-      "priceKg": 12220,
-      "invoiceBag": 305500,
+      "priceKg": 12520.0,
+      "invoiceBag": 313000.0,
       "sourceRow": 54
     },
     {
@@ -1197,8 +1197,8 @@
       "description": "TĂHH dạng viên cho lợn nái mang thai.",
       "protein": 14.0,
       "bag": 25,
-      "priceKg": 12120,
-      "invoiceBag": 303000,
+      "priceKg": 12420.0,
+      "invoiceBag": 310500.0,
       "sourceRow": 55
     },
     {
@@ -1209,8 +1209,8 @@
       "description": "TĂHH dạng viên cho lợn nái nuôi con.",
       "protein": 16.0,
       "bag": 25,
-      "priceKg": 13670,
-      "invoiceBag": 341750,
+      "priceKg": 13970.0,
+      "invoiceBag": 349250.0,
       "sourceRow": 56
     },
     {
@@ -1221,8 +1221,8 @@
       "description": "TĂHH dạng viên cho lợn nái mang thai.",
       "protein": 14.0,
       "bag": 25,
-      "priceKg": 12670,
-      "invoiceBag": 316750,
+      "priceKg": 12970.0,
+      "invoiceBag": 324250.0,
       "sourceRow": 57
     },
     {
@@ -1233,8 +1233,8 @@
       "description": "TĂHH dạng viên cho lợn nái nuôi con.",
       "protein": 16.0,
       "bag": 25,
-      "priceKg": 14220,
-      "invoiceBag": 355500,
+      "priceKg": 14520.0,
+      "invoiceBag": 363000.0,
       "sourceRow": 58
     },
     {
@@ -1245,8 +1245,8 @@
       "description": "TĂHH dạng viên dành cho heo con từ 15 -25 kg",
       "protein": 16.5,
       "bag": 25,
-      "priceKg": 14411,
-      "invoiceBag": 360275,
+      "priceKg": 14711.0,
+      "invoiceBag": 367775.0,
       "sourceRow": 60
     },
     {
@@ -1257,8 +1257,8 @@
       "description": "TĂHH dạng viên dành cho heo thịt từ 25 - 50kg",
       "protein": 15.5,
       "bag": 25,
-      "priceKg": 14115,
-      "invoiceBag": 352875,
+      "priceKg": 14415.0,
+      "invoiceBag": 360375.0,
       "sourceRow": 61
     },
     {
@@ -1269,8 +1269,8 @@
       "description": "TĂHH dạng viên dành cho heo thịt từ 50kg - xuất",
       "protein": 14.5,
       "bag": 25,
-      "priceKg": 12920,
-      "invoiceBag": 323000,
+      "priceKg": 13220.0,
+      "invoiceBag": 330500.0,
       "sourceRow": 62
     },
     {
@@ -1281,8 +1281,8 @@
       "description": "TĂHH dạng mảnh gà thịt từ 01 ngày đến 14 ngày tuổi",
       "protein": 20.5,
       "bag": 25,
-      "priceKg": 14286,
-      "invoiceBag": 357150,
+      "priceKg": 14586.0,
+      "invoiceBag": 364650.0,
       "sourceRow": 64
     },
     {
@@ -1293,8 +1293,8 @@
       "description": "TĂHH dạng mảnh gà thịt từ 15 ngày đến 29 ngày tuổi",
       "protein": 19.5,
       "bag": 25,
-      "priceKg": 14009,
-      "invoiceBag": 350225,
+      "priceKg": 14309.0,
+      "invoiceBag": 357725.0,
       "sourceRow": 65
     },
     {
@@ -1305,8 +1305,8 @@
       "description": "TĂHH dạng viên gà thịt từ 30 ngày đến 42 ngày tuổi",
       "protein": 19.0,
       "bag": 25,
-      "priceKg": 13722,
-      "invoiceBag": 343050,
+      "priceKg": 14022.0,
+      "invoiceBag": 350550.0,
       "sourceRow": 66
     },
     {
@@ -1317,8 +1317,8 @@
       "description": "TĂHH dạng viên gà thịt từ 43 ngày đến xuất chuồng",
       "protein": 17.5,
       "bag": 25,
-      "priceKg": 13837,
-      "invoiceBag": 345925,
+      "priceKg": 14137.0,
+      "invoiceBag": 353425.0,
       "sourceRow": 67
     },
     {
@@ -1329,8 +1329,8 @@
       "description": "TĂHH dạng viên dành cho lợn từ 7ngày tuổi đến 15kg.",
       "protein": 19.0,
       "bag": 2,
-      "priceKg": 60530,
-      "invoiceBag": 121060,
+      "priceKg": 60830.0,
+      "invoiceBag": 121660.0,
       "sourceRow": 8
     },
     {
@@ -1341,8 +1341,8 @@
       "description": "TĂHH dạng viên dành cho lợn từ 7ngày tuổi đến 15kg.",
       "protein": 19.0,
       "bag": 20,
-      "priceKg": 60830,
-      "invoiceBag": 1216600,
+      "priceKg": 61130.0,
+      "invoiceBag": 1222600.0,
       "sourceRow": 9
     },
     {
@@ -1353,8 +1353,8 @@
       "description": "Cốm sữa cho lợn con theo mẹ",
       "protein": 20.0,
       "bag": 20,
-      "priceKg": 25454,
-      "invoiceBag": 509080,
+      "priceKg": 25754.0,
+      "invoiceBag": 515080.0,
       "sourceRow": 10
     },
     {
@@ -1365,8 +1365,8 @@
       "description": "TĂHH cho lợn con tập ăn đến 20kg",
       "protein": 19.0,
       "bag": 20,
-      "priceKg": 21487,
-      "invoiceBag": 429740,
+      "priceKg": 21787.0,
+      "invoiceBag": 435740.0,
       "sourceRow": 11
     },
     {
@@ -1377,8 +1377,8 @@
       "description": "Thức ăn HH cho lợn thịt siêu nạc 6,5-12kg",
       "protein": 19.0,
       "bag": 25,
-      "priceKg": 19028,
-      "invoiceBag": 475700,
+      "priceKg": 19328.0,
+      "invoiceBag": 483200.0,
       "sourceRow": 12
     },
     {
@@ -1389,8 +1389,8 @@
       "description": "Thức ăn HH cho lợn thịt siêu nạc 12-25kg",
       "protein": 18.5,
       "bag": 25,
-      "priceKg": 14068,
-      "invoiceBag": 351700,
+      "priceKg": 14368.0,
+      "invoiceBag": 359200.0,
       "sourceRow": 13
     },
     {
@@ -1401,8 +1401,8 @@
       "description": "Thức ăn HH cho lợn thịt siêu nạc 25-55kg",
       "protein": 18.0,
       "bag": 25,
-      "priceKg": 13681,
-      "invoiceBag": 342025,
+      "priceKg": 13981.0,
+      "invoiceBag": 349525.0,
       "sourceRow": 14
     },
     {
@@ -1413,8 +1413,8 @@
       "description": "Thức ăn HH cho lợn thịt siêu nạc 55-90kg",
       "protein": 17.0,
       "bag": 25,
-      "priceKg": 12988,
-      "invoiceBag": 324700,
+      "priceKg": 13288.0,
+      "invoiceBag": 332200.0,
       "sourceRow": 15
     },
     {
@@ -1425,8 +1425,8 @@
       "description": "TĂHH dạng viên dành cho lợn thịt siêu thịt từ 12 - 25kg",
       "protein": 18.5,
       "bag": 25,
-      "priceKg": 12220,
-      "invoiceBag": 305500,
+      "priceKg": 12520.0,
+      "invoiceBag": 313000.0,
       "sourceRow": 16
     },
     {
@@ -1437,8 +1437,8 @@
       "description": "Thức ăn HH cho lợn thịt siêu nạc 20-50kg",
       "protein": 17.0,
       "bag": 25,
-      "priceKg": 12538,
-      "invoiceBag": 313450,
+      "priceKg": 12838.0,
+      "invoiceBag": 320950.0,
       "sourceRow": 17
     },
     {
@@ -1449,8 +1449,8 @@
       "description": "Thức ăn HH cho lợn nái mang thai",
       "protein": 14.5,
       "bag": 25,
-      "priceKg": 12670,
-      "invoiceBag": 316750,
+      "priceKg": 12970.0,
+      "invoiceBag": 324250.0,
       "sourceRow": 18
     },
     {
@@ -1461,8 +1461,8 @@
       "description": "Thức ăn HH cho lợn nái nuôi con",
       "protein": 16.5,
       "bag": 25,
-      "priceKg": 14220,
-      "invoiceBag": 355500,
+      "priceKg": 14520.0,
+      "invoiceBag": 363000.0,
       "sourceRow": 19
     },
     {
@@ -1473,8 +1473,8 @@
       "description": "Thức ăn HH cho lợn nái mang thai",
       "protein": 14.0,
       "bag": 25,
-      "priceKg": 12120,
-      "invoiceBag": 303000,
+      "priceKg": 12420.0,
+      "invoiceBag": 310500.0,
       "sourceRow": 20
     },
     {
@@ -1485,8 +1485,8 @@
       "description": "Thức ăn HH cho lợn nái nuôi con",
       "protein": 16.0,
       "bag": 25,
-      "priceKg": 13670,
-      "invoiceBag": 341750,
+      "priceKg": 13970.0,
+      "invoiceBag": 349250.0,
       "sourceRow": 21
     },
     {
@@ -1497,8 +1497,8 @@
       "description": "TĂHH dạng viên cho lợn nái mang thai.",
       "protein": 14.5,
       "bag": 25,
-      "priceKg": 12670,
-      "invoiceBag": 316750,
+      "priceKg": 12970.0,
+      "invoiceBag": 324250.0,
       "sourceRow": 22
     },
     {
@@ -1509,8 +1509,8 @@
       "description": "TĂHH dạng viên cho lợn nái nuôi con.",
       "protein": 16.5,
       "bag": 25,
-      "priceKg": 14220,
-      "invoiceBag": 355500,
+      "priceKg": 14520.0,
+      "invoiceBag": 363000.0,
       "sourceRow": 23
     },
     {
@@ -1521,8 +1521,8 @@
       "description": "Thức ăn hỗn hợp siêu cấp cho gà thịt từ 01 ngày đến 10 ngày ( Siêu úm )",
       "protein": 21.0,
       "bag": 25,
-      "priceKg": 14340,
-      "invoiceBag": 358500,
+      "priceKg": 14640.0,
+      "invoiceBag": 366000.0,
       "sourceRow": 25
     },
     {
@@ -1533,8 +1533,8 @@
       "description": "Thức ăn HH cho gà thịt trước khi bán 2 tuần ( Siêu vỗ béo )",
       "protein": 18.0,
       "bag": 25,
-      "priceKg": 12948,
-      "invoiceBag": 323700,
+      "priceKg": 13248.0,
+      "invoiceBag": 331200.0,
       "sourceRow": 26
     },
     {
@@ -1545,8 +1545,8 @@
       "description": "Thức ăn HH cho gà từ 1-21 ngày",
       "protein": 20.5,
       "bag": 25,
-      "priceKg": 13533,
-      "invoiceBag": 338325,
+      "priceKg": 13833.0,
+      "invoiceBag": 345825.0,
       "sourceRow": 27
     },
     {
@@ -1557,8 +1557,8 @@
       "description": "Thức ăn HH cho gà từ 22-50 ngày",
       "protein": 18.9,
       "bag": 25,
-      "priceKg": 13173,
-      "invoiceBag": 329325,
+      "priceKg": 13473.0,
+      "invoiceBag": 336825.0,
       "sourceRow": 28
     },
     {
@@ -1569,8 +1569,8 @@
       "description": "Thức ăn HH cho gà từ 51-85 ngày",
       "protein": 17.5,
       "bag": 25,
-      "priceKg": 12741,
-      "invoiceBag": 318525,
+      "priceKg": 13041.0,
+      "invoiceBag": 326025.0,
       "sourceRow": 29
     },
     {
@@ -1581,8 +1581,8 @@
       "description": "Thức ăn HH cho gà từ 85 ngày-XB",
       "protein": 16.5,
       "bag": 25,
-      "priceKg": 12426,
-      "invoiceBag": 310650,
+      "priceKg": 12726.0,
+      "invoiceBag": 318150.0,
       "sourceRow": 30
     },
     {
@@ -1593,8 +1593,8 @@
       "description": "Thức ăn HH cho vịt ngan từ 1-21 ngày",
       "protein": 18.0,
       "bag": 25,
-      "priceKg": 12553,
-      "invoiceBag": 313825,
+      "priceKg": 12853.0,
+      "invoiceBag": 321325.0,
       "sourceRow": 32
     },
     {
@@ -1605,8 +1605,8 @@
       "description": "Thức ăn HH cho vịt ngan từ 22 ngày-XB",
       "protein": 15.0,
       "bag": 25,
-      "priceKg": 12013,
-      "invoiceBag": 300325,
+      "priceKg": 12313.0,
+      "invoiceBag": 307825.0,
       "sourceRow": 33
     },
     {
@@ -1617,8 +1617,8 @@
       "description": "TĂHH dạng viên cho vịt đẻ",
       "protein": 19.0,
       "bag": 40,
-      "priceKg": 10480,
-      "invoiceBag": 419200,
+      "priceKg": 10780.0,
+      "invoiceBag": 431200.0,
       "sourceRow": 34
     },
     {
@@ -1629,8 +1629,8 @@
       "description": "TĂHH dạng viên cho vịt đẻ",
       "protein": null,
       "bag": 40,
-      "priceKg": 10780,
-      "invoiceBag": 431200,
+      "priceKg": 11080.0,
+      "invoiceBag": 443200.0,
       "sourceRow": 35
     },
     {
@@ -1641,8 +1641,8 @@
       "description": "Thức ăn HH cho gà siêu thịt 1-7 ngày",
       "protein": 21.5,
       "bag": 25,
-      "priceKg": 13408,
-      "invoiceBag": 335200,
+      "priceKg": 13708.0,
+      "invoiceBag": 342700.0,
       "sourceRow": 37
     },
     {
@@ -1653,8 +1653,8 @@
       "description": "Thức ăn HH cho gà siêu thịt 8-21 ngày",
       "protein": 21.0,
       "bag": 25,
-      "priceKg": 13318,
-      "invoiceBag": 332950,
+      "priceKg": 13618.0,
+      "invoiceBag": 340450.0,
       "sourceRow": 38
     },
     {
@@ -1665,8 +1665,8 @@
       "description": "Thức ăn HH cho gà siêu thịt 22-35 ngày",
       "protein": 20.0,
       "bag": 25,
-      "priceKg": 13048,
-      "invoiceBag": 326200,
+      "priceKg": 13348.0,
+      "invoiceBag": 333700.0,
       "sourceRow": 39
     },
     {
@@ -1677,8 +1677,8 @@
       "description": "Thức ăn HH cho gà siêu thịt 36 ngày",
       "protein": 19.0,
       "bag": 25,
-      "priceKg": 12778,
-      "invoiceBag": 319450,
+      "priceKg": 13078.0,
+      "invoiceBag": 326950.0,
       "sourceRow": 40
     },
     {
@@ -1689,8 +1689,8 @@
       "description": "Thức ăn HH cho gà hậu bị từ 8 đến 18 tuần tuổi",
       "protein": 15.5,
       "bag": 25,
-      "priceKg": 10620,
-      "invoiceBag": 265500,
+      "priceKg": 10920.0,
+      "invoiceBag": 273000.0,
       "sourceRow": 42
     },
     {
@@ -1701,8 +1701,8 @@
       "description": "Thức ăn HH cho gà đẻ siêu trứng từ  18 tuần tuổi đến thải loại",
       "protein": 17.0,
       "bag": 25,
-      "priceKg": 10650,
-      "invoiceBag": 266250,
+      "priceKg": 10950.0,
+      "invoiceBag": 273750.0,
       "sourceRow": 43
     },
     {
@@ -1713,8 +1713,8 @@
       "description": "Thức ăn hỗn hợp siêu cấp cho gà thịt từ 01 ngày đến 10 ngày ( Siêu úm )",
       "protein": 21.0,
       "bag": 25,
-      "priceKg": 14340,
-      "invoiceBag": 358500,
+      "priceKg": 14640.0,
+      "invoiceBag": 366000.0,
       "sourceRow": 44
     },
     {
@@ -1725,8 +1725,8 @@
       "description": "TĂHH dạng viên cho gà thịt từ 1 - 20 ngày tuổi",
       "protein": 21.0,
       "bag": 25,
-      "priceKg": 13680,
-      "invoiceBag": 342000,
+      "priceKg": 13980.0,
+      "invoiceBag": 349500.0,
       "sourceRow": 45
     },
     {
@@ -1737,8 +1737,8 @@
       "description": "TĂHH dạng viên cho gà thịt từ 21 - 42 ngày tuổi",
       "protein": 19.0,
       "bag": 25,
-      "priceKg": 13380,
-      "invoiceBag": 334500,
+      "priceKg": 13680.0,
+      "invoiceBag": 342000.0,
       "sourceRow": 46
     },
     {
@@ -1749,9 +1749,11 @@
       "description": "TĂHH dạng viên cho gà thịt từ 43 ngày tuổi - xuất chuồng",
       "protein": 18.0,
       "bag": 25,
-      "priceKg": 13065,
-      "invoiceBag": 326625,
+      "priceKg": 13365.0,
+      "invoiceBag": 334125.0,
       "sourceRow": 47
     }
-  ]
+  ],
+  "priceAdjustmentKg": 300,
+  "updatedAt": "2026-10-06"
 }
