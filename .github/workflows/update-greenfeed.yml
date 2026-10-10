@@ -14,8 +14,9 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install requests beautifulsoup4
-      - run: python scripts/update_greenfeed.py
-      - name: Commit if changed
+      - name: Read and validate GREENFEED market data
+        run: python scripts/update_greenfeed.py
+      - name: Commit price history if changed
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
