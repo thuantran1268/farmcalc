@@ -1,7 +1,50 @@
 {
   "source": "GREENFEED",
   "region": "Miền Bắc",
-  "checked_at": null,
-  "last_source_date": null,
-  "records": []
+  "checked_at": "2026-10-10T23:30+07:00",
+  "last_source_date": "2026-10-01",
+  "records": [
+    {
+      "date": "2026-10-01",
+      "product": "Gà màu",
+      "region": "Miền Bắc",
+      "price": 43724,
+      "source": "GREENFEED"
+    },
+    {
+      "date": "2026-10-01",
+      "product": "Gà trắng",
+      "region": "Miền Bắc",
+      "price": 32389,
+      "source": "GREENFEED"
+    },
+    {
+      "date": "2026-10-01",
+      "product": "Heo hơi",
+      "region": "Miền Bắc",
+      "price": 54917,
+      "source": "GREENFEED"
+    },
+    {
+      "date": "2026-10-01",
+      "product": "Trứng gà",
+      "region": "Miền Bắc",
+      "price": 1961,
+      "source": "GREENFEED"
+    },
+    {
+      "date": "2026-10-01",
+      "product": "Trứng vịt",
+      "region": "Miền Bắc",
+      "price": 2718,
+      "source": "GREENFEED"
+    },
+    {
+      "date": "2026-10-01",
+      "product": "Vịt thịt",
+      "region": "Miền Bắc",
+      "price": 41132,
+      "source": "GREENFEED"
+    }
+  ]
 }
