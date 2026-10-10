@@ -1,0 +1,11 @@
+FARMCALC - GREENFEED MIEN BAC
+1. Ghi de scripts/update_greenfeed.py tren GitHub bang file trong ZIP.
+2. Ghi de .github/workflows/update-greenfeed.yml bang file trong ZIP.
+3. Khong thay index.html, auth.js, config.js, products.json.
+4. Vao Actions > Cap nhat gia GREENFEED mien Bac > Run workflow (main).
+5. Kiem tra data/greenfeed-north.json co records va last_source_date.
+6. Workflow chay hang ngay luc 01:20 UTC (08:20 gio Viet Nam), nhung GitHub co the tre.
+7. Neu nguon GREENFEED khong co gia moi, du lieu cu duoc giu lai; khong tao gia gia.
+8. Neu nguon thay doi HTML, workflow se bao loi va can sua parser.
+9. Gia 7 ngay chi co nhung ngay nguon thuc su cong bo; 12 thang khong tu suy dien du lieu thieu.
+10. Can kiem tra dieu khoan tai su dung du lieu GREENFEED truoc khi phat hanh cong khai.

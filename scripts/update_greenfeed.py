@@ -1,73 +1,90 @@
-"""Collect published northern market prices. Fail closed on ambiguous page structure."""
-import json, re, sys, time
+"""Read published GREENFEED northern market prices without guessing values."""
+import json
+import re
+import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import requests
 from bs4 import BeautifulSoup
 
-URL = 'https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/'
+URL = 'https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/bang-gia-thi-truong/'
 OUT = Path('data/greenfeed-north.json')
 PRODUCTS = ['Heo hơi', 'Vịt thịt', 'Gà màu', 'Gà trắng', 'Trứng gà', 'Trứng vịt']
+VN = timezone(timedelta(hours=7))
+DATE_RE = re.compile(r'\b([0-3]?\d)[-/]([01]?\d)[-/](20\d{2})\b')
 
-def num(s):
-    s = re.sub(r'[^\d,.]', '', s.strip())
-    if not s: return None
-    return int(s.replace(',', '').replace('.', ''))
+def norm(text):
+    return re.sub(r'\s+', ' ', text).strip().upper()
+
+def parse_date(text):
+    m = DATE_RE.search(text)
+    if not m:
+        return None
+    try:
+        return datetime(int(m[3]), int(m[2]), int(m[1])).date().isoformat()
+    except ValueError:
+        return None
+
+def parse_price(text):
+    token = text.strip().replace(',', '').replace('.', '').replace(' ', '')
+    if not re.fullmatch(r'\d{3,6}', token):
+        return None
+    return int(token)
 
 def parse(html):
     soup = BeautifulSoup(html, 'html.parser')
     for table in soup.select('table'):
-        text = table.get_text(' ', strip=True)
-        if 'MIỀN BẮC' not in text.upper() or 'HEO HƠI' not in text.upper() or 'TRỨNG VỊT' not in text.upper():
+        rows = table.select('tr')
+        if len(rows) < 4:
             continue
-        date_match = re.search(r'\b(\d{2})[-/](\d{2})[-/](20\d{2})\b', text)
-        if not date_match: continue
-        dd, mm, yyyy = date_match.groups()
-        try: day = datetime(int(yyyy), int(mm), int(dd)).date().isoformat()
-        except ValueError: continue
-        for tr in table.select('tr'):
-            cells = [c.get_text(' ', strip=True) for c in tr.select('td,th')]
-            if not cells or cells[0].strip().upper() != 'MIỀN BẮC': continue
-            # Typical table: HEO GREENFEED, HEO HOI, then 5 product prices;
-            # each price after heo hoi may be followed by change since prior period.
-            numbers = [num(x) for x in cells[1:]]
-            numbers = [x for x in numbers if x is not None]
-            # 1 greenfeed hog, 1 market hog, 5 (price, delta) pairs
-            if len(numbers) < 12: continue
-            vals = [numbers[1], numbers[2], numbers[4], numbers[6], numbers[8], numbers[10]]
-            if not (20000 <= vals[0] <= 150000 and 10000 <= vals[1] <= 150000 and 10000 <= vals[2] <= 150000 and 10000 <= vals[3] <= 150000 and 500 <= vals[4] <= 10000 and 500 <= vals[5] <= 10000):
+        heading = norm(rows[0].get_text(' ', strip=True))
+        if not all(x in heading for x in ['HEO HƠI','VỊT SIÊU THỊT','GÀ MÀU','GÀ TRẮNG','TRỨNG GÀ','TRỨNG VỊT']):
+            continue
+        # GREENFEED table: row 1 has grouped product names; row 2 has
+        # dates and previous-period change columns; region headings are
+        # separate rows with colspan=13 and MUST NOT be treated as prices.
+        date = parse_date(rows[1].get_text(' ', strip=True))
+        if not date:
+            raise ValueError('Bảng GREENFEED không có ngày công bố hợp lệ')
+        for tr in rows[2:]:
+            cells = tr.find_all(['td','th'], recursive=False)
+            if len(cells) != 14 or norm(cells[0].get_text(' ',strip=True)) != 'MIỀN BẮC':
                 continue
-            return day, [dict(date=day, product=name, region='Miền Bắc', price=price, source='GREENFEED') for name,price in zip(PRODUCTS, vals)]
-    raise ValueError('Cannot reliably identify GREENFEED market table and MIỀN BẮC row')
+            if any(c.has_attr('colspan') for c in cells):
+                continue
+            nums = [parse_price(c.get_text(' ',strip=True)) for c in cells[1:]]
+            if nums[0] is None or any(nums[i] is None for i in (1,3,5,7,9,11)):
+                continue
+            # After region: Greenfeed hog, market hog, delta, duck, delta,
+            # colored chicken, delta, white chicken, delta, egg, delta, egg, delta.
+            vals = [nums[i] for i in (1,3,5,7,9,11)]
+            limits = [(20000,150000)]*4 + [(500,10000)]*2
+            if not all(lo <= val <= hi for val,(lo,hi) in zip(vals,limits)):
+                continue
+            return date, [dict(date=date,product=product,region='Miền Bắc',price=price,source='GREENFEED') for product,price in zip(PRODUCTS,vals)]
+    raise ValueError('Không tìm thấy dòng MIỀN BẮC gồm đủ sáu giá hợp lệ')
 
 def main():
     old = json.loads(OUT.read_text(encoding='utf-8')) if OUT.exists() else {'records': []}
     existing = {(r['date'],r['product']):r for r in old.get('records',[]) if r.get('region')=='Miền Bắc'}
-    session = requests.Session(); session.headers.update({'User-Agent':'Mozilla/5.0 (compatible; FarmCalcMarketTracker/1.0)'})
-    # Fetch canonical latest page first. If layout changes, do not corrupt history.
-    response = session.get(URL, timeout=25); response.raise_for_status()
-    latest, rows = parse(response.text)
-    for r in rows: existing[(r['date'],r['product'])] = r
-    # Try dated historical pages. Only accept a response when its actual table date
-    # matches the requested date. No guessed prices, no forward filling.
-    today = datetime.now(timezone(timedelta(hours=7))).date()
-    candidates = [today-timedelta(days=i) for i in range(0,14)]
-    candidates += [today-timedelta(days=7*i) for i in range(2,54)]
-    for day in dict.fromkeys(candidates):
-        if all((day.isoformat(),p) in existing for p in PRODUCTS): continue
-        try:
-            resp = session.get(URL, params={'date':day.isoformat(),'type':'san-pham-chan-nuoi-price'},timeout=20)
-            resp.raise_for_status(); parsed_date, data = parse(resp.text)
-            if parsed_date == day.isoformat():
-                for r in data: existing[(r['date'],r['product'])]=r
-        except (requests.RequestException, ValueError): pass
-        time.sleep(.15)
-    result={'source':'GREENFEED','region':'Miền Bắc','checked_at':datetime.now(timezone(timedelta(hours=7))).isoformat(timespec='minutes'), 'last_source_date':max((r['date'] for r in existing.values()),default=None),'records':sorted(existing.values(),key=lambda r:(r['date'],r['product']))}
+    session = requests.Session()
+    session.headers.update({'User-Agent':'Mozilla/5.0 (compatible; FarmCalcMarketTracker/1.2)'})
+    response = session.get(URL,timeout=30)
+    response.raise_for_status()
+    date,records = parse(response.text)
+    for r in records:
+        existing[(r['date'],r['product'])] = r
+    result = {'source':'GREENFEED','region':'Miền Bắc',
+              'checked_at':datetime.now(VN).isoformat(timespec='minutes'),
+              'last_source_date':max((r['date'] for r in existing.values()),default=None),
+              'records':sorted(existing.values(),key=lambda r:(r['date'],r['product']))}
     OUT.parent.mkdir(parents=True,exist_ok=True)
     OUT.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-    print(f"Latest published: {latest}; total records: {len(result['records'])}")
+    print(f'Đã lưu dữ liệu nguồn ngày {date}: {len(records)} giá. Tổng: {len(result["records"])}')
 
-if __name__ == '__main__':
-    try: main()
+if __name__=='__main__':
+    try:
+        main()
     except Exception as exc:
-        print('GREENFEED extraction failed safely:',exc,file=sys.stderr);sys.exit(1)
+        print(f'GREENFEED extraction failed safely: {exc}',file=sys.stderr)
+        sys.exit(1)
