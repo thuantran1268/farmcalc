@@ -1,8 +1,8 @@
 {
   "source": "GREENFEED",
   "region": "Miền Bắc",
-  "checked_at": "2026-10-16T12:55+07:00",
-  "last_source_date": "2026-10-15",
+  "checked_at": "2026-10-17T12:39+07:00",
+  "last_source_date": "2026-10-16",
   "records": [
     {
       "date": "2026-10-01",
@@ -485,6 +485,50 @@
       "price_type": "range_midpoint",
       "price_min": 35000,
       "price_max": 36000
+    },
+    {
+      "date": "2026-10-16",
+      "product": "Gà Mía",
+      "region": "Miền Bắc",
+      "price": 50000,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-16-10-2026-gia-heo-hoi-ghi-nhan-giam-tai-hau-het-cac-khu-vuc-tren-ca-nuoc-gia-ga-ri-giam-tai-mien-bac-trong-khi-ga-mia-ghi-nhan-tang/",
+      "price_type": "range_midpoint",
+      "price_min": 48500,
+      "price_max": 51500
+    },
+    {
+      "date": "2026-10-16",
+      "product": "Gà Ri",
+      "region": "Miền Bắc",
+      "price": 45750,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-16-10-2026-gia-heo-hoi-ghi-nhan-giam-tai-hau-het-cac-khu-vuc-tren-ca-nuoc-gia-ga-ri-giam-tai-mien-bac-trong-khi-ga-mia-ghi-nhan-tang/",
+      "price_type": "range_midpoint",
+      "price_min": 45000,
+      "price_max": 46500
+    },
+    {
+      "date": "2026-10-16",
+      "product": "Heo hơi",
+      "region": "Miền Bắc",
+      "price": 52000,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-16-10-2026-gia-heo-hoi-ghi-nhan-giam-tai-hau-het-cac-khu-vuc-tren-ca-nuoc-gia-ga-ri-giam-tai-mien-bac-trong-khi-ga-mia-ghi-nhan-tang/",
+      "price_type": "reported_average",
+      "price_min": 50000,
+      "price_max": 53000
+    },
+    {
+      "date": "2026-10-16",
+      "product": "Vịt thịt",
+      "region": "Miền Bắc",
+      "price": 34500,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-16-10-2026-gia-heo-hoi-ghi-nhan-giam-tai-hau-het-cac-khu-vuc-tren-ca-nuoc-gia-ga-ri-giam-tai-mien-bac-trong-khi-ga-mia-ghi-nhan-tang/",
+      "price_type": "range_midpoint",
+      "price_min": 34000,
+      "price_max": 35000
     }
   ]
 }
