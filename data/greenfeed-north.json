@@ -1,8 +1,8 @@
 {
   "source": "GREENFEED",
   "region": "Miền Bắc",
-  "checked_at": "2026-10-19T13:17+07:00",
-  "last_source_date": "2026-10-16",
+  "checked_at": "2026-10-20T13:06+07:00",
+  "last_source_date": "2026-10-19",
   "records": [
     {
       "date": "2026-10-01",
@@ -529,6 +529,50 @@
       "price_type": "range_midpoint",
       "price_min": 34000,
       "price_max": 35000
+    },
+    {
+      "date": "2026-10-19",
+      "product": "Gà Mía",
+      "region": "Miền Bắc",
+      "price": 48750,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-19-10-2026-gia-heo-hoi-ghi-nhan-xu-huong-giam-gia-ga-ri-va-ga-mia-tang/",
+      "price_type": "range_midpoint",
+      "price_min": 47000,
+      "price_max": 50500
+    },
+    {
+      "date": "2026-10-19",
+      "product": "Gà Ri",
+      "region": "Miền Bắc",
+      "price": 46000,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-19-10-2026-gia-heo-hoi-ghi-nhan-xu-huong-giam-gia-ga-ri-va-ga-mia-tang/",
+      "price_type": "range_midpoint",
+      "price_min": 45000,
+      "price_max": 47000
+    },
+    {
+      "date": "2026-10-19",
+      "product": "Heo hơi",
+      "region": "Miền Bắc",
+      "price": 51000,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-19-10-2026-gia-heo-hoi-ghi-nhan-xu-huong-giam-gia-ga-ri-va-ga-mia-tang/",
+      "price_type": "reported_average",
+      "price_min": 50500,
+      "price_max": 51500
+    },
+    {
+      "date": "2026-10-19",
+      "product": "Vịt thịt",
+      "region": "Miền Bắc",
+      "price": 36000,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-19-10-2026-gia-heo-hoi-ghi-nhan-xu-huong-giam-gia-ga-ri-va-ga-mia-tang/",
+      "price_type": "range_midpoint",
+      "price_min": 35500,
+      "price_max": 36500
     }
   ]
 }
