@@ -1,8 +1,8 @@
 {
   "source": "GREENFEED",
   "region": "Miền Bắc",
-  "checked_at": "2026-10-22T13:09+07:00",
-  "last_source_date": "2026-10-21",
+  "checked_at": "2026-10-23T13:05+07:00",
+  "last_source_date": "2026-10-22",
   "records": [
     {
       "date": "2026-10-01",
@@ -658,6 +658,50 @@
       "price": 34500,
       "source": "GREENFEED",
       "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-21-10-2026-gia-heo-hoi-ghi-nhan-giam-tai-tat-ca-cac-khu-vuc-tren-ca-nuoc-gia-ga-ri-giu-on-dinh-tai-mien-bac-trong-khi-ga-mia-giam-nhe/",
+      "price_type": "range_midpoint",
+      "price_min": 34000,
+      "price_max": 35000
+    },
+    {
+      "date": "2026-10-22",
+      "product": "Gà Mía",
+      "region": "Miền Bắc",
+      "price": 49750,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-22-10-2026-gia-heo-hoi-ghi-nhan-giam-tai-tat-ca-cac-khu-vuc-tren-ca-nuoc-gia-ga-ri-tang-manh-tai-mien-bac/",
+      "price_type": "range_midpoint",
+      "price_min": 47500,
+      "price_max": 52000
+    },
+    {
+      "date": "2026-10-22",
+      "product": "Gà Ri",
+      "region": "Miền Bắc",
+      "price": 47500,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-22-10-2026-gia-heo-hoi-ghi-nhan-giam-tai-tat-ca-cac-khu-vuc-tren-ca-nuoc-gia-ga-ri-tang-manh-tai-mien-bac/",
+      "price_type": "range_midpoint",
+      "price_min": 46500,
+      "price_max": 48500
+    },
+    {
+      "date": "2026-10-22",
+      "product": "Heo hơi",
+      "region": "Miền Bắc",
+      "price": 48500,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-22-10-2026-gia-heo-hoi-ghi-nhan-giam-tai-tat-ca-cac-khu-vuc-tren-ca-nuoc-gia-ga-ri-tang-manh-tai-mien-bac/",
+      "price_type": "reported_average",
+      "price_min": 46000,
+      "price_max": 51500
+    },
+    {
+      "date": "2026-10-22",
+      "product": "Vịt thịt",
+      "region": "Miền Bắc",
+      "price": 34500,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-22-10-2026-gia-heo-hoi-ghi-nhan-giam-tai-tat-ca-cac-khu-vuc-tren-ca-nuoc-gia-ga-ri-tang-manh-tai-mien-bac/",
       "price_type": "range_midpoint",
       "price_min": 34000,
       "price_max": 35000
