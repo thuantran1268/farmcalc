@@ -1,8 +1,8 @@
 {
   "source": "GREENFEED",
   "region": "Miền Bắc",
-  "checked_at": "2026-10-23T13:05+07:00",
-  "last_source_date": "2026-10-22",
+  "checked_at": "2026-10-24T12:59+07:00",
+  "last_source_date": "2026-10-23",
   "records": [
     {
       "date": "2026-10-01",
@@ -492,7 +492,7 @@
       "region": "Miền Bắc",
       "price": 50000,
       "source": "GREENFEED",
-      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-16-10-2026-gia-heo-hoi-ghi-nhan-giam-tai-hau-het-cac-khu-vuc-tren-ca-nuoc-gia-ga-ri-giam-tai-mien-bac-trong-khi-ga-mia-ghi-nhan-tang/",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-16-10-2026-gia-ga-ri-giam-tai-mien-bac-trong-khi-ga-mia-ghi-nhan-tang/",
       "price_type": "range_midpoint",
       "price_min": 48500,
       "price_max": 51500
@@ -503,7 +503,7 @@
       "region": "Miền Bắc",
       "price": 45750,
       "source": "GREENFEED",
-      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-16-10-2026-gia-heo-hoi-ghi-nhan-giam-tai-hau-het-cac-khu-vuc-tren-ca-nuoc-gia-ga-ri-giam-tai-mien-bac-trong-khi-ga-mia-ghi-nhan-tang/",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-16-10-2026-gia-ga-ri-giam-tai-mien-bac-trong-khi-ga-mia-ghi-nhan-tang/",
       "price_type": "range_midpoint",
       "price_min": 45000,
       "price_max": 46500
@@ -525,7 +525,7 @@
       "region": "Miền Bắc",
       "price": 34500,
       "source": "GREENFEED",
-      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-16-10-2026-gia-heo-hoi-ghi-nhan-giam-tai-hau-het-cac-khu-vuc-tren-ca-nuoc-gia-ga-ri-giam-tai-mien-bac-trong-khi-ga-mia-ghi-nhan-tang/",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-16-10-2026-gia-ga-ri-giam-tai-mien-bac-trong-khi-ga-mia-ghi-nhan-tang/",
       "price_type": "range_midpoint",
       "price_min": 34000,
       "price_max": 35000
@@ -705,6 +705,50 @@
       "price_type": "range_midpoint",
       "price_min": 34000,
       "price_max": 35000
+    },
+    {
+      "date": "2026-10-23",
+      "product": "Gà Mía",
+      "region": "Miền Bắc",
+      "price": 49750,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-23-10-2026-gia-heo-hoi-ghi-nhan-xu-huong-giam-tai-hau-het-cac-khu-vuc-tren-ca-nuoc-tang-gia-tai-khu-vuc-mien-bac-trong-khi-ga-mia-khong-ghi-nhan-bien-dong-gia/",
+      "price_type": "range_midpoint",
+      "price_min": 47500,
+      "price_max": 52000
+    },
+    {
+      "date": "2026-10-23",
+      "product": "Gà Ri",
+      "region": "Miền Bắc",
+      "price": 47750,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-23-10-2026-gia-heo-hoi-ghi-nhan-xu-huong-giam-tai-hau-het-cac-khu-vuc-tren-ca-nuoc-tang-gia-tai-khu-vuc-mien-bac-trong-khi-ga-mia-khong-ghi-nhan-bien-dong-gia/",
+      "price_type": "range_midpoint",
+      "price_min": 46500,
+      "price_max": 49000
+    },
+    {
+      "date": "2026-10-23",
+      "product": "Heo hơi",
+      "region": "Miền Bắc",
+      "price": 46000,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-23-10-2026-gia-heo-hoi-ghi-nhan-xu-huong-giam-tai-hau-het-cac-khu-vuc-tren-ca-nuoc-tang-gia-tai-khu-vuc-mien-bac-trong-khi-ga-mia-khong-ghi-nhan-bien-dong-gia/",
+      "price_type": "reported_average",
+      "price_min": 45000,
+      "price_max": 46000
+    },
+    {
+      "date": "2026-10-23",
+      "product": "Vịt thịt",
+      "region": "Miền Bắc",
+      "price": 35000,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-23-10-2026-gia-heo-hoi-ghi-nhan-xu-huong-giam-tai-hau-het-cac-khu-vuc-tren-ca-nuoc-tang-gia-tai-khu-vuc-mien-bac-trong-khi-ga-mia-khong-ghi-nhan-bien-dong-gia/",
+      "price_type": "range_midpoint",
+      "price_min": 34500,
+      "price_max": 35500
     }
   ]
 }
