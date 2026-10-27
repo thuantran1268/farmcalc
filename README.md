@@ -24,3 +24,9 @@ Nếu chưa điền `config.js`, mở trực tiếp `index.html` vẫn vào đư
 - Giá hòa vốn = tổng bốn khoản chi phí / kg xuất bán hoặc số heo con cai sữa.
 
 Danh mục giá nhúng trong `index.html` để tìm sản phẩm ngay khi mở trang; `products.json` lưu dữ liệu nguồn. Khi cập nhật bảng giá, cập nhật cả hai tệp.
+
+## Tải bảng giá PDF
+
+Ở tab **Bảng giá cám** có nút **Tải bảng giá PDF**. Nút tạo file PDF khổ A4 ngay trên điện thoại hoặc máy tính, theo đúng danh sách đang hiển thị (có tính bộ lọc thương hiệu và ô tìm kiếm). Giá lấy từ danh mục nhúng trong `index.html`, nên khi cập nhật giá thì PDF tự theo, không cần làm thêm bước nào.
+
+Các tệp liên quan: `pdf-export.js` (tạo PDF), `pdf-fonts.js` (font tiếng Việt Liberation Sans, giấy phép SIL OFL, xem `LICENSE-fonts.txt`). Khi tải lên GitHub, nhớ tải đủ ba tệp này cùng `index.html`.

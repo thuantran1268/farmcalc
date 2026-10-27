@@ -1,0 +1,6 @@
+Font Liberation Sans (Regular, Bold) được rút gọn và nhúng trong pdf-fonts.js để tạo file PDF bảng giá.
+
+Digitized data copyright (c) 2010 Google Corporation.
+Copyright (c) 2012 Red Hat, Inc.
+Licensed under the SIL Open Font License, Version 1.1
+Toàn văn giấy phép: https://openfontlicense.org (hoặc http://scripts.sil.org/OFL)
