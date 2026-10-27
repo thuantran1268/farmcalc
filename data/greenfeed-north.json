@@ -1,8 +1,8 @@
 {
   "source": "GREENFEED",
   "region": "Miền Bắc",
-  "checked_at": "2026-10-26T13:22+07:00",
-  "last_source_date": "2026-10-23",
+  "checked_at": "2026-10-27T13:23+07:00",
+  "last_source_date": "2026-10-26",
   "records": [
     {
       "date": "2026-10-01",
@@ -749,6 +749,50 @@
       "price_type": "range_midpoint",
       "price_min": 34500,
       "price_max": 35500
+    },
+    {
+      "date": "2026-10-26",
+      "product": "Gà Mía",
+      "region": "Miền Bắc",
+      "price": 52000,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-26-10-2026-gia-heo-hoi-ghi-nhan-nhung-dien-bien-trai-chieu-giua-cac-khu-vuc-gia-ga-ri-va-ga-mia-tiep-tuc-tang-tai-mien-bac-2/",
+      "price_type": "range_midpoint",
+      "price_min": 49500,
+      "price_max": 54500
+    },
+    {
+      "date": "2026-10-26",
+      "product": "Gà Ri",
+      "region": "Miền Bắc",
+      "price": 49000,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-26-10-2026-gia-heo-hoi-ghi-nhan-nhung-dien-bien-trai-chieu-giua-cac-khu-vuc-gia-ga-ri-va-ga-mia-tiep-tuc-tang-tai-mien-bac-2/",
+      "price_type": "range_midpoint",
+      "price_min": 48000,
+      "price_max": 50000
+    },
+    {
+      "date": "2026-10-26",
+      "product": "Heo hơi",
+      "region": "Miền Bắc",
+      "price": 45500,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-26-10-2026-gia-heo-hoi-ghi-nhan-nhung-dien-bien-trai-chieu-giua-cac-khu-vuc-gia-ga-ri-va-ga-mia-tiep-tuc-tang-tai-mien-bac-2/",
+      "price_type": "reported_average",
+      "price_min": 44500,
+      "price_max": 45500
+    },
+    {
+      "date": "2026-10-26",
+      "product": "Vịt thịt",
+      "region": "Miền Bắc",
+      "price": 34750,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-26-10-2026-gia-heo-hoi-ghi-nhan-nhung-dien-bien-trai-chieu-giua-cac-khu-vuc-gia-ga-ri-va-ga-mia-tiep-tuc-tang-tai-mien-bac-2/",
+      "price_type": "range_midpoint",
+      "price_min": 34500,
+      "price_max": 35000
     }
   ]
 }
