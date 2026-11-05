@@ -1,0 +1,48 @@
+name: Cap nhat gia thi truong chan nuoi
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '40 1 * * *'
+    - cron: '10 8 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: market-price-update
+  cancel-in-progress: false
+
+jobs:
+  update-market:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4 openpyxl
+
+      - name: Collect Green Vet and Cong Thuong prices
+        run: python scripts/update_market.py
+
+      - name: Build Excel archive
+        run: python scripts/build_excel.py
+
+      - name: Commit market data if changed
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          git add data/market.json data/gia-thi-truong.xlsx
+
+          if git diff --cached --quiet; then
+            echo "Khong co du lieu gia moi."
+          else
+            git commit -m "Update market prices"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
