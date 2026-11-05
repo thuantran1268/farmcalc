@@ -376,6 +376,30 @@ body[data-view=calc] .history-list{font-size:13px}
 .pg-notify{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px;padding-top:8px;border-top:1px dashed var(--fc-bd,#d8dce3)}
 .pg-notify .pg-note{width:100%;margin:0}
 .pg-notify .pg-ghost{min-height:34px;display:inline-flex;align-items:center;padding:0 12px;border-radius:9px;font-size:13px;text-decoration:none}
+
+#fc-launch,#fc-tool-host{display:none}
+body[data-view=calc] #fc-launch{display:block;max-width:760px;margin:8px auto 0;padding:0 12px}
+body[data-view=calc][data-calc=tool] #fc-tool-host{display:block;max-width:760px;margin:8px auto 0;padding:0 12px}
+body[data-view=calc][data-calc=none] main#app,body[data-view=calc][data-calc=tool] main#app{display:none!important}
+body[data-view=calc] main#app .tabs{display:none!important}
+.fc-tool-nav{display:none!important}
+#fc-tool-host #fc-tools{display:block!important;margin:0;padding:12px 14px;border-radius:14px;box-shadow:none;border:1px solid var(--fc-bd,#d8dce3)}
+#fc-tool-host #fc-tools>h2,#fc-tool-host #fc-tools>.fc-muted,#fc-tool-host #fc-tool-tabs{display:none!important}
+.fl-card{background:#fff;border:1px solid var(--fc-bd,#d8dce3);border-radius:14px;padding:12px 14px}
+.fl-step{font-size:13px;margin:0 0 8px;color:var(--fc-mute);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+.fl-step+.fl-chips{margin-bottom:12px}
+.fl-chips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.fl-chips button{min-height:44px;border:1.5px solid var(--fc-bd,#d8dce3);border-radius:12px;background:#fff;color:var(--fc-ink,#1d2330);font:inherit;font-size:14px;font-weight:600;cursor:pointer;padding:0 8px}
+.fl-chips button[aria-pressed=true]{border-color:var(--fc-primary,#c72234);background:var(--fc-primary,#c72234);color:#fff}
+.fl-list{display:grid;gap:8px}
+.fl-opt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;min-height:54px;padding:8px 12px;border:1.5px solid var(--fc-bd,#d8dce3);border-radius:12px;background:#fff;color:var(--fc-ink,#1d2330);font:inherit;cursor:pointer}
+.fl-opt strong{font-size:14px}.fl-opt small{font-size:12px;color:var(--fc-mute)}
+.fl-opt[aria-current=true]{border-color:var(--fc-primary,#c72234);background:#fff5f6}
+.fl-hint{font-size:13px;color:var(--fc-mute);margin:4px 0 0}
+.fl-back{margin-top:10px;border:0;background:none;color:var(--fc-primary,#c72234);font:inherit;font-size:13px;text-decoration:underline;padding:6px 2px;cursor:pointer}
+.fl-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid var(--fc-bd,#d8dce3);border-radius:12px;padding:8px 12px}
+.fl-cur{display:flex;flex-direction:column;min-width:0}.fl-cur small{font-size:12px;color:var(--fc-mute)}.fl-cur strong{font-size:15px}
+.fl-change{flex:none;min-height:36px;padding:0 12px;border:1.5px solid var(--fc-primary,#c72234);border-radius:999px;background:#fff;color:var(--fc-primary,#c72234);font:inherit;font-size:13px;font-weight:700;cursor:pointer}
 </style><script>
 (function(){'use strict';
 const body=document.body,app=document.getElementById('app'),nav=document.getElementById('fc-bottom-nav'),more=document.getElementById('fc-more'),game=document.getElementById('fc-game');
@@ -384,20 +408,47 @@ const seg=document.createElement('div');seg.id='fc-seg';seg.hidden=true;[['calc'
 const slot=(id,html)=>document.getElementById(id);
 // move existing blocks into "Thêm" (ids and handlers are preserved)
 const tools=document.getElementById('fc-tools'),openTools=document.getElementById('fc-open-tools'),toolNav=document.querySelector('.fc-tool-nav');
-const mt=document.getElementById('fc-more-tools');if(toolNav&&tools){const h=document.createElement('h2');h.textContent='Công cụ chăn nuôi nâng cao';const p=document.createElement('p');p.className='fc-more-note';p.textContent='So sánh cám, dự toán và theo dõi hiệu quả đàn.';mt.append(h,p,toolNav,tools)}
+const mt=document.getElementById('fc-more-tools');if(mt)mt.remove();if(toolNav)toolNav.remove();
 const ig=document.getElementById('install-guide'),mi=document.getElementById('fc-more-install');if(ig)mi.append(ig);
 const ac=document.getElementById('account'),ma=document.getElementById('fc-more-account');if(ac)ma.insertBefore(ac,ma.children[1]);
 // history card goes below the inputs on phones
 const hist=document.querySelector('.history'),layout=document.querySelector('.layout');if(hist&&layout){hist.classList.add('card');layout.append(hist)}
 let view='calc',sub='calc',lastAnimal='chicken';
 function setView(v){view=v;body.dataset.view=v;if(v==='calc'||v==='more')sub=v;more.hidden=app.hidden||v!=='more';game.hidden=app.hidden||v!=='game';seg.hidden=app.hidden||!(v==='calc'||v==='more');seg.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.seg===v)));const key=v==='more'?'calc':v;nav.querySelectorAll('button').forEach(b=>{if(b.dataset.view===key)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});window.scrollTo(0,0)}
-seg.addEventListener('click',e=>{const b=e.target.closest('button[data-seg]');if(!b)return;if(b.dataset.seg==='calc')pick(lastAnimal);setView(b.dataset.seg)});
+
+// ---- Công cụ: chọn vật nuôi → chọn phép tính → mới hiện bảng tính ----
+const LA={chicken:'Gà thịt',pig:'Heo thịt',sow:'Heo nái',layer:'Gà đẻ trứng'};
+const LC={main_chicken:['FCR & giá hòa vốn','FCR, tiền cám, giá hòa vốn, lãi/lỗ cả lứa'],main_pig:['FCR & giá hòa vốn','FCR, tiền cám, giá hòa vốn, lãi/lỗ cả lứa'],main_sow:['Giá hòa vốn heo con cai sữa','Chi phí nái, tỷ lệ cai sữa, giá vốn mỗi con'],epef:['Chỉ số EPEF','Đánh giá hiệu quả lứa gà thịt'],growth:['Tăng trọng ADG & ADFI','Tăng trọng và lượng ăn mỗi ngày'],feed:['Dự toán cám','Cần bao nhiêu kg, bao nhiêu bao, bao nhiêu tiền'],compare:['So sánh cám Japfa – đối thủ','Chi phí cám cho 1 kg tăng trọng'],profit:['Dự báo lợi nhuận','Doanh thu, chi phí, lãi/lỗ dự kiến'],layer:['Hiệu quả gà đẻ','Tỷ lệ đẻ, FCR theo kg trứng, chi phí/quả']};
+const LO={chicken:['main_chicken','epef','growth','feed','compare','profit'],pig:['main_pig','growth','feed','compare','profit'],sow:['main_sow','feed','compare'],layer:['layer','feed','compare']};
+const TOOLNAME={compare:'So sánh cám',growth:'ADG & ADFI',profit:'Dự báo lợi nhuận',feed:'Dự toán cám',epef:'EPEF gà thịt',layer:'Gà đẻ trứng'};
+let L={animal:null,calc:null,open:true};try{const x=JSON.parse(localStorage.getItem('farmcalc-launch-v1')||'null');if(x&&LA[x.animal])L={animal:x.animal,calc:(LO[x.animal]||[]).includes(x.calc)?x.calc:null,open:!x.calc}}catch(e){}
+const launchBox=document.createElement('section');launchBox.id='fc-launch';launchBox.setAttribute('aria-label','Chọn phép tính');
+const toolHost=document.createElement('div');toolHost.id='fc-tool-host';
+app.parentNode.insertBefore(launchBox,app);app.parentNode.insertBefore(toolHost,app);if(tools){toolHost.append(tools);tools.hidden=false}
+function saveL(){try{localStorage.setItem('farmcalc-launch-v1',JSON.stringify(L))}catch(e){}}
+function mk(t,txt,cls){const e=document.createElement(t);if(txt!==undefined)e.textContent=txt;if(cls)e.className=cls;return e}
+function drawLaunch(){launchBox.replaceChildren();
+ if(L.calc&&!L.open){const bar=mk('div',undefined,'fl-bar');const t=mk('div',undefined,'fl-cur');t.append(mk('small',LA[L.animal]),mk('strong',LC[L.calc][0]));const b=mk('button','Đổi phép tính','fl-change');b.type='button';b.onclick=()=>{L.open=true;saveL();applyLaunch()};bar.append(t,b);launchBox.append(bar);return}
+ const card=mk('div',undefined,'fl-card');card.append(mk('h2','1. Chọn vật nuôi','fl-step'));const chips=mk('div',undefined,'fl-chips');
+ for(const k of Object.keys(LA)){const b=mk('button',LA[k]);b.type='button';b.setAttribute('aria-pressed',String(L.animal===k));b.onclick=()=>{if(L.animal!==k){L.animal=k;if(!LO[k].includes(L.calc))L.calc=null}saveL();drawLaunch()};chips.append(b)}
+ card.append(chips);
+ if(L.animal){card.append(mk('h2','2. Chọn phép tính','fl-step'));const list=mk('div',undefined,'fl-list');
+  for(const c of LO[L.animal]){const b=mk('button',undefined,'fl-opt');b.type='button';if(c===L.calc)b.setAttribute('aria-current','true');b.append(mk('strong',LC[c][0]),mk('small',LC[c][1]));b.onclick=()=>{L.calc=c;L.open=false;saveL();applyLaunch()};list.append(b)}
+  card.append(list)}else card.append(mk('p','Chọn vật nuôi để xem các phép tính phù hợp.','fl-hint'));
+ if(L.calc){const x=mk('button','Quay lại bảng tính đang dùng','fl-back');x.type='button';x.onclick=()=>{L.open=false;saveL();applyLaunch()};card.append(x)}
+ launchBox.append(card)}
+function applyLaunch(){const mode=(!L.calc||L.open)?'none':(L.calc.startsWith('main_')?'main':'tool');body.dataset.calc=mode;
+ if(mode==='main'){const a=L.calc.slice(5);lastAnimal=a;if(view==='calc')pick(a)}
+ if(mode==='tool'){const want=TOOLNAME[L.calc];const tb=[...document.querySelectorAll('#fc-tool-tabs button')].find(b=>b.textContent===want);if(tb&&tb.getAttribute('aria-selected')!=='true')tb.click()}
+ drawLaunch();if(view==='calc')window.scrollTo(0,0)}
+seg.addEventListener('click',e=>{const b=e.target.closest('button[data-seg]');if(!b)return;setView(b.dataset.seg);if(b.dataset.seg==='calc')applyLaunch()});
 function pick(tab){const b=document.querySelector('[role=tab][data-tab="'+tab+'"]');if(b)b.click()}
-nav.addEventListener('click',e=>{const b=e.target.closest('button[data-view]');if(!b)return;const v=b.dataset.view;if(v==='calc'){if(sub==='more'){setView('more');return}pick(lastAnimal)}else if(v==='price')pick('catalog');setView(v)});
+nav.addEventListener('click',e=>{const b=e.target.closest('button[data-view]');if(!b)return;const v=b.dataset.view;if(v==='calc'){if(sub==='more'){setView('more');return}setView('calc');applyLaunch();return}else if(v==='price')pick('catalog');setView(v)});
 document.querySelectorAll('[role=tab]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.tab==='catalog'){if(view==='calc')setView('price')}else{lastAnimal=b.dataset.tab;if(view==='price')setView('calc')}}));
 function sync(){nav.hidden=app.hidden;if(app.hidden){more.hidden=true;game.hidden=true;seg.hidden=true;body.dataset.view='market';view='market'}else{more.hidden=view!=='more';game.hidden=view!=='game';seg.hidden=!(view==='calc'||view==='more')}}
 new MutationObserver(sync).observe(app,{attributes:true,attributeFilter:['hidden']});
 try{const c=window.farmCurrent&&window.farmCurrent();if(c&&c!=='catalog')lastAnimal=c;setView('market')}catch(e){setView('market')}
+applyLaunch();
 sync();
 })();
 </script></body></html>
