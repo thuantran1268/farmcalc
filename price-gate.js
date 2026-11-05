@@ -293,14 +293,17 @@
     members = await rpc('farmcalc_admin_members');
     membersAt = Date.now();
   }
+  function pendingCount() { return members ? members.filter(function (m) { return m.status === 'pending'; }).length : 0; }
   function drawAdmin(box) {
-    var open = box.open;
+    if (box._isBtn) {
+      box.replaceChildren(document.createTextNode('Tài khoản'));
+      var n = pendingCount();
+      if (n) box.append(el('span', String(n), 'pg-badge'));
+      box.setAttribute('aria-label', 'Quản lý tài khoản' + (n ? ', ' + n + ' chờ duyệt' : ''));
+      return;
+    }
     box.replaceChildren();
-    var pend = members ? members.filter(function (m) { return m.status === 'pending'; }).length : 0;
-    var sum = el('summary', 'Quản lý tài khoản' + (members ? ' · ' + members.length + ' tài khoản' : ''));
-    if (pend) sum.append(el('span', pend + ' chờ duyệt', 'pg-badge'));
-    box.append(sum);
-    box.open = open;
+    if (members) box.append(el('p', members.length + ' tài khoản · ' + pendingCount() + ' đang chờ duyệt', 'pg-note'));
     if (!members) { box.append(el('p', 'Đang tải danh sách…', 'pg-note')); return; }
     if (box._err) box.append(el('p', box._err, 'pg-msg'));
     var list = el('div', undefined, 'pg-members');
@@ -355,15 +358,44 @@
     loadMembers(force).then(function () { adminBoxes.forEach(drawAdmin); })
       .catch(function (e) { adminBoxes.forEach(function (b) { b._err = vn(errCode(e)); drawAdmin(b); }); });
   }
-  function adminPanel() {
-    var box = el('details', undefined, 'pg-admin');
-    adminBoxes = adminBoxes.filter(function (b) { return document.body.contains(b); });
-    adminBoxes.push(box);
-    box.addEventListener('toggle', function () { if (box.open) refreshAdmin(false); });
-    drawAdmin(box);
-    refreshAdmin(false);
-    return box;
+  function closeModal() {
+    var o = document.querySelector('.pg-overlay');
+    if (o) o.remove();
+    document.removeEventListener('keydown', escClose);
+    document.body.classList.remove('pg-noscroll');
   }
+  function escClose(e) { if (e.key === 'Escape') closeModal(); }
+  function openModal() {
+    closeModal();
+    var ov = el('div', undefined, 'pg-overlay');
+    var sheet = el('div', undefined, 'pg-sheet');
+    sheet.setAttribute('role', 'dialog'); sheet.setAttribute('aria-modal', 'true'); sheet.setAttribute('aria-label', 'Quản lý tài khoản');
+    var head = el('div', undefined, 'pg-sheet-head');
+    var x = el('button', '×', 'pg-x'); x.type = 'button'; x.setAttribute('aria-label', 'Đóng'); x.onclick = closeModal;
+    head.append(el('h3', 'Quản lý tài khoản'), x);
+    var body = el('div', undefined, 'pg-sheet-body');
+    sheet.append(head, body);
+    ov.append(sheet);
+    ov.addEventListener('click', function (e) { if (e.target === ov) closeModal(); });
+    document.body.append(ov);
+    document.body.classList.add('pg-noscroll');
+    document.addEventListener('keydown', escClose);
+    adminBoxes = adminBoxes.filter(function (b) { return document.body.contains(b); });
+    adminBoxes.push(body);
+    drawAdmin(body);
+    refreshAdmin(false);
+  }
+  function adminButton() {
+    var b = el('button', undefined, 'action pg-adm-btn');
+    b.type = 'button'; b._isBtn = true;
+    b.onclick = openModal;
+    adminBoxes = adminBoxes.filter(function (x) { return document.body.contains(x); });
+    adminBoxes.push(b);
+    drawAdmin(b);
+    refreshAdmin(false);
+    return b;
+  }
+
 
   window.farmPriceGate = {
     panel: function () {
@@ -373,7 +405,7 @@
     },
     logout: logout,
     isAdmin: function () { return state === 'ready' && role === 'admin'; },
-    adminPanel: adminPanel,
+    adminButton: adminButton,
     state: function () { return state; }
   };
 
