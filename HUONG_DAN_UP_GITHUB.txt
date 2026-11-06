@@ -1,0 +1,15 @@
+FARMCALC - BO FILE DAY DU DE CAP NHAT GITHUB
+
+1. Giai nen file ZIP nay ra mot thu muc tren may.
+2. Mo https://github.com/thuantran1268/farmcalc va chon Add file > Upload files.
+3. Chon TAT CA cac file vua giai nen trong thu muc (khong chon chinh file ZIP).
+4. Bam Commit changes. Neu GitHub bao trung ten, day la cac file can duoc thay bang ban moi.
+5. GIU NGUYEN config.js hien co trong kho GitHub. File ZIP khong chua config.js de tranh ghi de thong tin Supabase anh da cai.
+6. Cho GitHub Pages cap nhat, mo lai website va nhan Ctrl+F5 tren may tinh.
+
+Goi nay gom index.html, auth.js (sua loi phan hoi rong), install.js,
+manifest.webmanifest, hai bieu tuong, products.json, schema.sql, README.md.
+Cac file de cung cap thu muc goc cua repository farmcalc.
+Khong can chay lai schema.sql tren Supabase.
+
+BAN NAY NHO EMAIL DANG NHAP TREN TUNG THIET BI CHO DEN KHI BAM DANG XUAT.

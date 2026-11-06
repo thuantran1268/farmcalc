@@ -1,0 +1,60 @@
+# FarmCalc – FCR và giá hòa vốn
+
+Nhập email hợp lệ để vào ngay, không cần đăng ký, mật khẩu hoặc mã xác nhận. Mỗi email có bản nháp và tối đa 30 lần tính đã lưu trực tuyến. Người nhập cùng email trên thiết bị khác xem và sửa chung dữ liệu.
+
+**Email là mã nhận diện, không xác thực người sở hữu.** Dữ liệu trên dịch vụ lưu là công khai cho người có thể dùng API của dự án; không nhập thông tin riêng tư hoặc bí mật.
+
+## Kết nối dữ liệu trực tuyến
+
+GitHub Pages chỉ phân phát trang web, không có chỗ ghi dữ liệu chung. Làm một lần trước khi đăng trang:
+
+1. Tạo một dự án [Supabase](https://supabase.com/). Trong **SQL Editor**, chạy nội dung `schema.sql`. Bảng này cố ý cho phép khách không xác thực đọc, tạo và sửa dữ liệu.
+2. Mở **Project Settings → API Keys**, lấy **Project URL** (`https://...supabase.co`) và **publishable key**. Điền vào `config.js`. Publishable key là khóa dành cho trình duyệt; tuyệt đối không dùng secret key hoặc service_role key.
+3. Đăng nhập GitHub, tạo repository **Public**. Tải cả `index.html`, `auth.js`, `config.js`, `price-gate.js`, `schema.sql`, `schema-bang-gia.sql`, `README.md` vào thư mục gốc và nhấn **Commit changes**.
+4. Trong **Settings → Pages**, chọn **Deploy from a branch**, nhánh **main**, thư mục **/(root)** rồi **Save**.
+5. Thử gõ một email theo mẫu, lưu một lần tính, mở cùng địa chỉ trên trình duyệt thứ hai và nhập lại email đó để kiểm tra dữ liệu xuất hiện.
+
+Nếu chưa điền `config.js`, mở trực tiếp `index.html` vẫn vào được chế độ **chạy thử trên máy này**. Số liệu khi đó chỉ lưu trong trình duyệt của máy, không đồng bộ. Sau khi điền cấu hình, trang chuyển sang lưu trực tuyến theo email. Không cần dịch vụ gửi email hay hệ thống đăng ký.
+
+## Cách tính
+
+- Chi phí gồm giống, điện nước, vaccine và cám. Cám của mình nhập thương hiệu, mã, giá bán/bao và số bao; cám đối thủ nhập tổng tiền và kg cám.
+- Gà thịt: FCR theo kg xuất bán = tổng kg cám / tổng kg gà bán.
+- Heo thịt: FCR đàn = tổng kg cám / (kg bán − kg toàn đàn lúc nhập).
+- Giá hòa vốn = tổng bốn khoản chi phí / kg xuất bán hoặc số heo con cai sữa.
+
+Bảng giá **không còn nằm trong web hay GitHub**. Nó lưu trong Supabase và chỉ tài khoản đã được admin duyệt mới đọc được (xem mục *Khóa bảng giá*). Khi có giá mới, vào `admin.html` → *Cập nhật bảng giá* và chọn file `.json`.
+
+## Tải bảng giá PDF
+
+Ở tab **Bảng giá cám** có nút **Tải bảng giá PDF**. Nút tạo file PDF khổ A4 ngay trên điện thoại hoặc máy tính, theo đúng danh sách đang hiển thị (có tính bộ lọc thương hiệu và ô tìm kiếm). Giá lấy từ danh mục nhúng trong `index.html`, nên khi cập nhật giá thì PDF tự theo, không cần làm thêm bước nào.
+
+Các tệp liên quan: `pdf-export.js` (tạo PDF), `pdf-fonts.js` (font tiếng Việt Liberation Sans, giấy phép SIL OFL, xem `LICENSE-fonts.txt`). Khi tải lên GitHub, nhớ tải đủ ba tệp này cùng `index.html`.
+
+## Nhật ký sử dụng và trang quản trị
+
+- `track.js` ghi lại ai (email) dùng tính năng nào: mở web, chuyển mục, tab tính toán, lưu lần tính, tải PDF, công cụ nâng cao, thị trường, ô chính sách (chỉ ghi bật/tắt). Không gửi số liệu nhập, số chính sách hay giá.
+- `schema-theo-doi.sql`: chạy một lần trong Supabase SQL Editor (nhớ đổi mật khẩu quản trị trong file trước khi chạy). Người dùng chỉ ghi được nhật ký, không đọc được.
+- `admin.html`: mở `.../admin.html`, nhập mật khẩu quản trị để xem số tài khoản, thao tác theo ngày, tính năng hay dùng và từng email.
+
+## Trang Thị trường tự động
+
+- Ba nguồn: GREENFEED (`scripts/update_greenfeed.py`, giá miền Bắc), Green Vet và Công Thương (`scripts/update_market.py`, heo hơi 3 miền, heo giống, gà, vịt, trứng, con giống).
+- GitHub Actions chạy mỗi ngày hai lần (08:40 và 15:10 giờ Việt Nam) và lưu vào `data/market.json`. Chạy tay: tab Actions > "Cap nhat gia thi truong chan nuoi" > Run workflow.
+- Chỉ lưu số liệu và đường dẫn nguồn, không lưu nội dung bài viết. Nếu một nguồn đổi cách trình bày, nguồn đó hiện "(lỗi)" trên web và dữ liệu cũ được giữ nguyên.
+
+## File Excel lưu giá
+
+`scripts/build_excel.py` tạo `data/gia-thi-truong.xlsx` sau mỗi lần cập nhật giá: bảng "Theo ngày" (mỗi cột một mặt hàng, giá giữa theo ngày), bảng "Chi tiết" (giá thấp, giá cao, từng tỉnh, có bộ lọc) và "Ghi chú". Nút tải nằm ở mục Thị trường. Lịch sử giữ tối đa 10 năm.
+
+<!-- build 2026-11-04T17:33Z -->
+
+## Khóa bảng giá
+
+- Tab **Bảng giá** chỉ mở cho tài khoản đã đăng ký và được admin duyệt. Đăng ký bằng email và mật khẩu (từ 8 ký tự); lần sau máy đó tự đăng nhập.
+- Mỗi tài khoản chỉ dùng trên **1 thiết bị**: đăng nhập ở máy mới thì máy cũ bị khóa.
+- `schema-bang-gia.sql` tạo bảng thành viên, bảng giá và các hàm kiểm tra quyền. Không có giá trong file này.
+- Dữ liệu giá nạp bằng file `du-lieu-bang-gia.sql` (giữ riêng, không đưa lên GitHub) hoặc bằng `admin.html` → *Cập nhật bảng giá*.
+- `admin.html`: đăng nhập admin, duyệt hoặc từ chối thành viên, đặt lại thiết bị, cập nhật bảng giá. Phần *Thống kê sử dụng* vẫn dùng mật khẩu riêng.
+- Trong Supabase: Authentication → Providers → Email → tắt **Confirm email** để người đăng ký không bị kẹt.
+- Thanh dưới có 4 mục: Thị trường, Bảng giá, Công cụ (Tính toán + Tiện ích), Mini game.

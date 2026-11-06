@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#c72234"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="manifest" href="manifest.webmanifest?v=2"><link rel="apple-touch-icon" href="icon-192.png?v=2"><title>FarmCalc | FCR & giá hòa vốn</title><style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#18342c;background:#f3f6f3;font-size:16px}*{box-sizing:border-box}body{margin:0}header{background:#153a30;color:white;padding:23px max(20px,calc((100vw - 1120px)/2))}header strong{font-size:1.32rem}header p{margin:5px 0 0;color:#c8dfd4}main{max-width:1120px;margin:24px auto;padding:0 18px 50px}.tabs{display:flex;gap:9px;overflow-x:auto;padding-bottom:8px}.tabs button{white-space:nowrap;border:1px solid #bdd2c7;background:white;border-radius:12px;padding:12px 18px;color:#153a30;font-size:1rem;font-weight:700;cursor:pointer}.tabs button[aria-selected=true]{background:#1c684d;color:white;border-color:#1c684d}.layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(310px,.8fr);gap:18px;align-items:start;margin-top:13px}.card{background:white;border:1px solid #dbe6df;border-radius:18px;padding:22px;box-shadow:0 8px 30px #153a300b}h1{font-size:1.45rem;margin:0 0 8px}h2{font-size:1.03rem;margin:22px 0 11px;color:#1c684d}.hint{color:#52675d;margin:0 0 15px;line-height:1.5}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field{min-width:0}.field label{display:block;font-weight:600;margin-bottom:6px;line-height:1.35}.field input{width:100%;padding:11px 12px;font:inherit;border:1px solid #acc5b5;border-radius:10px;background:#fcfefd;color:#18342c}.field input:focus{outline:2px solid #2a9770;outline-offset:1px}.unit{font-size:.82rem;color:#63766b;margin-top:4px}.result{background:#eaf5ee;border-radius:13px;padding:16px;margin:12px 0}.result small{display:block;color:#426452;font-size:.9rem}.result strong{display:block;font-size:1.65rem;line-height:1.25;margin-top:4px;color:#14583d;overflow-wrap:anywhere}.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.result-grid .result strong{font-size:1.18rem}.note{font-size:.91rem;color:#4b6255;line-height:1.55}.warning{color:#9a3e19;background:#fff3e9;border-radius:9px;padding:10px 12px;margin-top:12px}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}button.action{border:1px solid #a5c4b2;border-radius:10px;background:white;padding:10px 13px;color:#14583d;font:inherit;font-weight:600;cursor:pointer}button.action:hover{background:#edf7f0}.formula{border-top:1px solid #dae7dd;padding-top:15px;margin-top:16px}.formula p{margin:8px 0}.footer{margin-top:22px;color:#5c7064;font-size:.85rem}section[hidden]{display:none}@media(max-width:760px){.layout{grid-template-columns:1fr}main{margin-top:16px}.card{padding:17px}.fields{gap:12px}header{padding:19px}}@media(max-width:430px){.fields{grid-template-columns:1fr}.result-grid{grid-template-columns:1fr}}
+
+:root{--ink:#15392f;--accent:#d52f38;--deep:#10392f;--surface:#fff;--muted:#5e7067}body{background:radial-gradient(circle at 90% 2%,#dbefe4 0,transparent 35%),#f2f6f3}header{background:linear-gradient(120deg,#10382e,#1d6049);border-bottom:4px solid var(--accent);display:flex;align-items:center;justify-content:space-between;gap:18px}header strong{font-size:1.5rem;letter-spacing:-.03em}header p{margin-top:2px}.brand-dot{display:inline-block;width:.53em;height:.53em;border-radius:50%;background:var(--accent);margin-right:.34em}.account{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:.9rem}.account button,.auth-card button,.save-button{font:inherit;border:0;background:var(--accent);color:#fff;border-radius:10px;padding:10px 15px;font-weight:700;cursor:pointer}.account button{background:#ffffff25;border:1px solid #ffffff55}.tabs{background:white;padding:9px;border-radius:15px;box-shadow:0 5px 25px #12382d0e}.tabs button{border:0}.tabs button[aria-selected=true]{background:#1a5e47}.card{box-shadow:0 10px 34px #10382b12}.result:first-child{background:#dcf1e5}.result strong{letter-spacing:-.035em}.history{margin-top:18px}.history-list{display:grid;gap:7px}.history-row{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid #dce9de;border-radius:10px;padding:10px 12px}.history-row button{border:0;background:#e8f4eb;color:#145b3f;border-radius:8px;padding:7px 10px;cursor:pointer}.auth-shell{min-height:calc(100vh - 96px);display:grid;place-items:center;padding:28px 18px}.auth-card{width:min(100%,440px);background:white;border:1px solid #dbe7df;box-shadow:0 25px 70px #0b392c20;padding:30px;border-radius:22px}.auth-card h1{font-size:1.8rem}.auth-card label{display:block;font-weight:700;margin:18px 0 7px}.auth-card input{width:100%;font:inherit;padding:13px;border:1px solid #b7cfc0;border-radius:10px}.auth-card button{width:100%;margin-top:18px;padding:13px}.auth-card button:disabled{opacity:.6;cursor:wait}.auth-msg{min-height:1.5em;color:#a34326;margin-top:12px}.auth-note{color:var(--muted);font-size:.92rem;line-height:1.5}.save-row{margin-top:18px;display:flex;gap:9px;align-items:center;flex-wrap:wrap}.save-row small{color:var(--muted)}[hidden]{display:none!important}@media(max-width:650px){header{align-items:flex-start;flex-direction:column}.account{width:100%}.auth-card{padding:22px}.history-row{align-items:flex-start;flex-direction:column}}
+.install-guide{max-width:1120px;margin:16px auto 0;padding:15px 18px;background:#fff;border:1px solid #dbe6df;border-left:4px solid #1c684d;border-radius:13px;color:#18342c;box-shadow:0 4px 17px #153a300b}.install-guide strong{font-size:1rem}.install-guide p{margin:5px 0 9px;line-height:1.5}.install-guide summary{color:#14583d;cursor:pointer;font-weight:650}.install-guide details p{margin:10px 0 0}.install-guide button{border:0;border-radius:9px;background:#d52f38;color:white;padding:9px 14px;font:inherit;font-weight:700;cursor:pointer;margin:4px 0 10px}.install-guide button[hidden],.install-guide[hidden]{display:none}@media(max-width:760px){.install-guide{margin:12px 18px 0}}@media print{.install-guide{display:none}}
+/* FarmCalc 2026: compact mobile header and extra calculators */
+header{padding-top:13px!important;padding-bottom:13px!important;min-height:66px}
+header strong{font-size:1.24rem!important}header p{font-size:.82rem;margin:2px 0 0}
+@media(max-width:650px){header{padding:9px 13px!important;min-height:0!important;gap:5px!important;flex-direction:row!important;align-items:center!important;flex-wrap:wrap}header strong{font-size:1.12rem!important}header p{display:none!important}.account{width:auto!important;min-width:0;gap:5px!important;margin-left:auto;font-size:.7rem!important}.account #account-email{max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.account button{padding:5px 8px!important;font-size:.72rem!important;border-radius:7px!important}main{padding:0 11px 35px!important;margin-top:10px!important}.tabs{gap:5px!important;padding:6px!important}.tabs button{padding:9px 11px!important;font-size:.83rem!important}.card{padding:14px!important;border-radius:14px!important}.install-guide{margin:9px 11px 0!important;padding:10px 12px!important}}
+.fc-tool-nav{margin:13px 0 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap}.fc-tool-nav button{border:0;border-radius:11px;padding:11px 16px;background:var(--fc-primary,#f97316);color:white;font:inherit;font-weight:750;cursor:pointer}.fc-tool-nav button[aria-expanded=true]{box-shadow:0 0 0 3px var(--fc-line,#fed7aa)}
+.fc-tools{margin:14px 0 18px;background:white;border:1px solid var(--fc-line,#fed7aa);border-radius:18px;padding:18px;box-shadow:0 8px 28px #23140b0b}.fc-tools h2{color:var(--fc-dark,#c2410c);font-size:1.15rem;margin:0 0 7px}.fc-tools .fc-muted{color:#65716c;font-size:.89rem;line-height:1.5;margin:0 0 12px}.fc-tool-tabs{display:flex;gap:7px;overflow-x:auto;padding:5px 0 12px}.fc-tool-tabs button{white-space:nowrap;background:#fff;border:1px solid #d9dfe0;border-radius:10px;padding:10px 12px;font:inherit;font-size:.88rem;cursor:pointer}.fc-tool-tabs button[aria-selected=true]{background:var(--fc-primary,#f97316);border-color:var(--fc-primary,#f97316);color:#fff;font-weight:750}.fc-tool-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.fc-tool-fields label{font-size:.86rem;font-weight:650;display:block}.fc-tool-fields input{display:block;width:100%;margin-top:5px;padding:11px;border:1px solid #cad4d0;border-radius:10px;font:inherit;color:#26352f;background:#fff}.fc-tool-fields input:focus{outline:2px solid var(--fc-primary,#f97316);outline-offset:1px}.fc-tool-result{margin-top:14px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.fc-metric{background:var(--fc-soft,#fff7ed);border:1px solid var(--fc-line,#fed7aa);border-radius:12px;padding:13px;min-width:0}.fc-metric small{display:block;color:#52645c;font-size:.78rem}.fc-metric strong{display:block;font-size:1.22rem;color:var(--fc-dark,#c2410c);overflow-wrap:anywhere;margin-top:5px}.fc-tool-message{margin-top:12px;font-size:.88rem;line-height:1.5;color:#53665a}.fc-tool-error{color:#a12b20}.fc-tools button:focus-visible{outline:3px solid var(--fc-dark,#c2410c);outline-offset:2px}
+@media(max-width:720px){.fc-tool-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.fc-tool-result{grid-template-columns:repeat(2,minmax(0,1fr))}.fc-tools{padding:12px}.fc-tool-nav button{width:100%}}@media(max-width:390px){.fc-tool-fields{grid-template-columns:1fr}.fc-tool-result{grid-template-columns:1fr}}@media print{.fc-tool-nav,.fc-tool-tabs{display:none!important}.fc-tools[hidden]{display:none!important}}
+
+/* V3.1: Công cụ hiển thị ngay sau đăng nhập */
+.fc-tool-nav{margin:14px 0 8px}.fc-tool-nav button{width:100%;background:linear-gradient(110deg,#f97316,#ea580c)!important;color:#fff!important;border:0!important;padding:13px 16px!important;border-radius:13px!important;font-weight:800!important;box-shadow:0 5px 14px #f9731633}.fc-tools{margin-top:10px!important}.fc-tool-tabs{scroll-margin-top:10px}@media(max-width:650px){header{padding:10px 14px!important;gap:5px!important}header strong{font-size:1.12rem!important}header p{display:none!important}.account{font-size:.75rem!important;gap:6px!important}.account button{padding:6px 10px!important}.fc-tool-nav button{font-size:.92rem!important}}
+</style><style id="farmcalc-modern-theme">
+/* FarmCalc UI refresh 2026-10-08: presentation only */
+:root{--ink:#242b35;--accent:#df2637;--deep:#a8192a;--surface:#fff;--muted:#667085;color:#242b35;background:#f5f6f9;color-scheme:light}
+body{background:linear-gradient(160deg,#fff4f4 0,#f6f7fa 260px,#f5f6f9 100%);color:#242b35}
+header{background:linear-gradient(115deg,#bd1e30,#e22e40);border-bottom:0;box-shadow:0 5px 20px #a8192a24;padding:16px max(20px,calc((100vw - 1120px)/2));min-height:74px;gap:12px}
+header strong{font-size:1.32rem;font-weight:800;letter-spacing:-.04em}header p{color:#ffe5e8;font-size:.83rem;margin:3px 0 0}.brand-dot{background:#fff;box-shadow:0 0 0 4px #ffffff30}
+.account{gap:8px;min-width:0}.account #account-email{font-size:.8rem;overflow:hidden;text-overflow:ellipsis;max-width:260px;white-space:nowrap}.account button{padding:8px 12px;border-radius:9px;background:#ffffff1f;border-color:#ffffff70;font-size:.83rem}
+main{margin:20px auto;padding:0 16px 42px}.tabs{border:1px solid #e9eaf0;background:#fff;padding:6px;gap:5px;border-radius:14px;box-shadow:0 3px 14px #19233a0a}.tabs button{color:#596170;border-radius:9px;padding:10px 14px;font-size:.91rem;transition:background .15s,color .15s}.tabs button[aria-selected=true]{background:#df2637;color:#fff;border-color:#df2637;box-shadow:0 3px 10px #df26372b}
+.layout{gap:16px;margin-top:14px}.card{border:1px solid #eaecf0;border-radius:17px;padding:22px;box-shadow:0 7px 24px #1522380b}h1{font-size:1.32rem;color:#202632;letter-spacing:-.025em}h2{color:#c72234;font-size:1.02rem}.hint,.note{color:#667085}.field label{color:#344054;font-size:.92rem}.field input,.field select,.catalog-filter select,.catalog-filter input,.auth-card input{border:1px solid #d0d5dd;border-radius:10px;background:#fff;color:#202632;min-height:44px}.field input:focus,.field select:focus,.catalog-filter input:focus,.auth-card input:focus{outline:2px solid #f5a5ae;outline-offset:0;border-color:#df2637}.unit{color:#7a8494}
+.result,.result:first-child{background:#fff5f6;border:1px solid #ffe3e6;border-radius:12px}.result small{color:#7c5260}.result strong{color:#ba1d2e;font-size:1.45rem}.result-grid .result{background:#f8f9fb;border-color:#edf0f3}.result-grid .result strong{color:#252d3a;font-size:1.13rem}.warning{background:#fff7eb;color:#98551e}.formula{border-color:#eaecf0}.footer{color:#89909d}
+button.action{border:1px solid #f3c3c8;background:#fff;color:#bf2535;border-radius:10px}button.action:hover{background:#fff0f2}.save-button,.auth-card button,.install-guide button{background:#df2637}.save-button:hover,.auth-card button:hover,.install-guide button:hover{background:#bf1e30}.feedline{background:#fcfcfd;border-color:#e7eaf0}.line-summary,.catalog-item b{color:#bd2233}.product-hit{color:#344054;border-color:#e5e7eb}.product-hit:hover,.product-hit:focus{background:#fff0f2}.history-row{border-color:#e9eaf0}.history-row button{background:#fff0f2;color:#bf2535}.install-guide{border:1px solid #f2d9dd;border-left:4px solid #df2637;color:#344054;box-shadow:0 4px 14px #19233a0a}.install-guide summary{color:#bd2233}.auth-card{border-color:#eaecf0;box-shadow:0 18px 50px #26324617}.auth-card h1{color:#bd2233}
+@media(max-width:760px){main{margin-top:12px;padding:0 12px 32px}.card{padding:16px}.layout{gap:12px}.install-guide{margin:10px 12px 0;padding:12px 14px}header{padding:11px 14px;min-height:0}.tabs{gap:3px}.tabs button{padding:9px 11px;font-size:.84rem}}
+@media(max-width:650px){header{flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}header strong{font-size:1.12rem}header p{font-size:.72rem;line-height:1.25;margin-top:1px}.account{width:auto;max-width:100%;margin-left:auto;flex-wrap:nowrap;gap:6px}.account #account-email{max-width:105px;font-size:.7rem}.account button{padding:7px 9px;font-size:.76rem}.auth-shell{padding:18px 12px}.auth-card{padding:20px}.history-row{flex-direction:column}}
+@media(max-width:390px){header{padding:10px 12px}header p{max-width:190px}.account #account-email{max-width:75px}.tabs button{padding:8px 10px;font-size:.8rem}.fields{grid-template-columns:1fr}.result-grid{grid-template-columns:1fr}}
+@media print{body{background:#fff}header{box-shadow:none}.card{box-shadow:none}.install-guide{display:none}}
+
+/* FarmCalc daily palette: orange -> red -> blue, starting 2026-10-08 */
+:root{--fc-primary:#f97316;--fc-dark:#c2410c;--fc-soft:#fff7ed;--fc-line:#fed7aa;--fc-glow:#ffedd5}
+body{background:linear-gradient(160deg,var(--fc-glow) 0,#f8fafc 270px,#f5f6f9 100%)}
+header{background:linear-gradient(115deg,var(--fc-dark),var(--fc-primary));box-shadow:0 5px 20px #1522381a}
+.tabs button[aria-selected=true]{background:var(--fc-primary);border-color:var(--fc-primary);box-shadow:none}
+h2,.auth-card h1,.line-summary,.catalog-item b{color:var(--fc-dark)}
+.result,.result:first-child{background:var(--fc-soft);border-color:var(--fc-line)}
+.result strong{color:var(--fc-dark)}
+.field input:focus,.field select:focus,.catalog-filter input:focus,.auth-card input:focus{outline-color:var(--fc-line);border-color:var(--fc-primary)}
+button.action{border-color:var(--fc-line);color:var(--fc-dark)}button.action:hover,.product-hit:hover,.product-hit:focus{background:var(--fc-soft)}
+.save-button,.auth-card button,.install-guide button{background:var(--fc-primary)}
+.save-button:hover,.auth-card button:hover,.install-guide button:hover{background:var(--fc-dark)}
+.history-row button{background:var(--fc-soft);color:var(--fc-dark)}
+.install-guide{border-left-color:var(--fc-primary)}.install-guide summary{color:var(--fc-dark)}
+@media(max-width:650px){
+ header{padding:8px 12px!important;min-height:48px;gap:6px;flex-wrap:nowrap}
+ header strong{font-size:1.03rem;line-height:1.2;white-space:nowrap}
+ header p{display:none}
+ header>div:first-child{flex:0 0 auto;min-width:0}
+ .account{flex:1 1 auto;min-width:0;justify-content:flex-end;gap:6px;margin-left:0}
+ .account #account-email{max-width:min(30vw,115px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .account button{flex-shrink:0;padding:6px 8px;font-size:.74rem}
+}
+@media(max-width:360px){header{padding:7px 9px!important}header strong{font-size:.96rem}.account #account-email{max-width:65px}}
+</style><style>
+.fc-market{max-width:1120px;margin:12px auto 38px;padding:22px;background:#fff;border:1px solid #eaded6;border-radius:20px;box-shadow:0 8px 25px #0000000a;color:#26352e}.fc-market[hidden]{display:none!important}.fc-market h2{margin:0 0 6px;font-size:1.3rem;color:var(--fc-primary,#e76b20)}.fc-market h3{font-size:1.05rem;margin:0 0 14px}.fc-market-head p,.fc-market-note{color:#66736b;font-size:.87rem;line-height:1.55}.fc-market-filters,.fc-market-form{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:17px 0}.fc-market label{font-size:.86rem;font-weight:650;display:grid;gap:5px}.fc-market input,.fc-market select{min-width:0;width:100%;padding:11px;border:1px solid #d8ded9;border-radius:10px;background:#fff;color:#20382c;font:inherit}.fc-market-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}.fc-market-stats>div{background:#fff6ed;border:1px solid #f3e6d8;border-radius:13px;padding:15px;display:grid;gap:4px}.fc-market-stats small{font-size:.8rem;color:#6c716d}.fc-market-stats strong{font-size:1.4rem;color:var(--fc-primary,#e76b20)}.fc-market-chart{margin:20px 0;padding:16px;border:1px solid #e9e9e9;border-radius:15px}.fc-market-chart svg{width:100%;height:auto;display:block}.fc-market-months{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}.fc-market-months span{padding:8px 3px;text-align:center;background:#f8f9f8;border-radius:8px;font-size:.77rem}.fc-market-data{border-top:1px solid #eee;padding-top:16px}.fc-market-data summary{font-weight:750;cursor:pointer;color:var(--fc-primary,#e76b20)}.fc-market-form button,.fc-market-actions button{border:0;border-radius:10px;padding:11px 14px;background:var(--fc-primary,#e76b20);color:white;font-weight:700;cursor:pointer}.fc-market-form button{align-self:end}.fc-market-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.fc-market-actions button:last-child{background:#6b7370}.fc-import{margin-top:14px}.fc-market-record{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #eee;font-size:.85rem}.fc-market-record button{border:1px solid #e5ccc6;background:#fff;color:#a33b2c;border-radius:8px;padding:6px 10px}.fc-market a{color:var(--fc-primary,#e76b20)}@media(max-width:650px){.fc-market{margin:10px 12px 24px;padding:14px;border-radius:14px}.fc-market-filters{grid-template-columns:1fr 1fr}.fc-market-filters label:last-child{grid-column:span 2}.fc-market-form{grid-template-columns:1fr}.fc-market-stats strong{font-size:1.1rem}.fc-market-chart{padding:10px}.fc-market-months{grid-template-columns:repeat(3,1fr)}.fc-market-record{align-items:flex-start;flex-direction:column}}
+</style></head><body><header><div><strong><span class="brand-dot"></span>FarmCalc</strong><p class="fc-sub">Tính FCR và giá hòa vốn từ số liệu của trại</p></div><div class="account" id="account" hidden><span id="account-email"></span><button id="signout" type="button">Đăng xuất</button></div></header><section id="login" class="auth-shell"><div class="auth-card"><h1>Đăng nhập</h1><p class="auth-note">Đăng nhập bằng email của bạn.</p><form id="email-form"><label for="login-email">Email</label><input id="login-email" type="email" autocomplete="email" inputmode="email" placeholder="" required><button id="send-code" type="submit">Vào trang tính</button></form><div id="auth-message" class="auth-msg" role="status"></div><p class="auth-note">Dữ liệu sẽ tự lưu theo email đã nhập.</p></div></section><section class="install-guide" id="install-guide" aria-label="Cài FarmCalc ra màn hình chính"><div><strong>Đưa FarmCalc ra màn hình chính</strong><p>Mở nhanh như một ứng dụng trên điện thoại.</p></div><button id="install-app" type="button" hidden>Cài ứng dụng</button><details><summary>Xem cách cài trên iPhone và Android</summary><div class="install-steps"><p><b>iPhone:</b> Mở trang này bằng Safari → chạm nút Chia sẻ (hình vuông có mũi tên hướng lên) → <b>Thêm vào Màn hình chính</b> → <b>Thêm</b>. Nếu chưa thấy mục đó, cuộn xuống trong menu Chia sẻ.</p><p><b>Android:</b> Mở trang này bằng Chrome → chạm dấu <b>⋮</b> → chọn <b>Cài đặt ứng dụng</b> hoặc <b>Thêm vào màn hình chính</b> → xác nhận.</p></div></details></section><main id="app" hidden><nav class="tabs" role="tablist" aria-label="Loại vật nuôi"><button type="button" role="tab" id="tab-chicken" aria-controls="panel-chicken" aria-selected="true" data-tab="chicken">Gà thịt</button><button type="button" role="tab" id="tab-pig" aria-controls="panel-pig" aria-selected="false" data-tab="pig">Heo thịt</button><button type="button" role="tab" id="tab-sow" aria-controls="panel-sow" aria-selected="false" data-tab="sow">Heo con cai sữa</button><button type="button" role="tab" id="tab-catalog" aria-controls="panel-catalog" aria-selected="false" data-tab="catalog">Bảng giá cám</button></nav><div class="fc-tool-nav"><button id="fc-open-tools" type="button" aria-expanded="false" aria-controls="fc-tools">🧮 Công cụ chăn nuôi nâng cao ▾</button></div><section id="fc-tools" class="fc-tools" hidden aria-label="Công cụ tính toán chăn nuôi"><h2>Bộ công cụ chăn nuôi</h2><p class="fc-muted">So sánh cám, dự toán và theo dõi hiệu quả đàn. Số liệu công cụ lưu riêng trên thiết bị này, không tự đồng bộ lên tài khoản.</p><div id="fc-tool-tabs" class="fc-tool-tabs" role="tablist" aria-label="Chọn công cụ"></div><div id="fc-tool-panel" role="tabpanel"></div></section><div class="layout"><div class="card" id="inputs"><h1 id="heading"></h1><p class="hint" id="intro"></p><div id="field-groups"></div><div id="feed-section"></div><div class="actions"><button class="action" id="reset" type="button">Xóa số liệu mục này</button></div></div><aside class="card" aria-live="polite"><h1>Kết quả</h1><p class="hint" id="result-intro"></p><div id="results"></div><div id="warning" class="warning" hidden></div><div class="formula note" id="formula"></div><div class="save-row"><button class="save-button" id="save-history" type="button">Lưu lần tính này</button><small id="save-status">Bản nháp tự lưu</small></div><section class="history"><h2>Các lần đã lưu</h2><div id="history-list" class="history-list"></div></section><div class="actions"><button class="action" id="print" type="button">In / lưu PDF</button></div></aside></div><p class="footer">Khi đã kết nối dữ liệu trực tuyến, số liệu sẽ đồng bộ theo email. Bản mở trực tiếp trên máy chỉ dùng để chạy thử. Các khoản tiền tính bằng đồng Việt Nam.</p></main><section id="fc-market" class="fc-market" hidden><div class="fc-market-head"><h2>Giá thị trường</h2><p>Tự động cập nhật hằng ngày từ GREENFEED, Green Vet và Công Thương</p></div><div id="fm-today" class="fm-today"><p class="fc-market-note">Đang tải giá hôm nay...</p></div><div class="fm-xls"><div><strong>Tải file Excel giá thị trường</strong><p id="fm-xls-note" class="fc-market-note">File tự lưu giá theo ngày, cập nhật hằng ngày.</p></div><a id="fm-xls-link" class="fm-xls-btn" href="data/gia-thi-truong.xlsx" download="gia-thi-truong.xlsx">Tải file Excel</a></div><details class="fc-fold"><summary>Nguồn và lưu ý về dữ liệu</summary><p class="fc-market-note">Nguồn tự động: <a href="https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/" target="_blank" rel="noopener noreferrer">GREENFEED</a> · <a href="https://greenvet.com.vn/gia-ca-thi-truong/" target="_blank" rel="noopener noreferrer">Green Vet</a> · <a href="https://congthuong.vn/tag/gia-heo-hoi-hom-nay-56462.tag" target="_blank" rel="noopener noreferrer">Công Thương</a>. Một số giá là khoảng công bố; trong file Excel, cột "Giá giữa" là trung điểm của khoảng, không phải giá bình quân chính thức. Số liệu chỉ để tham khảo và chưa xác minh quyền sử dụng dữ liệu hàng loạt của từng nguồn.</p></details></section><section id="fc-more" class="fc-more" hidden aria-label="Tiện ích"><h1>Tiện ích</h1><div id="fc-more-tools" class="fc-card"></div><div id="fc-more-install" class="fc-card"></div><div id="fc-more-account" class="fc-card"><h2>Tài khoản</h2><p class="fc-more-note">Số liệu tự lưu theo email đăng nhập và dùng chung trên nhiều thiết bị.</p></div><div class="fc-card"><h2>Nguồn dữ liệu</h2><p class="fc-more-note">Giá thị trường lấy từ GREENFEED. Website không tự động thu thập giá từ nguồn khác và chưa xác minh quyền sử dụng dữ liệu hàng loạt.</p></div></section><section id="fc-game" class="fc-more" hidden aria-label="Mini game"><h1>Mini game</h1><div class="fc-card"><h2>Game chăn heo</h2><p class="fc-more-note">Đang được chuẩn bị, sắp ra mắt. Đây là chỗ để chơi giải trí sau giờ làm việc.</p><div id="fc-game-root" data-game-root></div></div></section><nav id="fc-bottom-nav" class="fc-bottom-nav" aria-label="Điều hướng chính" hidden><button type="button" data-view="market"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20v-8M12 20V5M19 20v-5M3 21h18"/></svg><span>Thị trường</span></button><button type="button" data-view="calc"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7h6M9 12h.01M12 12h.01M15 12h.01M9 16h.01M12 16h.01M15 16h.01"/></svg><span>Công cụ</span></button><button type="button" data-view="price"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h14v18H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span>Bảng giá</span></button><button type="button" data-view="game"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="11" rx="4"/><path d="M8 10v5M5.5 12.5h5"/><circle cx="15.5" cy="11.5" r=".8"/><circle cx="18" cy="13.5" r=".8"/></svg><span>Mini game</span></button></nav><script src="config.js"></script><script src="price-gate.js?v=4"></script><script>
+const data={effectiveDate:'',products:[],priceAdjustmentKg:0,updatedAt:''};const catalog=data.products;
+const money=n=>new Intl.NumberFormat('vi-VN',{maximumFractionDigits:0}).format(n),decimal=n=>new Intl.NumberFormat('vi-VN',{maximumFractionDigits:2}).format(n);
+const costFields=[['Chi phí giống','seed','đ'],['Chi phí điện nước','utilities','đ'],['Chi phí vaccine','vaccine','đ']];
+const definitions={chicken:{name:'Gà thịt',intro:'Nhập số liệu đàn, ba khoản chi phí cơ bản và tiền cám.',groups:[['Đàn và sản lượng',[['Số con nhập','initialCount','con'],['Số con xuất bán','soldCount','con'],['Trọng lượng xuất bình quân','soldWeight','kg/con'],['Giá bán dự kiến','salePrice','đ/kg']]],['Chi phí',costFields]],formula:'FCR gà xuất bán = tổng kg cám / tổng kg gà xuất bán. Giá hòa vốn = tổng chi phí / kg gà xuất bán.'},pig:{name:'Heo thịt',intro:'Nhập số liệu đàn, ba khoản chi phí cơ bản và tiền cám.',groups:[['Đàn và sản lượng',[['Số con nhập','initialCount','con'],['Trọng lượng nhập bình quân','initialWeight','kg/con'],['Số con xuất bán','soldCount','con'],['Trọng lượng xuất bình quân','soldWeight','kg/con'],['Giá bán dự kiến','salePrice','đ/kg']]],['Chi phí',costFields]],formula:'FCR đàn = tổng kg cám / (kg bán − kg toàn đàn lúc nhập). Giá hòa vốn = tổng chi phí / kg heo hơi bán.'},sow:{name:'Heo con cai sữa',intro:'Dành cho trại nái bán heo con cai sữa. Nhập chi phí của cả kỳ (đàn nái + heo con) và nhớ thêm cả cám nái lẫn cám heo con tập ăn ở mục Tiền cám.',groups:[['Sản lượng',[['Số heo con sinh sống','born','con'],['Số heo con cai sữa','weaned','con'],['Giá bán dự kiến/con','salePerHead','đ/con']]],['Chi phí (cả kỳ)',[['Khấu hao nái + tinh/phối giống','seed','đ'],['Nhân công','labor','đ'],['Thuốc thú y + vaccine','vaccine','đ'],['Điện nước','utilities','đ'],['Chi phí khác (khấu hao chuồng, sửa chữa...)','other','đ']]]],formula:'Giá hòa vốn/con = (khấu hao nái + nhân công + thuốc thú y + điện nước + chi phí khác + tiền cám nái và cám heo con) / số heo con cai sữa. Tỷ lệ cai sữa = cai sữa / sinh sống.'},catalog:{name:'Bảng giá thức ăn',intro:'Tìm mã sản phẩm để xem giá hóa đơn, quy cách và % đạm.',groups:[],formula:'Bảng giá gốc 16/09/2026, đã tăng 300 đ/kg. Giá thực bán nhập riêng trong từng lứa.'}};
+const state={};let current='chicken';let cloudSaveTimer;window.cloudContext=null;
+function persist(){if(!window.cloudContext)return;clearTimeout(cloudSaveTimer);document.getElementById('save-status').textContent='Đang cập nhật bản nháp…';cloudSaveTimer=setTimeout(()=>window.cloudContext?.saveDraft(),800)}
+function get(k){return Number(state[current]?.[k]||0)}
+function lines(){state[current]??={};return state[current].lines??=[]}
+function categoryFor(p){const t=(p.category+' '+p.description).toLocaleLowerCase('vi');if(t.includes('vịt')||t.includes('cút')||t.includes('gà đẻ'))return 'other';if(t.includes('gà'))return 'chicken';if(t.includes('lợn')||t.includes('heo'))return 'pig';return 'other'}
+function feedTotals(){if(state[current]?.feedMode==='manual')return {kg:get('manualKg'),cost:get('manualFeedCost')};let kg=0,cost=0;for(const line of lines()){const p=catalog.find(x=>x.id===line.id);if(!p)continue;const bags=Number(line.bags)||0;kg+=bags*p.bag;cost+=bags*(Number(line.saleBagPrice)||0)}return {kg,cost}}
+function inputFor([label,key,unit]){const outer=document.createElement('div');outer.className='field';const l=document.createElement('label');l.textContent=label;l.htmlFor=current+'-'+key;const input=document.createElement('input');input.id=l.htmlFor;input.type='number';input.inputMode='decimal';input.min='0';input.step='any';input.placeholder='0';input.value=state[current]?.[key]??'';input.oninput=()=>{state[current]??={};state[current][key]=input.value;persist();calculate();updateFeedSummary()};const u=document.createElement('div');u.className='unit';u.textContent=unit;outer.append(l,input,u);return outer}
+function row(label,value,unit='đ'){return `<div class="result"><small>${label}</small><strong>${value} ${unit}</strong></div>`}
+function calculate(){const r=document.getElementById('results'),w=document.getElementById('warning');document.getElementById('formula').innerHTML='<strong>Công thức áp dụng</strong><p>'+definitions[current].formula+'</p>';if(current==='catalog'){r.innerHTML='<p class="note">Giá hóa đơn được hiển thị bên trái. Chọn mục gà hoặc heo để tính chi phí.</p>';w.hidden=true;return}const feed=feedTotals(),cost=get('seed')+get('utilities')+get('vaccine')+get('labor')+get('other')+feed.cost;let warning=[],html='';if(current==='sow'){const n=get('weaned'),born=get('born');if(born&&n>born)warning.push('Số con cai sữa lớn hơn số con sinh sống.');html=row('Giá hòa vốn / con',n?money(cost/n):'—',n?'đ/con':'')+'<div class="result-grid">'+row('Tiền cám',money(feed.cost))+row('Tổng chi phí',money(cost))+row('Số con cai sữa',money(n),'con')+row('Tỷ lệ cai sữa',born&&n?decimal(n/born*100):'—',born&&n?'%':'')+row('Lãi / lỗ cả kỳ',n&&get('salePerHead')?money(n*get('salePerHead')-cost):'—')+'</div>';if(!n)warning.push('Nhập số con cai sữa để tính giá hòa vốn.');if(n&&!get('salePerHead'))warning.push('Nhập giá bán dự kiến/con để xem lãi/lỗ.');if(n&&!feed.cost)warning.push('Chưa có tiền cám: nhớ thêm cám nái và cám heo con tập ăn.')}else{const initial=current==='pig'?get('initialCount')*get('initialWeight'):0,sold=get('soldCount')*get('soldWeight'),gain=sold-initial;if(get('soldCount')>get('initialCount')&&get('initialCount'))warning.push('Số con xuất bán lớn hơn số con nhập.');if(current==='pig'&&(!get('initialCount')||!get('initialWeight')))warning.push('Nhập số con và trọng lượng đầu kỳ để tính FCR heo thịt.');if(feed.kg&&!feed.cost)warning.push('Đã có số lượng cám nhưng chưa có tiền cám; kiểm tra giá bán/bao.');html='<div class="result-grid">'+row(current==='chicken'?'FCR gà xuất bán':'FCR đàn',gain>0&&(current==='chicken'||initial>0)?decimal(feed.kg/gain):'—',gain>0&&(current==='chicken'||initial>0)?(current==='chicken'?'kg cám/kg gà bán':'kg cám/kg tăng'):'')+row('Giá hòa vốn',sold?money(cost/sold):'—',sold?'đ/kg':'')+row('Tổng kg cám',money(feed.kg),'kg')+row('Tiền cám',money(feed.cost))+row('Tổng chi phí',money(cost))+row('Lãi / lỗ cả lứa',sold?money(sold*get('salePrice')-cost):'—')+'</div>';if(!sold)warning.push('Nhập số con và trọng lượng xuất bán.');warning.push(current==='chicken'?'FCR gà tính theo kg xuất bán và chịu ảnh hưởng hao hụt chết/loại.':'FCR đàn chịu ảnh hưởng của hao hụt chết/loại.')}
+r.innerHTML=html;w.hidden=!warning.length;w.textContent=warning.join(' ');document.getElementById('result-intro').textContent='Tính từ các khoản chi phí anh đã nhập.'}
+function render(){const d=definitions[current];document.querySelectorAll('[role=tab]').forEach(b=>{b.setAttribute('aria-selected',b.dataset.tab===current);b.tabIndex=b.dataset.tab===current?0:-1});document.getElementById('heading').textContent=d.name;document.getElementById('intro').textContent=d.intro;const container=document.getElementById('field-groups');container.replaceChildren();for(const [title,fields] of d.groups){const h=document.createElement('h2');h.textContent=title;const grid=document.createElement('div');grid.className='fields';fields.forEach(f=>grid.append(inputFor(f)));container.append(h,grid)}renderFeeds();calculate()}
+function updateFeedSummary(){const el=document.getElementById('feed-total');if(el){const t=feedTotals();el.textContent=`Tổng ${money(t.kg)} kg cám · Tiền cám ${money(t.cost)} đ`}}
+function renderFeeds(){const root=document.getElementById('feed-section');root.replaceChildren();if(current==='catalog'){renderCatalog(root);return}const h=document.createElement('h2');h.textContent='Tiền cám';root.append(h);const mode=document.createElement('div');mode.className='field';const modeLabel=document.createElement('label');modeLabel.textContent='Cách nhập tiền cám';const select=document.createElement('select');for(const [v,t] of [['own','Giá cám của mình'],['manual','Giá cám đối thủ']]){const o=document.createElement('option');o.value=v;o.textContent=t;select.append(o)}select.value=state[current]?.feedMode==='manual'?'manual':'own';select.onchange=()=>{state[current]??={};state[current].feedMode=select.value;persist();renderFeeds();calculate()};mode.append(modeLabel,select);root.append(mode);
+if(select.value==='manual'){const hint=document.createElement('p');hint.className='note';hint.textContent='Nhập tổng chi phí cám đối thủ và tổng kg cám thực dùng để tính FCR.';root.append(hint);const grid=document.createElement('div');grid.className='fields';grid.append(inputFor(['Tổng tiền cám đối thủ','manualFeedCost','đ']),inputFor(['Tổng kg cám đối thủ','manualKg','kg']));root.append(grid)}else{const hint=document.createElement('p');hint.className='note';hint.textContent='Mỗi dòng là một mã sản phẩm. Nhập giá thực bán/bao và số bao; trang tự tính tiền cám và tổng kg.';root.append(hint);for(const [index,line] of lines().entries())renderLine(root,line,index);const add=document.createElement('button');add.type='button';add.className='action';add.textContent='+ Thêm mã cám';add.onclick=()=>{lines().push({brand:'Comfeed',id:'',search:'',saleBagPrice:'',bags:''});persist();renderFeeds();calculate()};root.append(add)}const total=document.createElement('p');total.className='line-summary';total.id='feed-total';root.append(total);updateFeedSummary()}
+function renderLine(root,line,index){const wrap=document.createElement('div');wrap.className='feedline';const top=document.createElement('div');top.className='feedline-top';const title=document.createElement('strong');title.textContent=`Mã cám ${index+1}`;const remove=document.createElement('button');remove.className='action';remove.textContent='Xóa';remove.onclick=()=>{lines().splice(index,1);persist();renderFeeds();calculate()};top.append(title,remove);wrap.append(top);const grid=document.createElement('div');grid.className='fields';wrap.append(grid);root.append(wrap);
+const field=(label,key,unit)=>{const outer=document.createElement('div');outer.className='field';const l=document.createElement('label');l.textContent=label;const input=document.createElement('input');input.type=key==='stage'?'text':'number';if(input.type==='number'){input.min='0';input.step='any';input.inputMode='decimal'}input.value=line[key]??'';input.placeholder=key==='stage'?'Ví dụ: 1–14 ngày':'0';input.oninput=()=>{line[key]=input.value;persist();updateLineSummary();updateFeedSummary();calculate()};const u=document.createElement('div');u.className='unit';u.textContent=unit;outer.append(l,input,u);grid.append(outer)};
+const brandBox=document.createElement('div');brandBox.className='field';const brandLabel=document.createElement('label');brandLabel.textContent='Thương hiệu';const brand=document.createElement('select');for(const b of ['Comfeed','P.Feed','$ingfeed']){const o=document.createElement('option');o.value=b;o.textContent=b;brand.append(o)}brand.value=line.brand||'Comfeed';brand.onchange=()=>{line.brand=brand.value;line.id='';line.search='';line.saleBagPrice='';persist();renderFeeds();calculate()};brandBox.append(brandLabel,brand);grid.append(brandBox);
+const searchBox=document.createElement('div');searchBox.className='field product-search';const searchLabel=document.createElement('label');searchLabel.textContent='Mã / tên sản phẩm';const query=document.createElement('input');query.type='search';query.placeholder='Ví dụ: F19';query.value=line.search||'';query.setAttribute('aria-label',`Tìm mã sản phẩm dòng ${index+1}`);const hits=document.createElement('div');hits.className='product-hits';searchBox.append(searchLabel,query,hits);grid.append(searchBox);const chosen=document.createElement('p');chosen.className='line-summary';chosen.style.gridColumn='1/-1';grid.append(chosen);
+function matches(){const q=query.value.trim().toLocaleLowerCase('vi');hits.replaceChildren();if(q){const products=catalog.filter(p=>p.brand===line.brand&&(current==='sow'?categoryFor(p)==='pig':categoryFor(p)===current)&&(p.code+' '+p.description).toLocaleLowerCase('vi').includes(q)).slice(0,25);for(const p of products){const btn=document.createElement('button');btn.type='button';btn.className='product-hit';btn.textContent=`${p.code} · ${p.description} · ${money(p.invoiceBag??p.priceKg*p.bag)} đ/bao`;btn.onclick=()=>{line.id=p.id;line.search=p.code;line.saleBagPrice=String(Math.round(p.invoiceBag??p.priceKg*p.bag));persist();renderFeeds();calculate()};hits.append(btn)}if(!products.length)hits.textContent=catalog.length?'Không có mã phù hợp.':'Bảng giá đang khóa. Bạn vẫn nhập tay được: chọn nhập thủ công, hoặc mở tab Bảng giá để xin quyền xem.'}const p=catalog.find(x=>x.id===line.id);chosen.textContent=p?`${p.brand} · ${p.code} · ${p.description} · đạm ${p.protein===null?'không ghi':decimal(p.protein)+'%'} · bao ${p.bag} kg · giá hóa đơn ${money(p.invoiceBag??p.priceKg*p.bag)} đ/bao`:'Gõ mã và chọn sản phẩm phù hợp.'}
+query.oninput=()=>{line.search=query.value;persist();matches()};matches();field('Giá thực bán','saleBagPrice','đ/bao');field('Số lượng bao','bags','bao');const summary=document.createElement('p');summary.className='line-summary';wrap.append(summary);function updateLineSummary(){const p=catalog.find(x=>x.id===line.id),bags=Number(line.bags)||0;summary.textContent=p?`${money(bags)} bao × ${p.bag} kg = ${money(bags*p.bag)} kg · Tiền cám ${money(bags*(Number(line.saleBagPrice)||0))} đ`:'Chọn sản phẩm để tính số kg và thành tiền.'}updateLineSummary()}
+function renderCatalog(root){if(!catalog.length){const hd=document.createElement('div');hd.className='cat-head';const tt=document.createElement('h2');tt.textContent='Bảng giá cám';hd.append(tt);root.append(hd);root.append(window.farmPriceGate?window.farmPriceGate.panel():document.createTextNode('Bảng giá đang khóa.'));return}const head=document.createElement('div');head.className='cat-head';const ttl=document.createElement('h2');ttl.textContent='Bảng giá cám';head.append(ttl);root.append(head);const filter=document.createElement('div');filter.className='catalog-filter';const search=document.createElement('input');search.placeholder='Tìm mã / tên';search.setAttribute('aria-label','Tìm sản phẩm');const brand=document.createElement('select');brand.setAttribute('aria-label','Lọc thương hiệu');for(const b of ['Tất cả thương hiệu','Comfeed','P.Feed','$ingfeed']){const o=document.createElement('option');o.textContent=b==='Tất cả thương hiệu'?'Tất cả':b;o.value=b;brand.append(o)}const pKey='farmcalc-policy-v1:'+String((window.farmUserEmail&&window.farmUserEmail())||'').toLowerCase();const policy=document.createElement('input');policy.type='number';policy.inputMode='decimal';policy.min='0';policy.step='any';policy.className='catalog-policy';policy.placeholder='Chính sách';policy.setAttribute('aria-label','Chính sách trừ vào giá, đồng trên kg');try{policy.value=localStorage.getItem(pKey)||''}catch(e){}const pol=()=>{const v=Number(policy.value);return Number.isFinite(v)&&v>0?v:0};filter.append(search,policy,brand);root.append(filter);const policyNote=document.createElement('p');policyNote.className='note';root.append(policyNote);let shown=[];const netOf=p=>{const k=pol();if(!k)return p;const inv=p.invoiceBag??p.priceKg*p.bag;return {...p,priceKg:Math.max(0,p.priceKg-k),invoiceBag:Math.max(0,inv-k*p.bag)}};const pdfRow=document.createElement('div');pdfRow.className='actions';pdfRow.style.marginTop='10px';pdfRow.style.alignItems='center';const pdfBtn=document.createElement('button');pdfBtn.type='button';pdfBtn.className='action';pdfBtn.textContent='Tải PDF';const pdfStatus=document.createElement('small');pdfStatus.className='note';pdfStatus.setAttribute('aria-live','polite');pdfBtn.onclick=()=>{if(window.FarmPdf)window.FarmPdf.download({products:shown.map(netOf),priceNote:pol()?'Giá net, đã trừ chính sách '+money(pol())+' đ/kg':'',brand:brand.value,search:search.value,data,money,decimal},pdfBtn,pdfStatus);else pdfStatus.textContent='Chức năng PDF chưa tải xong. Vui lòng tải lại trang (Ctrl+F5) rồi thử lại.'};if(window.farmPriceGate&&window.farmPriceGate.isAdmin()){const g=document.createElement('div');g.className='cat-actions';g.append(window.farmPriceGate.adminButton(),pdfBtn);head.append(g)}else head.append(pdfBtn);root.insertBefore(pdfStatus,filter);const count=document.createElement('p');count.className='note';root.append(count);const table=document.createElement('div');table.className='catalog-table';root.append(table);function draw(){const q=search.value.toLocaleLowerCase('vi');const products=catalog.filter(p=>(brand.value==='Tất cả thương hiệu'||p.brand===brand.value)&&(p.code+' '+p.description+' '+p.category).toLocaleLowerCase('vi').includes(q));shown=products;count.textContent=`${products.length} sản phẩm · Giá gốc 16/09/2026 · Đã tăng 300 đ/kg`;table.replaceChildren();for(const p of products){const item=document.createElement('div');item.className='catalog-item';const title=document.createElement('strong');title.textContent=`${p.brand} · ${p.code} · ${p.bag} kg/bao`;const desc=document.createElement('span');desc.textContent=p.description;const protein=document.createElement('span');protein.textContent=`Đạm thô ${p.protein===null?'không ghi':decimal(p.protein)+'%'} · Quy cách ${p.bag} kg/bao · ${p.category}`;const price=document.createElement('b');const n=netOf(p);price.textContent=`${pol()?'Giá net: ':''}${money(n.priceKg)} đ/kg · ${money(n.invoiceBag??n.priceKg*n.bag)} đ/bao${p.invoiceBag===null?' (quy đổi)':''}`;item.append(title,desc,protein,price);if(pol()){const inv=document.createElement('small');inv.className='note';inv.textContent=`Giá hóa đơn: ${money(p.priceKg)} đ/kg · ${money(p.invoiceBag??p.priceKg*p.bag)} đ/bao`;item.append(inv)}table.append(item)}policyNote.textContent=pol()?`Giá net = hóa đơn − chính sách ${money(pol())} đ/kg (chỉ lưu trên máy này)`:''}policy.oninput=()=>{try{if(policy.value)localStorage.setItem(pKey,policy.value);else localStorage.removeItem(pKey)}catch(e){}draw()};search.oninput=draw;brand.onchange=draw;draw()}
+
+document.querySelectorAll('[role=tab]').forEach(b=>b.addEventListener('click',()=>{current=b.dataset.tab;render()}));document.querySelector('.tabs').addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight'].includes(e.key))return;e.preventDefault();const tabs=[...document.querySelectorAll('[role=tab]')],i=tabs.findIndex(b=>b.dataset.tab===current);tabs[(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length].click();document.querySelector('[aria-selected=true]').focus()});document.getElementById('reset').onclick=()=>{delete state[current];persist();render()};document.getElementById('print').onclick=()=>window.print();window.farmState=state;window.farmRender=render;window.farmCurrent=()=>current;window.farmSelect=tab=>{current=tab;render();persist()};window.addEventListener('farm-prices',e=>{const d=e.detail||{};catalog.splice(0,catalog.length,...(Array.isArray(d.products)?d.products:[]));data.effectiveDate=d.effectiveDate||'';data.updatedAt=d.updatedAt||'';data.priceAdjustmentKg=d.priceAdjustmentKg||0;render()});window.addEventListener('farm-prices-lock',()=>{catalog.length=0;render()});render();
+</script><script src="config.js"></script><script src="track.js?v=2"></script><script src="auth.js"></script><script src="pdf-export.js?v=3" defer></script><style>.feedline{border:1px solid #d5e7da;padding:15px;border-radius:12px;margin:12px 0;background:#f8fcf9}.feedline-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:11px}.feedline-top .action{padding:5px 9px;font-size:.9rem}.line-summary{font-weight:650;color:#146343;margin:12px 0 2px;line-height:1.5}.field select,.catalog-filter select,.catalog-filter input{width:100%;padding:11px 12px;font:inherit;border:1px solid #acc5b5;border-radius:10px;background:white;color:#18342c}.catalog-filter{display:grid;grid-template-columns:1fr 180px;gap:10px}.catalog-table{max-height:620px;overflow:auto}.catalog-item{padding:12px 4px;border-bottom:1px solid #e0eae3;display:flex;flex-direction:column;gap:4px}.catalog-item span{color:#50675b}.catalog-item b{color:#176749}.product-search{grid-column:1/-1}.product-hits{max-height:220px;overflow:auto;margin-top:6px;display:grid;gap:4px}.product-hit{font:inherit;text-align:left;border:1px solid #cfe0d3;border-radius:8px;background:#fff;color:#174632;padding:8px;cursor:pointer}.product-hit:hover,.product-hit:focus{background:#e5f4e9;outline-color:#21845b}@media(max-width:550px){.catalog-filter{grid-template-columns:1fr}}@media print{header{print-color-adjust:exact}.tabs,.actions,.footer{display:none}.layout{display:block}.card{box-shadow:none;break-inside:avoid;margin:12px 0}.fields{grid-template-columns:repeat(3,1fr)}input{border:0!important;padding:2px!important}main{max-width:none;margin:0}}</style><script src="install.js"></script><script>
+/* Date-based palette, calculated locally without network or storage. */
+(function(){
+  const themes=[
+    {name:'cam',primary:'#f97316',dark:'#c2410c',soft:'#fff7ed',line:'#fed7aa',glow:'#ffedd5'},
+    {name:'đỏ',primary:'#dc3545',dark:'#a61b30',soft:'#fff1f2',line:'#fecdd3',glow:'#ffe4e6'},
+    {name:'xanh',primary:'#1676c2',dark:'#14538b',soft:'#eff6ff',line:'#bfdbfe',glow:'#dbeafe'}
+  ];
+  function updateDailyTheme(){
+    const now=new Date();
+    const today=Date.UTC(now.getFullYear(),now.getMonth(),now.getDate());
+    const start=Date.UTC(2026,9,8);
+    const index=((Math.round((today-start)/86400000)%themes.length)+themes.length)%themes.length;
+    const t=themes[index],r=document.documentElement;
+    for(const key of ['primary','dark','soft','line','glow'])r.style.setProperty('--fc-'+key,t[key]);
+    const meta=document.querySelector('meta[name="theme-color"]');
+    if(meta)meta.setAttribute('content',t.dark);
+    r.dataset.dailyTheme=t.name;
+  }
+  updateDailyTheme();
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)updateDailyTheme()});
+  window.addEventListener('pageshow',updateDailyTheme);
+})();
+</script><script>
+(function(){
+'use strict';
+const fmt=(v,d=0)=>Number.isFinite(v)?new Intl.NumberFormat('vi-VN',{maximumFractionDigits:d}).format(v):'—';
+const toolDefs={
+ compare:{name:'So sánh cám',desc:'So sánh chi phí cám cho 1 kg tăng trọng khi cùng điều kiện chăn nuôi.',fields:[['jPrice','Giá cám của mình','đ/kg'],['jFcr','FCR cám của mình','kg/kg tăng'],['oPrice','Giá cám đối thủ','đ/kg'],['oFcr','FCR đối thủ','kg/kg tăng'],['gain','Tổng tăng trọng dự kiến','kg']]},
+ growth:{name:'ADG & ADFI',desc:'Dùng trọng lượng bình quân cùng đàn; ngày-con nuôi giúp tính ADFI chính xác hơn khi có hao hụt.',fields:[['start','Trọng lượng đầu kỳ','kg/con'],['end','Trọng lượng cuối kỳ','kg/con'],['days','Số ngày nuôi','ngày'],['feed','Tổng cám tiêu thụ','kg'],['birdDays','Tổng ngày-con nuôi','ngày-con'],['count','Số con bình quân (nếu không có ngày-con)','con']]},
+ profit:{name:'Dự báo lợi nhuận',desc:'Ước tính theo số con dự kiến xuất, trọng lượng, giá bán và toàn bộ chi phí dự kiến.',fields:[['count','Số con dự kiến xuất','con'],['weight','Trọng lượng xuất bình quân','kg/con'],['price','Giá bán dự kiến','đ/kg'],['feed','Chi phí cám cả lứa','đ'],['seed','Chi phí con giống','đ'],['other','Điện, thuốc, vaccine và chi phí khác','đ']]},
+ feed:{name:'Dự toán cám',desc:'FCR dự kiến phải cùng cách tính với tăng trọng. Số bao luôn làm tròn lên.',fields:[['count','Số con dự kiến nuôi đến đích','con'],['start','Trọng lượng hiện tại','kg/con'],['target','Trọng lượng mục tiêu','kg/con'],['fcr','FCR dự kiến theo tăng trọng','kg/kg tăng'],['bag','Khối lượng mỗi bao','kg/bao'],['price','Giá cám','đ/kg']]},
+ epef:{name:'EPEF gà thịt',desc:'EPEF sử dụng tỷ lệ sống, trọng lượng xuất bình quân, tuổi xuất và FCR của cùng một lứa.',fields:[['placed','Số gà nhập','con'],['sold','Số gà sống đến xuất','con'],['weight','Trọng lượng xuất bình quân','kg/con'],['days','Tuổi xuất bán','ngày'],['fcr','FCR toàn lứa','kg/kg']]},
+ layer:{name:'Gà đẻ trứng',desc:'Tỷ lệ đẻ hen-day tính trên tổng ngày-mái thực tế; nhập số trứng và khối lượng trứng trong cùng kỳ.',fields:[['eggs','Tổng trứng thu','quả'],['henDays','Tổng ngày-mái trong kỳ','ngày-mái'],['feed','Tổng cám tiêu thụ','kg'],['eggWeight','Khối lượng trứng bình quân','g/quả'],['price','Giá bán bình quân','đ/quả'],['feedPrice','Giá cám bình quân','đ/kg'],['other','Chi phí khác trong kỳ','đ']]}
+};
+let selected='compare';const root=document.getElementById('fc-tools'),open=document.getElementById('fc-open-tools'),tabs=document.getElementById('fc-tool-tabs'),panel=document.getElementById('fc-tool-panel');
+let store={};try{const x=JSON.parse(localStorage.getItem('farmcalc-extra-tools-v1')||'{}');if(x&&typeof x==='object'&&!Array.isArray(x))store=x}catch(e){}
+const valid=(v)=>v!==''&&Number.isFinite(Number(v))&&Number(v)>=0;
+const M=(name,value,unit='')=>[name,fmt(value,2)+(unit?' '+unit:'')];
+function calculate(k,v){const n=x=>Number(v[x]);const positive=(...keys)=>keys.every(x=>valid(v[x])&&n(x)>0);const nonneg=(...keys)=>keys.every(x=>valid(v[x]));let out=[],note='';
+ if(k==='compare'){if(!positive('jPrice','jFcr','oPrice','oFcr'))return {error:'Nhập giá cám và FCR lớn hơn 0 cho cả hai loại.'};const a=n('jPrice')*n('jFcr'),b=n('oPrice')*n('oFcr'),diff=b-a;out=[M('Cám của mình / kg tăng trọng',a,'đ'),M('Đối thủ / kg tăng trọng',b,'đ'),M('Chênh lệch / kg tăng trọng',Math.abs(diff),'đ')];if(valid(v.gain)&&n('gain')>0)out.push(M('Chênh lệch cả lứa',Math.abs(diff)*n('gain'),'đ'));note=diff>0?'Cám của mình tiết kiệm hơn theo số liệu nhập.':diff<0?'Đối thủ tiết kiệm hơn theo số liệu nhập.':'Hai loại có chi phí cám/kg tăng trọng bằng nhau.'}
+ if(k==='growth'){if(!nonneg('start','end','feed')||!positive('days')||n('end')<n('start'))return {error:'Nhập ngày nuôi > 0, trọng lượng cuối không nhỏ hơn đầu và tổng cám hợp lệ.'};const days=positive('birdDays')?n('birdDays'):(positive('count')?n('count')*n('days'):0);out=[M('Tăng trọng bình quân',n('end')-n('start'),'kg/con'),M('ADG',(n('end')-n('start'))*1000/n('days'),'g/con/ngày')];if(days)out.push(M('ADFI',n('feed')*1000/days,'g/con/ngày'));note=days?'ADFI = tổng cám / tổng ngày-con nuôi. Nếu dùng số con bình quân, kết quả là ước tính.':'Nhập tổng ngày-con nuôi hoặc số con bình quân để tính ADFI.'}
+ if(k==='profit'){if(!positive('count','weight')||!nonneg('price','feed','seed','other'))return {error:'Nhập số con, trọng lượng > 0 và tất cả khoản giá/chi phí không âm.'};const kg=n('count')*n('weight'),cost=n('feed')+n('seed')+n('other'),revenue=kg*n('price');out=[M('Tổng kg xuất dự kiến',kg,'kg'),M('Doanh thu dự kiến',revenue,'đ'),M('Tổng chi phí',cost,'đ'),M('Lãi / lỗ dự kiến',revenue-cost,'đ'),M('Giá hòa vốn',cost/kg,'đ/kg'),M('Lãi / lỗ mỗi con',(revenue-cost)/n('count'),'đ/con')];note='Đây là dự báo, chưa tự cộng các khoản chi phí chưa nhập.'}
+ if(k==='feed'){if(!positive('count','fcr','bag')||!nonneg('start','target','price')||n('target')<=n('start'))return {error:'Nhập số con, FCR, kg/bao > 0; trọng lượng mục tiêu phải lớn hơn hiện tại.'};const gain=n('count')*(n('target')-n('start')),kg=gain*n('fcr'),bags=Math.ceil(kg/n('bag'));out=[M('Tăng trọng toàn đàn',gain,'kg'),M('Cám dự kiến',kg,'kg'),M('Số bao cần mua',bags,'bao'),M('Tiền cám theo kg',kg*n('price'),'đ'),M('Chi phí mua tròn bao',bags*n('bag')*n('price'),'đ')];note='Dự toán giả định số con đã nhập đều đạt trọng lượng mục tiêu; chưa điều chỉnh hao hụt hay tồn kho.'}
+ if(k==='epef'){if(!positive('placed','sold','weight','days','fcr')||n('sold')>n('placed'))return {error:'Nhập dữ liệu > 0 và số gà xuất không vượt số gà nhập.'};const survival=100*n('sold')/n('placed'),score=survival*n('weight')*100/(n('days')*n('fcr'));out=[M('Tỷ lệ sống',survival,'%'),M('Tỷ lệ hao hụt',100-survival,'%'),M('EPEF',score)];note='EPEF = tỷ lệ sống (%) × trọng lượng (kg) × 100 / (tuổi ngày × FCR). FCR phải cùng phương pháp khi so sánh các đàn.'}
+ if(k==='layer'){if(!nonneg('eggs','feed','eggWeight','price','feedPrice','other')||!positive('henDays'))return {error:'Nhập tổng ngày-mái > 0 và các số liệu còn lại không âm.'};const eggs=n('eggs'),feed=n('feed'),kgEggs=eggs*n('eggWeight')/1000,cost=feed*n('feedPrice')+n('other'),revenue=eggs*n('price');out=[M('Tỷ lệ đẻ hen-day',eggs/n('henDays')*100,'%'),M('Trứng / 100 mái-ngày',eggs/n('henDays')*100,'quả'),M('Khối lượng trứng',kgEggs,'kg'),M('FCR theo kg trứng',kgEggs?feed/kgEggs:NaN,'kg cám/kg trứng'),M('Chi phí / quả',eggs?cost/eggs:NaN,'đ/quả'),M('Lãi / lỗ trong kỳ',revenue-cost,'đ')];note='Tổng ngày-mái = tổng số mái sống từng ngày trong kỳ. Chi phí/quả chỉ đầy đủ nếu đã nhập toàn bộ chi phí.'}
+ return {out,note};}
+function render(){tabs.replaceChildren();for(const [key,def] of Object.entries(toolDefs)){const b=document.createElement('button');b.type='button';b.role='tab';b.textContent=def.name;b.setAttribute('aria-selected',String(key===selected));b.onclick=()=>{selected=key;render()};tabs.append(b)}const def=toolDefs[selected];panel.replaceChildren();const desc=document.createElement('p');desc.className='fc-muted';desc.textContent=def.desc;panel.append(desc);const fields=document.createElement('div');fields.className='fc-tool-fields';panel.append(fields);store[selected]??={};for(const [key,label,unit] of def.fields){const l=document.createElement('label');l.textContent=label+' ('+unit+')';const inp=document.createElement('input');inp.type='number';inp.inputMode='decimal';inp.step='any';inp.min='0';inp.placeholder='Nhập số';inp.value=store[selected][key]??'';inp.oninput=()=>{store[selected][key]=inp.value;try{localStorage.setItem('farmcalc-extra-tools-v1',JSON.stringify(store))}catch(e){}update()};l.append(inp);fields.append(l)}const results=document.createElement('div');results.className='fc-tool-result';results.setAttribute('aria-live','polite');panel.append(results);const msg=document.createElement('p');msg.className='fc-tool-message';panel.append(msg);function update(){const result=calculate(selected,store[selected]);results.replaceChildren();msg.className='fc-tool-message';if(result.error){msg.classList.add('fc-tool-error');msg.textContent=result.error;return}for(const [name,value] of result.out){const box=document.createElement('div');box.className='fc-metric';const a=document.createElement('small');a.textContent=name;const b=document.createElement('strong');b.textContent=value;box.append(a,b);results.append(box)}msg.textContent=result.note}update()}
+root.hidden=true;open.setAttribute('aria-expanded','false');
+open.addEventListener('click',()=>{root.hidden=!root.hidden;open.setAttribute('aria-expanded',String(!root.hidden));open.textContent=root.hidden?'🧮 Công cụ chăn nuôi nâng cao ▾':'🧮 Thu gọn công cụ ▴';if(!root.hidden&&!tabs.children.length)render()});
+render();
+window.FarmCalcExtra={calculate,tools:Object.keys(toolDefs)};
+})();
+</script><script>
+(function(){'use strict';
+const box=document.getElementById('fm-today');if(!box)return;
+let mk=null,gf=[],loaded=false;
+const SRC={greenvet:'Green Vet',congthuong:'Công Thương',greenfeed:'GREENFEED'};
+const vn=n=>Math.round(n).toLocaleString('vi-VN');
+const dm=d=>d.slice(8,10)+'/'+d.slice(5,7);
+const rng=(a,b,u)=>(a===b?vn(a):vn(a)+'–'+vn(b))+' '+u;
+const key=r=>[r.source,r.group,r.item,r.region].join('|');
+function gfRows(){const out=[];const by=new Map();for(const r of gf){const a=by.get(r.product)||[];a.push(r);by.set(r.product,a)}for(const [prod,list] of by){list.sort((a,b)=>a.date.localeCompare(b.date));const l=list.at(-1),p=list.at(-2);const lo=Number.isFinite(Number(l.price_min))&&l.price_min!=null?Number(l.price_min):Number(l.price),hi=Number.isFinite(Number(l.price_max))&&l.price_max!=null?Number(l.price_max):Number(l.price);out.push({source:'greenfeed',date:l.date,group:'GREENFEED (miền Bắc)',item:prod,region:'Miền Bắc',min:lo,max:hi,unit:prod.startsWith('Trứng')?'đ/quả':'đ/kg',prev:p?Number(p.price):null,mid:Number(l.price)})}return out}
+function build(){
+  const rows=[];const recs=mk&&Array.isArray(mk.records)?mk.records:[];
+  const latest={};for(const r of recs)if(!latest[r.source]||r.date>latest[r.source])latest[r.source]=r.date;
+  for(const src of Object.keys(latest)){const cur=recs.filter(r=>r.source===src&&r.date===latest[src]);const prevDate=recs.filter(r=>r.source===src&&r.date<latest[src]).reduce((m,r)=>r.date>m?r.date:m,'');const prev=new Map(recs.filter(r=>r.source===src&&r.date===prevDate).map(r=>[key(r),(r.min+r.max)/2]));for(const r of cur)rows.push({...r,mid:(r.min+r.max)/2,prev:prev.has(key(r))?prev.get(key(r)):null})}
+  rows.push(...gfRows());return rows}
+function norm(g){const s=g.replace(/^giá\s+/i,'').replace(/\s+/g,' ').trim();return s.charAt(0).toUpperCase()+s.slice(1)}
+function render(){
+  box.replaceChildren();
+  const rows=build();
+  const src=document.createElement('div');src.className='fm-src';
+  for(const k of ['greenfeed','greenvet','congthuong']){const s=document.createElement('span');let last='';if(k==='greenfeed')last=gf.reduce((m,r)=>r.date>m?r.date:m,'');else last=(mk&&mk.sources&&mk.sources[k]&&mk.sources[k].last_date)||'';const bad=k!=='greenfeed'&&mk&&mk.sources&&mk.sources[k]&&mk.sources[k].error;s.textContent=SRC[k]+': '+(last?dm(last):'chưa có')+(bad?' (lỗi)':'');if(bad||!last)s.className='bad';src.append(s)}
+  box.append(src);
+  if(!rows.length){const p=document.createElement('p');p.className='fc-market-note';p.textContent=loaded?'Chưa có dữ liệu giá. Dữ liệu sẽ xuất hiện sau lần cập nhật tự động đầu tiên.':'Đang tải giá hôm nay...';box.append(p);return}
+  const groups=new Map();for(const r of rows){const g=norm(r.group);const k=[...groups.keys()].find(x=>x.toLowerCase()===g.toLowerCase())||g;const a=groups.get(k)||[];a.push(r);groups.set(k,a)}
+  const order=[...groups.keys()].sort((a,b)=>{const w=x=>/^heo hơi$/i.test(x)?0:/greenfeed/i.test(x)?9:1;return w(a)-w(b)});
+  order.forEach((g,idx)=>{const list=groups.get(g);const d=document.createElement('details');d.className='fm-grp';d.open=idx<2;const s=document.createElement('summary');const t=document.createElement('span');t.textContent=g;const c=document.createElement('small');c.textContent=list.length+' dòng';s.append(t,c);d.append(s);
+    list.sort((a,b)=>(a.item||'').localeCompare(b.item||'','vi')||(a.region||'').localeCompare(b.region||'','vi')||a.source.localeCompare(b.source));
+    for(const r of list){const row=document.createElement('div');row.className='fm-row';const l=document.createElement('div');l.className='l';const name=[r.item&&r.item!==g?r.item:'',r.region].filter(Boolean).join(' · ')||g;l.textContent=name;const sm=document.createElement('small');sm.textContent=SRC[r.source]+' · '+dm(r.date);l.append(sm);const p=document.createElement('div');p.className='p';p.textContent=rng(r.min,r.max,r.unit);row.append(l,p);
+      const dd=document.createElement('div');dd.className='d';if(r.prev!=null){const diff=r.mid-r.prev;if(Math.abs(diff)<.5){dd.textContent='không đổi'}else{dd.classList.add(diff>0?'up':'down');dd.textContent=(diff>0?'▲ +':'▼ −')+vn(Math.abs(diff))}}row.append(document.createElement('div'),dd);d.append(row)}
+    box.append(d)});
+  const n=document.createElement('p');n.className='fc-market-note';n.textContent='Khoảng giá lấy nguyên từ nguồn; mũi tên là chênh lệch trung điểm so với kỳ báo trước của cùng nguồn. Cập nhật tự động hằng ngày'+(mk&&mk.updated_at?' (lần cuối '+mk.updated_at.replace('T',' ').slice(0,16)+')':'')+'.';box.append(n)
+}
+const root=document.getElementById('fc-market'),app=document.getElementById('app');
+function sync(){root.hidden=app.hidden||document.body.dataset.view!=='market'}
+new MutationObserver(sync).observe(app,{attributes:true,attributeFilter:['hidden']});new MutationObserver(sync).observe(document.body,{attributes:true,attributeFilter:['data-view']});sync();
+function xlsNote(){const note=document.getElementById('fm-xls-note');if(!note)return;const dates=[...(mk&&mk.records||[]).map(r=>r.date),...gf.map(r=>r.date)].sort();if(!dates.length){note.textContent='File tự lưu giá theo ngày, cập nhật hằng ngày.';return}const f=d=>d.slice(8,10)+'/'+d.slice(5,7)+'/'+d.slice(0,4);note.textContent='Lưu giá theo ngày từ '+f(dates[0])+' đến '+f(dates.at(-1))+' (gồm bảng "Theo ngày" và bảng "Chi tiết" có bộ lọc). Cập nhật tự động hằng ngày.'}
+const render0=render;render=function(){render0();xlsNote()};
+fetch('./data/greenfeed-north.json?ts='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null).then(j=>{if(j&&Array.isArray(j.records))gf=j.records.filter(r=>r&&r.product&&r.date&&Number.isFinite(Number(r.price)));render()});
+fetch('./data/market.json?ts='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null).then(j=>{mk=j;loaded=true;render()});
+render();
+})();
+</script>
+<style id="fc-phone-ui">
+:root{--fc-ink:#1d2330;--fc-mute:#5a6273;--fc-bd:#e3e6eb;--fc-bg:#f3f4f6}
+body{background:var(--fc-bg);color:var(--fc-ink);padding-bottom:84px}
+header{position:sticky;top:0;z-index:20;min-height:56px;padding:6px 12px 6px 16px;display:flex;align-items:center;justify-content:space-between;background:var(--fc-primary,#c72234);color:#fff;border:0;box-shadow:none}
+header strong{font-size:18px;color:#fff;display:flex;align-items:center;gap:10px}
+header .brand-dot{background:#fff}
+header .fc-sub{display:none}
+header p{display:none}
+#fc-more-account .account{display:flex!important;flex-direction:column;align-items:stretch;gap:10px;padding:0;background:none;border:0;color:var(--fc-ink)}
+#fc-more-account .account[hidden]{display:none!important}
+#fc-more-account #account-email{font-size:15px;font-weight:600;word-break:break-all}
+#fc-more-account #signout{min-height:48px;border:1.5px solid #c9ced6;border-radius:12px;background:#fff;color:var(--fc-ink);font:inherit;font-weight:600}
+.fc-bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:30;height:68px;padding-bottom:env(safe-area-inset-bottom);background:#fff;border-top:1px solid var(--fc-bd);display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.fc-bottom-nav[hidden]{display:none}
+.fc-bottom-nav button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:0;background:none;color:var(--fc-mute);font:inherit;font-size:12px;font-weight:500;cursor:pointer;min-height:48px}
+.fc-bottom-nav button[aria-current=page]{color:var(--fc-primary,#c72234);font-weight:700}
+main#app{max-width:760px;margin:0 auto;padding:12px 16px}
+main#app .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:0 0 12px;padding:4px;background:#e8eaee;border-radius:14px;border:0}
+main#app .tabs [data-tab=catalog]{display:none}
+main#app .tabs button{min-height:44px;border-radius:10px;border:0;background:transparent;font-size:14px;font-weight:600;color:var(--fc-mute);box-shadow:none}
+main#app .tabs button[aria-selected=true]{background:#fff;color:var(--fc-primary,#c72234);box-shadow:0 1px 3px #0002}
+.fc-tool-nav,#fc-open-tools{margin:0}
+.layout{display:flex!important;flex-direction:column;align-items:stretch;gap:12px}
+.layout>aside{order:-1}
+.card{border-radius:16px;border:1px solid var(--fc-bd);box-shadow:none;padding:14px}
+.card h1{font-size:18px;margin:0 0 4px}
+#inputs .hint{font-size:13px;margin:0 0 8px}
+#field-groups .fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+input,select{min-height:44px;font-size:16px}
+body[data-view=calc] #fc-tools,body[data-view=calc] .footer{display:none}
+.fc-history-slot{margin-top:0}
+.footer{font-size:12px;color:var(--fc-mute)}
+body:not([data-view=calc]):not([data-view=price]) main#app{display:none}
+body[data-view=price] .layout>aside,body[data-view=price] .layout>.history,body[data-view=price] #inputs>h1,body[data-view=price] #inputs>.hint,body[data-view=price] #inputs>#field-groups,body[data-view=price] #inputs>.actions,body[data-view=price] main#app .tabs,body[data-view=price] .footer{display:none}
+body[data-view=price] #inputs{padding:12px}
+
+.cat-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 6px}
+.cat-head h2{margin:0;font-size:20px;font-weight:700;color:var(--fc-ink)}
+.cat-head .action{min-height:36px;padding:0 14px;font-size:13px;border-radius:10px;margin:0;width:auto}
+#feed-section>small.note:empty{display:none}#feed-section>small.note{display:block;margin:0 0 4px;font-size:11px}
+.catalog-filter{display:grid!important;grid-template-columns:minmax(0,1fr) 84px 92px;gap:6px;margin:0 0 4px}
+.catalog-filter input,.catalog-filter select{min-height:38px!important;height:38px;font-size:14px!important;padding:0 8px!important;border-radius:10px;width:100%;box-sizing:border-box;margin:0}
+.catalog-policy{text-align:right}
+#feed-section>p.note{margin:2px 0;font-size:11px;line-height:1.35;color:var(--fc-mute)}
+.catalog-item small.note{font-size:11px}
+body[data-view=price] .catalog-item{padding-block:8px}
+#fc-more{max-width:760px;margin:0 auto;padding:12px 16px;display:flex;flex-direction:column;gap:12px}
+#fc-more[hidden]{display:none}
+#fc-more h1{font-size:20px;margin:0}
+.fc-card{background:#fff;border:1px solid var(--fc-bd);border-radius:16px;padding:14px}
+.fc-card:empty{display:none}
+.fc-card>h2{font-size:14px;margin:0 0 6px}
+.fc-more-note{font-size:13px;color:var(--fc-mute);line-height:1.45;margin:0 0 8px}
+#fc-more .fc-tool-nav{margin:0}
+#fc-more #fc-open-tools{width:100%;min-height:48px;border-radius:12px}
+#fc-more .install-guide{margin:0;padding:0;border:0;background:none;box-shadow:none}
+#install-guide.fc-hide{display:none}
+.fc-market{margin:0 auto;max-width:760px;padding:12px 16px 24px;background:transparent;border:0;box-shadow:none;border-radius:0}
+.fc-market-head h2{margin:0;font-size:20px}
+.fc-market-head p{margin:2px 0 10px;font-size:13px;color:var(--fc-mute)}
+.fc-market-filters{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fc-market-filters label:first-child{grid-column:1/-1}
+.fc-market-filters label{font-size:12px;color:var(--fc-mute)}
+#fm-sync-status{font-size:12px;margin:8px 0}
+.fc-ov{background:#fff;border:1px solid var(--fc-bd);border-radius:16px;padding:14px;margin:8px 0 12px}
+.fc-ov-top{display:flex;justify-content:space-between;align-items:center}
+.fc-ov small{color:var(--fc-mute);font-size:12px}
+.fc-ov #fm-latest{display:block;font-size:30px;line-height:1.15;margin:4px 0;color:var(--fc-ink)}
+.fc-badge{font-size:12px;font-weight:600;padding:3px 9px;border-radius:99px;background:#fdecc8;color:#7a4b00}
+.fc-badge.ok{background:#dff3e4;color:#14612b}
+.fc-change{font-size:14px;font-weight:600;color:var(--fc-mute)}
+.fc-change.up{color:#b3261e}.fc-change.down{color:#14612b}
+.fc-ov-date{display:block;margin-top:2px}
+.fc-ov-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;padding-top:10px;border-top:1px solid var(--fc-bd)}
+.fc-ov-row b{display:block;font-size:15px}
+.fc-market-chart{background:#fff;border:1px solid var(--fc-bd);border-radius:16px;padding:12px;margin:0 0 12px}
+.fc-market-chart h3{margin:0 0 6px;font-size:14px}
+.fc-fold{background:#fff;border:1px solid var(--fc-bd);border-radius:16px;padding:0 14px;margin:0 0 12px}
+.fc-fold>summary{min-height:48px;display:flex;align-items:center;font-weight:600;font-size:14px;cursor:pointer}
+.fc-fold .fc-market-chart{border:0;padding:0 0 12px}
+.fc-market-data{background:#fff;border:1px solid var(--fc-bd);border-radius:16px;padding:0 14px;margin:0 0 12px}
+.fc-market-data>summary{min-height:48px;display:flex;align-items:center;font-weight:600;font-size:14px;cursor:pointer}
+#results{margin:8px 0}#results .result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+#results .result{margin:0;padding:10px 12px;min-height:0;border-radius:12px}
+#results .result small{font-size:12px;display:block}
+#results .result-grid .result strong{font-size:17px;display:block;margin-top:2px;word-break:break-word}
+#results .note{grid-column:1/-1}
+aside.card>h1{font-size:18px}
+aside .save-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+aside .save-button{min-height:48px;border-radius:12px;flex:1 1 160px}
+#fc-market .fc-market-filters{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#fc-market .fc-market-filters label:first-child{grid-column:1/-1}
+.fc-change.up{color:#14612b}.fc-change.down{color:#b3261e}
+#fc-more #fc-open-tools{background:var(--fc-primary,#c72234)!important;background-image:none!important;box-shadow:none!important;color:#fff!important;border:0;font-size:15px;font-weight:600}
+#fc-more #install-guide{display:block!important;padding:0!important;margin:0!important;border:0!important;background:none!important;box-shadow:none!important;position:static}
+#fc-more #install-guide strong{font-size:14px;color:var(--fc-ink)}
+#fc-more #install-guide p{font-size:13px;color:var(--fc-mute);margin:4px 0 8px}
+#fc-more #install-guide summary{min-height:44px;display:flex;align-items:center;color:var(--fc-primary,#c72234);font-weight:600;font-size:14px}
+#fc-more #account-email{max-width:none!important;overflow:visible!important;text-overflow:clip!important;white-space:normal!important}
+#fc-more #signout{font-size:14px}
+body[data-view=calc] main#app{padding:8px 12px}
+body[data-view=calc] main#app .tabs{margin:0 0 8px;padding:3px}
+body[data-view=calc] main#app .tabs button{min-height:38px;font-size:13px}
+body[data-view=calc] .layout{gap:8px}
+body[data-view=calc] .card{padding:10px 12px;border-radius:14px}
+body[data-view=calc] aside.card>h1{font-size:15px;margin:0 0 4px}
+body[data-view=calc] #result-intro{display:none}
+body[data-view=calc] #results{margin:0 0 6px}
+body[data-view=calc] #results .result{padding:7px 10px;border-radius:10px;margin:0}
+body[data-view=calc] #results .result small{font-size:11px}
+body[data-view=calc] #results .result-grid{gap:6px}
+body[data-view=calc] #results .result-grid .result strong{font-size:14px;margin-top:1px}
+body[data-view=calc] #results>.result{margin-bottom:6px}
+body[data-view=calc] #results>.result strong,body[data-view=calc] #results>.result-grid:first-child .result:nth-child(-n+2) strong{font-size:19px}
+body[data-view=calc] #results>.result-grid .result:last-child:nth-child(odd){grid-column:1/-1}
+body[data-view=calc] #warning{margin:6px 0;padding:7px 10px;font-size:12px;line-height:1.35;border-radius:10px}
+body[data-view=calc] .formula{margin:6px 0;padding:0;font-size:11px;line-height:1.35}
+body[data-view=calc] .formula p{margin:2px 0 0}
+body[data-view=calc] aside .save-button{min-height:42px;font-size:14px}
+body[data-view=calc] aside .save-row small{font-size:11px}
+body[data-view=calc] #print{min-height:34px;padding:0 12px;font-size:12px}
+body[data-view=calc] .actions{margin-top:8px}
+body[data-view=calc] #inputs>h1{font-size:15px;margin:0}
+body[data-view=calc] #inputs .hint{font-size:11px;line-height:1.35;margin:2px 0 4px}
+body[data-view=calc] #field-groups h2,body[data-view=calc] #feed-section>h2{font-size:12px;margin:10px 0 6px;text-transform:uppercase;letter-spacing:.04em}
+body[data-view=calc] #field-groups .fields{gap:6px 8px}
+body[data-view=calc] .field{position:relative;display:flex;flex-direction:column;gap:2px;min-width:0}
+body[data-view=calc] .field label{font-size:11px;line-height:1.2;min-height:26px;display:flex;align-items:flex-end;margin:0;color:var(--fc-mute)}
+body[data-view=calc] .field input,body[data-view=calc] .field select{min-height:38px;height:38px;font-size:15px;padding:0 44px 0 10px;border-radius:10px;width:100%;box-sizing:border-box;margin:0}
+body[data-view=calc] .field select{padding-right:10px}
+body[data-view=calc] .field .unit{position:absolute;right:9px;bottom:0;height:38px;display:flex;align-items:center;font-size:10px;color:var(--fc-mute);pointer-events:none;margin:0}
+body[data-view=calc] #feed-section .field{margin-bottom:4px}
+body[data-view=calc] #feed-section p.note,body[data-view=calc] #feed-section small{font-size:11px;line-height:1.35;margin:2px 0}
+body[data-view=calc] #feed-section button,body[data-view=calc] #inputs .action{min-height:34px;padding:0 12px;font-size:13px;border-radius:10px}
+body[data-view=calc] #feed-total{font-size:13px;margin:4px 0}
+body[data-view=calc] .history h2{font-size:13px;margin:0 0 4px}
+body[data-view=calc] .history-list{font-size:13px}
+
+.fm-today{display:grid;gap:8px;margin:0 0 14px}
+.fm-src{display:flex;flex-wrap:wrap;gap:6px;font-size:11px;color:var(--fc-mute)}
+.fm-src span{background:#fff;border:1px solid var(--fc-bd);border-radius:99px;padding:3px 9px}
+.fm-src span.bad{background:#fdecc8;border-color:#f2cf80;color:#7a4b00}
+.fm-grp{background:#fff;border:1px solid var(--fc-bd);border-radius:14px;padding:0 12px}
+.fm-grp>summary{min-height:44px;display:flex;align-items:center;justify-content:space-between;font-weight:700;font-size:14px;cursor:pointer;gap:8px}
+.fm-grp>summary small{font-weight:500;color:var(--fc-mute);font-size:11px}
+.fm-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;padding:8px 0;border-top:1px solid var(--fc-bd);align-items:baseline}
+.fm-row .l{font-size:13px;min-width:0;overflow-wrap:anywhere}
+.fm-row .l small{display:block;color:var(--fc-mute);font-size:11px}
+.fm-row .p{font-weight:700;font-size:14px;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.fm-row .d{font-size:11px;text-align:right;color:var(--fc-mute)}
+.fm-row .d.up{color:#14612b}.fm-row .d.down{color:#b3261e}
+.fm-sec{margin:6px 0 4px;font-size:14px;color:var(--fc-ink)}
+
+.fm-xls{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:#fff;border:1px solid var(--fc-bd);border-radius:14px;padding:12px 14px;margin:0 0 12px}
+.fm-xls>div{flex:1 1 200px;min-width:0}
+.fm-xls strong{font-size:14px}
+.fm-xls .fc-market-note{margin:2px 0 0;font-size:11px}
+.fm-xls-btn,.fm-xls-btn:visited{color:#fff!important}.fm-xls-btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 18px;border-radius:12px;background:var(--fc-primary,#c72234);font-weight:700;font-size:14px;text-decoration:none;flex:0 0 auto}
+@media(min-width:760px){body{padding-bottom:84px}}
+@media print{.fc-bottom-nav,header{display:none!important}body{padding:0}}
+
+#fc-game{max-width:760px;margin:0 auto;padding:12px 16px;display:flex;flex-direction:column;gap:12px}
+#fc-game[hidden]{display:none}
+#fc-game h1{font-size:20px;margin:0}
+#fc-seg{max-width:760px;margin:8px auto 0;padding:0 12px;display:flex;gap:6px}
+#fc-seg[hidden]{display:none}
+#fc-seg button{flex:1;min-height:36px;padding:0 10px;border:1.5px solid var(--fc-bd,#d8dce3);border-radius:999px;background:#fff;color:var(--fc-mute);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+#fc-seg button[aria-pressed=true]{background:var(--fc-primary,#c72234);border-color:var(--fc-primary,#c72234);color:#fff}
+.pg-panel{margin:8px 0;padding:14px;border:1px solid var(--fc-bd,#d8dce3);border-radius:14px;background:#fff}
+.pg-panel h3{margin:0 0 6px;font-size:16px}
+.pg-note{font-size:13px;color:var(--fc-mute);line-height:1.45;margin:0 0 10px}
+.pg-msg{font-size:13px;color:#b3261e;line-height:1.4;margin:8px 0 0}
+.pg-tabs{display:flex;gap:6px;margin:0 0 10px}
+.pg-tabs button{flex:1;min-height:38px;padding:0 8px;border:1.5px solid var(--fc-bd,#d8dce3);border-radius:10px;background:#fff;color:var(--fc-mute);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.pg-tabs button[aria-pressed=true]{border-color:var(--fc-primary,#c72234);color:var(--fc-primary,#c72234);background:#fff5f6}
+.pg-form{display:grid;gap:8px}
+.pg-form input{min-height:44px;border:1.5px solid #c9ced6;border-radius:10px;padding:0 12px;font:inherit;font-size:16px;width:100%;box-sizing:border-box}
+.pg-btn{min-height:44px;border:0;border-radius:10px;background:var(--fc-primary,#c72234);color:#fff;font:inherit;font-weight:700;padding:0 16px;cursor:pointer}
+.pg-btn:disabled{opacity:.6}
+.pg-link{border:0;background:none;color:var(--fc-primary,#c72234);font:inherit;font-size:13px;text-decoration:underline;padding:8px 4px;cursor:pointer}
+.pg-row{margin-top:10px;padding-top:10px;border-top:1px solid var(--fc-bd,#d8dce3);font-size:14px}
+.pg-badge{background:var(--fc-primary,#c72234);color:#fff;border-radius:999px;font-size:11px;padding:2px 8px;font-weight:700}
+.pg-members{display:grid;gap:8px;padding:0 0 4px}
+.pg-member{border:1px solid var(--fc-bd,#d8dce3);border-radius:10px;padding:8px 10px}
+.pg-member.pg-pending{border-color:#f0b429;background:#fffbeb}
+.pg-mtop{display:flex;justify-content:space-between;gap:8px;align-items:baseline;font-size:13px;word-break:break-all}
+.pg-st{font-size:12px;color:var(--fc-mute);white-space:nowrap}
+.pg-member .pg-note{display:block;margin:2px 0 6px;font-size:12px}
+.pg-acts{display:flex;gap:6px;flex-wrap:wrap}
+.pg-acts .pg-btn,.pg-acts .pg-ghost{min-height:36px;padding:0 12px;font-size:13px;border-radius:9px}
+.pg-ghost{border:1.5px solid #c9ced6;background:#fff;color:var(--fc-ink,#1d2330);font:inherit;font-weight:600;cursor:pointer}
+.pg-toast{position:fixed;left:12px;right:12px;top:12px;z-index:60;max-width:520px;margin:0 auto;background:#14804a;color:#fff;border-radius:12px;padding:12px 14px;font-size:14px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.18);cursor:pointer}
+.pg-notify{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px;padding-top:8px;border-top:1px dashed var(--fc-bd,#d8dce3)}
+.pg-notify .pg-note{width:100%;margin:0}
+.pg-notify .pg-ghost{min-height:34px;display:inline-flex;align-items:center;padding:0 12px;border-radius:9px;font-size:13px;text-decoration:none}
+
+#fc-launch,#fc-tool-host{display:none}
+body[data-view=calc] #fc-launch{display:block;max-width:760px;margin:8px auto 0;padding:0 12px}
+body[data-view=calc][data-calc=tool] #fc-tool-host{display:block;max-width:760px;margin:8px auto 0;padding:0 12px}
+body[data-view=calc][data-calc=none] main#app,body[data-view=calc][data-calc=tool] main#app{display:none!important}
+body[data-view=calc] main#app .tabs{display:none!important}
+.fc-tool-nav{display:none!important}
+#fc-tool-host #fc-tools{display:block!important;margin:0;padding:12px 14px;border-radius:14px;box-shadow:none;border:1px solid var(--fc-bd,#d8dce3)}
+#fc-tool-host #fc-tools>h2,#fc-tool-host #fc-tools>.fc-muted,#fc-tool-host #fc-tool-tabs{display:none!important}
+.fl-card{background:#fff;border:1px solid var(--fc-bd,#d8dce3);border-radius:14px;padding:12px 14px}
+.fl-step{font-size:13px;margin:0 0 8px;color:var(--fc-mute);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+.fl-step+.fl-chips{margin-bottom:12px}
+.fl-chips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.fl-chips button{min-height:44px;border:1.5px solid var(--fc-bd,#d8dce3);border-radius:12px;background:#fff;color:var(--fc-ink,#1d2330);font:inherit;font-size:14px;font-weight:600;cursor:pointer;padding:0 8px}
+.fl-chips button[aria-pressed=true]{border-color:var(--fc-primary,#c72234);background:var(--fc-primary,#c72234);color:#fff}
+.fl-list{display:grid;gap:8px}
+.fl-opt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;min-height:54px;padding:8px 12px;border:1.5px solid var(--fc-bd,#d8dce3);border-radius:12px;background:#fff;color:var(--fc-ink,#1d2330);font:inherit;cursor:pointer}
+.fl-opt strong{font-size:14px}.fl-opt small{font-size:12px;color:var(--fc-mute)}
+.fl-opt[aria-current=true]{border-color:var(--fc-primary,#c72234);background:#fff5f6}
+.fl-hint{font-size:13px;color:var(--fc-mute);margin:4px 0 0}
+.fl-back{margin-top:10px;border:0;background:none;color:var(--fc-primary,#c72234);font:inherit;font-size:13px;text-decoration:underline;padding:6px 2px;cursor:pointer}
+.fl-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid var(--fc-bd,#d8dce3);border-radius:12px;padding:8px 12px}
+.fl-cur{display:flex;flex-direction:column;min-width:0}.fl-cur small{font-size:12px;color:var(--fc-mute)}.fl-cur strong{font-size:15px}
+.fl-change{flex:none;min-height:36px;padding:0 12px;border:1.5px solid var(--fc-primary,#c72234);border-radius:999px;background:#fff;color:var(--fc-primary,#c72234);font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.cat-actions{display:flex;gap:6px;align-items:center}
+.pg-adm-btn{display:inline-flex;align-items:center;gap:6px}
+.pg-adm-btn .pg-badge{padding:1px 7px}
+.pg-overlay{position:fixed;inset:0;z-index:70;background:rgba(15,20,30,.45);display:flex;align-items:flex-end;justify-content:center;padding:12px;animation:pgfade .15s ease-out}
+@media(min-width:720px){.pg-overlay{align-items:center}}
+.pg-sheet{width:100%;max-width:560px;max-height:82vh;display:flex;flex-direction:column;background:#fff;border-radius:16px;box-shadow:0 16px 40px rgba(0,0,0,.25)}
+.pg-sheet-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px 8px;border-bottom:1px solid var(--fc-bd,#d8dce3)}
+.pg-sheet-head h3{margin:0;font-size:16px}
+.pg-x{width:36px;height:36px;border:0;border-radius:50%;background:#f1f3f6;font-size:22px;line-height:1;cursor:pointer;color:var(--fc-ink,#1d2330)}
+.pg-sheet-body{overflow-y:auto;padding:10px 14px 14px}
+body.pg-noscroll{overflow:hidden}
+@keyframes pgfade{from{opacity:0}to{opacity:1}}
+</style><script>
+(function(){'use strict';
+const body=document.body,app=document.getElementById('app'),nav=document.getElementById('fc-bottom-nav'),more=document.getElementById('fc-more'),game=document.getElementById('fc-game');
+// thanh chuyển Tính toán | Tiện ích nằm trong mục Công cụ
+const seg=document.createElement('div');seg.id='fc-seg';seg.hidden=true;[['calc','Tính toán'],['more','Tiện ích']].forEach(([k,t])=>{const b=document.createElement('button');b.type='button';b.dataset.seg=k;b.textContent=t;seg.append(b)});app.parentNode.insertBefore(seg,app);
+const slot=(id,html)=>document.getElementById(id);
+// move existing blocks into "Thêm" (ids and handlers are preserved)
+const tools=document.getElementById('fc-tools'),openTools=document.getElementById('fc-open-tools'),toolNav=document.querySelector('.fc-tool-nav');
+const mt=document.getElementById('fc-more-tools');if(mt)mt.remove();if(toolNav)toolNav.remove();
+const ig=document.getElementById('install-guide'),mi=document.getElementById('fc-more-install');if(ig)mi.append(ig);
+const ac=document.getElementById('account'),ma=document.getElementById('fc-more-account');if(ac)ma.insertBefore(ac,ma.children[1]);
+// history card goes below the inputs on phones
+const hist=document.querySelector('.history'),layout=document.querySelector('.layout');if(hist&&layout){hist.classList.add('card');layout.append(hist)}
+let view='calc',sub='calc',lastAnimal='chicken';
+function setView(v){view=v;body.dataset.view=v;if(v==='calc'||v==='more')sub=v;more.hidden=app.hidden||v!=='more';game.hidden=app.hidden||v!=='game';seg.hidden=app.hidden||!(v==='calc'||v==='more');seg.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.seg===v)));const key=v==='more'?'calc':v;nav.querySelectorAll('button').forEach(b=>{if(b.dataset.view===key)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});window.scrollTo(0,0)}
+
+// ---- Công cụ: chọn vật nuôi → chọn phép tính → mới hiện bảng tính ----
+const LA={chicken:'Gà thịt',pig:'Heo thịt',sow:'Heo nái',layer:'Gà đẻ trứng'};
+const LC={main_chicken:['FCR & giá hòa vốn','FCR, tiền cám, giá hòa vốn, lãi/lỗ cả lứa'],main_pig:['FCR & giá hòa vốn','FCR, tiền cám, giá hòa vốn, lãi/lỗ cả lứa'],main_sow:['Giá hòa vốn heo con cai sữa','Chi phí nái, tỷ lệ cai sữa, giá vốn mỗi con'],epef:['Chỉ số EPEF','Đánh giá hiệu quả lứa gà thịt'],growth:['Tăng trọng ADG & ADFI','Tăng trọng và lượng ăn mỗi ngày'],feed:['Dự toán cám','Cần bao nhiêu kg, bao nhiêu bao, bao nhiêu tiền'],compare:['So sánh cám của mình – đối thủ','Chi phí cám cho 1 kg tăng trọng'],profit:['Dự báo lợi nhuận','Doanh thu, chi phí, lãi/lỗ dự kiến'],layer:['Hiệu quả gà đẻ','Tỷ lệ đẻ, FCR theo kg trứng, chi phí/quả']};
+const LO={chicken:['main_chicken','epef','growth','feed','compare','profit'],pig:['main_pig','growth','feed','compare','profit'],sow:['main_sow','feed','compare'],layer:['layer','feed','compare']};
+const TOOLNAME={compare:'So sánh cám',growth:'ADG & ADFI',profit:'Dự báo lợi nhuận',feed:'Dự toán cám',epef:'EPEF gà thịt',layer:'Gà đẻ trứng'};
+let L={animal:null,calc:null,open:true};try{const x=JSON.parse(localStorage.getItem('farmcalc-launch-v1')||'null');if(x&&LA[x.animal])L={animal:x.animal,calc:(LO[x.animal]||[]).includes(x.calc)?x.calc:null,open:!x.calc}}catch(e){}
+const launchBox=document.createElement('section');launchBox.id='fc-launch';launchBox.setAttribute('aria-label','Chọn phép tính');
+const toolHost=document.createElement('div');toolHost.id='fc-tool-host';
+app.parentNode.insertBefore(launchBox,app);app.parentNode.insertBefore(toolHost,app);if(tools){toolHost.append(tools);tools.hidden=false}
+function saveL(){try{localStorage.setItem('farmcalc-launch-v1',JSON.stringify(L))}catch(e){}}
+function mk(t,txt,cls){const e=document.createElement(t);if(txt!==undefined)e.textContent=txt;if(cls)e.className=cls;return e}
+function drawLaunch(){launchBox.replaceChildren();
+ if(L.calc&&!L.open){const bar=mk('div',undefined,'fl-bar');const t=mk('div',undefined,'fl-cur');t.append(mk('small',LA[L.animal]),mk('strong',LC[L.calc][0]));const b=mk('button','Đổi phép tính','fl-change');b.type='button';b.onclick=()=>{L.open=true;saveL();applyLaunch()};bar.append(t,b);launchBox.append(bar);return}
+ const card=mk('div',undefined,'fl-card');card.append(mk('h2','1. Chọn vật nuôi','fl-step'));const chips=mk('div',undefined,'fl-chips');
+ for(const k of Object.keys(LA)){const b=mk('button',LA[k]);b.type='button';b.setAttribute('aria-pressed',String(L.animal===k));b.onclick=()=>{if(L.animal!==k){L.animal=k;if(!LO[k].includes(L.calc))L.calc=null}saveL();drawLaunch()};chips.append(b)}
+ card.append(chips);
+ if(L.animal){card.append(mk('h2','2. Chọn phép tính','fl-step'));const list=mk('div',undefined,'fl-list');
+  for(const c of LO[L.animal]){const b=mk('button',undefined,'fl-opt');b.type='button';if(c===L.calc)b.setAttribute('aria-current','true');b.append(mk('strong',LC[c][0]),mk('small',LC[c][1]));b.onclick=()=>{L.calc=c;L.open=false;saveL();applyLaunch()};list.append(b)}
+  card.append(list)}else card.append(mk('p','Chọn vật nuôi để xem các phép tính phù hợp.','fl-hint'));
+ if(L.calc){const x=mk('button','Quay lại bảng tính đang dùng','fl-back');x.type='button';x.onclick=()=>{L.open=false;saveL();applyLaunch()};card.append(x)}
+ launchBox.append(card)}
+function applyLaunch(){const mode=(!L.calc||L.open)?'none':(L.calc.startsWith('main_')?'main':'tool');body.dataset.calc=mode;
+ if(mode==='main'){const a=L.calc.slice(5);lastAnimal=a;if(view==='calc')pick(a)}
+ if(mode==='tool'){const want=TOOLNAME[L.calc];const tb=[...document.querySelectorAll('#fc-tool-tabs button')].find(b=>b.textContent===want);if(tb&&tb.getAttribute('aria-selected')!=='true')tb.click()}
+ drawLaunch();if(view==='calc')window.scrollTo(0,0)}
+seg.addEventListener('click',e=>{const b=e.target.closest('button[data-seg]');if(!b)return;setView(b.dataset.seg);if(b.dataset.seg==='calc')applyLaunch()});
+function pick(tab){const b=document.querySelector('[role=tab][data-tab="'+tab+'"]');if(b)b.click()}
+nav.addEventListener('click',e=>{const b=e.target.closest('button[data-view]');if(!b)return;const v=b.dataset.view;if(v==='calc'){if(sub==='more'){setView('more');return}setView('calc');applyLaunch();return}else if(v==='price')pick('catalog');setView(v)});
+document.querySelectorAll('[role=tab]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.tab==='catalog'){if(view==='calc')setView('price')}else{lastAnimal=b.dataset.tab;if(view==='price')setView('calc')}}));
+function sync(){nav.hidden=app.hidden;if(app.hidden){more.hidden=true;game.hidden=true;seg.hidden=true;body.dataset.view='market';view='market'}else{more.hidden=view!=='more';game.hidden=view!=='game';seg.hidden=!(view==='calc'||view==='more')}}
+new MutationObserver(sync).observe(app,{attributes:true,attributeFilter:['hidden']});
+try{const c=window.farmCurrent&&window.farmCurrent();if(c&&c!=='catalog')lastAnimal=c;setView('market')}catch(e){setView('market')}
+applyLaunch();
+sync();
+})();
+</script></body></html>

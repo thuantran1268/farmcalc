@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>FarmCalc - Quản trị</title>
+<style>
+:root{--bg:#f3f4f6;--card:#fff;--ink:#1d2330;--mute:#5a6273;--line:#e3e6eb;--pri:#c72234;--soft:#fdecee}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--pri);color:#fff;padding:12px 16px;font-weight:700;font-size:17px}
+main{max-width:960px;margin:0 auto;padding:12px 16px 40px;display:grid;grid-template-columns:minmax(0,1fr);gap:12px}#out{min-width:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;min-width:0}
+h2{margin:0 0 8px;font-size:14px}
+input,select,button{font:inherit;min-height:40px;border-radius:10px;border:1px solid #c9ced6;padding:0 12px;background:#fff;color:var(--ink)}
+button{background:var(--pri);border-color:var(--pri);color:#fff;font-weight:600;cursor:pointer}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row input{flex:1 1 180px}
+.err{color:#b3261e;font-size:13px;margin:6px 0 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
+.stat{background:var(--soft);border-radius:12px;padding:10px 12px}
+.stat small{display:block;color:var(--mute);font-size:12px}
+.stat b{font-size:22px}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:560px}
+th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap;font-size:13px}
+th{color:var(--mute);font-weight:600;font-size:12px}
+td.n,th.n{text-align:right}
+.bars{display:grid;gap:6px}
+.bar{display:grid;grid-template-columns:minmax(110px,170px) 1fr 70px;gap:8px;align-items:center;font-size:13px}
+.bar i{display:block;height:10px;border-radius:5px;background:var(--pri);min-width:2px}
+.days{display:flex;align-items:flex-end;gap:3px;height:90px}
+.days div{flex:1;background:var(--pri);border-radius:3px 3px 0 0;min-height:2px;opacity:.85}
+.mute{color:var(--mute);font-size:12px}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<header>FarmCalc · Quản trị</header>
+<main>
+<section id="adm" class="card">
+  <h2>Quản lý bảng giá</h2>
+  <form id="admForm">
+    <div class="row"><input id="admEmail" type="email" autocomplete="username" placeholder="Email admin" required><input id="admPass" type="password" autocomplete="current-password" placeholder="Mật khẩu" required><button type="submit">Đăng nhập admin</button></div>
+    <p id="admErr" class="err" role="alert" hidden></p>
+    <p class="mute">Dùng email và mật khẩu bạn đã đăng ký ở tab Bảng giá, sau khi đã chạy câu lệnh biến tài khoản đó thành admin. Trang này không lưu mật khẩu.</p>
+  </form>
+  <div id="admBox" hidden>
+    <div class="row" style="justify-content:space-between"><b id="admWho"></b><button type="button" id="admOut" style="background:#fff;color:var(--ink);border-color:#c9ced6">Thoát</button></div>
+    <h2 style="margin-top:12px">Thành viên xin xem bảng giá</h2>
+    <p id="admCount" class="mute"></p>
+    <div class="scroll"><table><thead><tr><th>Email</th><th>Thao tác</th><th>Trạng thái</th><th>Đăng ký</th><th>Thiết bị</th></tr></thead><tbody id="admRows"></tbody></table></div>
+    <h2 style="margin-top:14px">Cập nhật bảng giá</h2>
+    <p class="mute">Chọn file bảng giá (định dạng .json, do Claude chuẩn bị từ file Excel mới). Bảng giá cũ sẽ được thay bằng bảng mới.</p>
+    <div class="row"><input id="admFile" type="file" accept=".json,application/json"><button type="button" id="admUp" disabled>Cập nhật lên Supabase</button></div>
+    <p id="admUpMsg" class="mute"></p>
+  </div>
+</section>
+<form id="login" class="card">
+  <h2>Thống kê sử dụng (mật khẩu thống kê)</h2>
+  <div class="row"><input id="pass" type="password" autocomplete="current-password" placeholder="Nhập mật khẩu" required><button type="submit">Xem số liệu</button></div>
+  <p id="err" class="err" role="alert" hidden></p>
+  <p class="mute">Mật khẩu là chuỗi bạn đặt trong file SQL khi tạo nhật ký. Trang này không lưu mật khẩu.</p>
+</form>
+<div id="out" hidden>
+  <div class="card row" style="margin-bottom:12px">
+    <label for="days">Khoảng thời gian</label>
+    <select id="days"><option value="7">7 ngày</option><option value="30" selected>30 ngày</option><option value="90">90 ngày</option><option value="365">1 năm</option></select>
+    <span id="stamp" class="mute"></span>
+  </div>
+  <div class="cards" id="cards" style="margin-bottom:12px"></div>
+  <div class="card" style="margin-bottom:12px"><h2>Số người dùng mỗi ngày</h2><div id="daily" class="days"></div><p id="dailyNote" class="mute"></p></div>
+  <div class="card" style="margin-bottom:12px"><h2>Tính năng được dùng</h2><div id="features" class="bars"></div></div>
+  <div class="card"><h2>Từng tài khoản</h2><div class="scroll"><table><thead><tr><th>Email</th><th>Lần cuối</th><th class="n">Lượt mở</th><th class="n">Lượt thao tác</th><th class="n">Lưu tính</th><th class="n">Tải PDF</th><th>Hay dùng</th><th>Thiết bị</th></tr></thead><tbody id="users"></tbody></table></div></div>
+</div>
+</main>
+<script src="config.js"></script>
+<script>
+(function(){'use strict';
+var cfg=window.FARMCALC_CONFIG||{},pass='',$=function(i){return document.getElementById(i)};
+var NAME={open:'Mở web',view:'Chuyển mục',tab:'Tab tính toán',save:'Lưu lần tính',pdf:'Tải PDF',tools:'Công cụ nâng cao',install:'Xem cách cài ứng dụng',print:'In / lưu PDF kết quả',market:'Đổi loại giá thị trường',policy:'Dùng ô chính sách'};
+var VIEW={calc:'Công cụ',price:'Bảng giá',market:'Thị trường',more:'Tiện ích',game:'Mini game'},TAB={chicken:'Gà thịt',pig:'Heo thịt',sow:'Heo con cai sữa'},PDF={net:'giá net','hoa-don':'giá hóa đơn'},POL={bat:'bật',tat:'tắt'};
+function label(f,d){var n=NAME[f]||f;if(!d)return n;var m={view:VIEW,tab:TAB,save:TAB,pdf:PDF,policy:POL}[f];return n+' · '+((m&&m[d])||d)}
+function fmt(t){var d=new Date(t);return isNaN(d)?'':d.toLocaleString('vi-VN',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}
+function el(t,txt,cls){var e=document.createElement(t);if(txt!==undefined)e.textContent=txt;if(cls)e.className=cls;return e}
+async function load(){
+  $('err').hidden=true;
+  try{
+    var r=await fetch(cfg.supabaseUrl.replace(/\/$/,'')+'/rest/v1/rpc/farmcalc_admin_stats',{method:'POST',headers:{apikey:cfg.supabaseAnonKey,'Content-Type':'application/json'},body:JSON.stringify({passcode:pass,days:Number($('days').value)})});
+    var j=await r.json().catch(function(){return null});
+    if(!r.ok){throw new Error(j&&j.message?j.message:'Lỗi '+r.status)}
+    render(j);$('login').hidden=true;$('out').hidden=false;
+  }catch(e){$('err').textContent=e.message==='Sai mật khẩu'?'Sai mật khẩu.':'Không lấy được số liệu: '+e.message;$('err').hidden=false;$('out').hidden=true;$('login').hidden=false}
+}
+function render(j){
+  var u=j.users||[],f=j.features||[],dl=j.daily||[];
+  var total=u.reduce(function(a,x){return a+x.events},0),opens=f.filter(function(x){return x.feature==='open'}).reduce(function(a,x){return a+x.n},0);
+  var saves=u.reduce(function(a,x){return a+x.saves},0),pdfs=u.reduce(function(a,x){return a+x.pdfs},0);
+  var c=$('cards');c.replaceChildren();
+  [['Tài khoản đã dùng',u.length],['Lượt mở web',opens],['Lượt thao tác',total],['Lần lưu tính',saves],['Lần tải PDF',pdfs]].forEach(function(s){var b=el('div',undefined,'stat');b.append(el('small',s[0]),el('b',String(s[1])));c.append(b)});
+  $('stamp').textContent='Cập nhật '+fmt(j.generated_at);
+  var d=$('daily');d.replaceChildren();var mx=Math.max.apply(null,dl.map(function(x){return x.users}).concat([1]));
+  dl.forEach(function(x){var b=el('div');b.style.height=Math.max(3,Math.round(x.users/mx*88))+'px';b.title=x.day+': '+x.users+' người, '+x.events+' thao tác';d.append(b)});
+  $('dailyNote').textContent=dl.length?('Từ '+dl[0].day+' đến '+dl[dl.length-1].day+' · cao nhất '+mx+' người/ngày'):'Chưa có dữ liệu trong khoảng này.';
+  var fb=$('features');fb.replaceChildren();var fm=Math.max.apply(null,f.map(function(x){return x.n}).concat([1]));
+  f.filter(function(x){return x.feature!=='open'}).forEach(function(x){var r=el('div',undefined,'bar'),i=el('i');i.style.width=Math.max(1,Math.round(x.n/fm*100))+'%';var w=el('div');w.append(i);r.append(el('span',label(x.feature,x.detail)),w,el('span',x.n+' · '+x.users+' người','mute'));fb.append(r)});
+  if(!fb.children.length)fb.append(el('p','Chưa có dữ liệu.','mute'));
+  var tb=$('users');tb.replaceChildren();
+  u.forEach(function(x){var tr=el('tr');tr.append(el('td',x.email),el('td',fmt(x.last_seen)),el('td',String(x.sessions),'n'),el('td',String(x.events),'n'),el('td',String(x.saves),'n'),el('td',String(x.pdfs),'n'),el('td',x.top_feature?(NAME[x.top_feature]||x.top_feature):'—'),el('td',x.device==='mobile'?'Điện thoại':x.device==='desktop'?'Máy tính':'—'));tb.append(tr)});
+  if(!u.length){var tr=el('tr'),td=el('td','Chưa có tài khoản nào trong khoảng này.');td.colSpan=8;tr.append(td);tb.append(tr)}
+}
+$('login').addEventListener('submit',function(e){e.preventDefault();pass=$('pass').value;load()});
+$('days').addEventListener('change',load);
+})();
+
+/* ---- Quản lý thành viên + bảng giá (đăng nhập admin bằng email/mật khẩu) ---- */
+(function(){'use strict';
+var cfg=window.FARMCALC_CONFIG||{},$=function(i){return document.getElementById(i)};
+var base=(cfg.supabaseUrl||'').replace(/\/$/,''),token='',me='',doc=null;
+function el(t,txt,cls){var e=document.createElement(t);if(txt!==undefined)e.textContent=txt;if(cls)e.className=cls;return e}
+function fmt(t){if(!t)return '—';var d=new Date(t);return isNaN(d)?'—':d.toLocaleString('vi-VN',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}
+function msg(id,text,bad){var n=$(id);n.textContent=text||'';n.hidden=!text;if(bad!==undefined)n.className=bad?'err':'mute'}
+async function auth(body){var r=await fetch(base+'/auth/v1/token?grant_type=password',{method:'POST',headers:{apikey:cfg.supabaseAnonKey,'Content-Type':'application/json'},body:JSON.stringify(body)});var j=await r.json().catch(function(){return {}});if(!r.ok)throw new Error(j.error_description||j.msg||'Sai email hoặc mật khẩu');return j}
+async function rpc(fn,args){var r=await fetch(base+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:cfg.supabaseAnonKey,Authorization:'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify(args||{})});var t=await r.text(),j=null;try{j=t?JSON.parse(t):null}catch(e){}if(!r.ok)throw new Error((j&&j.message)||('Lỗi '+r.status));return j}
+var ST={pending:'Chờ duyệt',approved:'Đã duyệt',rejected:'Từ chối'};
+async function loadMembers(){
+  var list=await rpc('farmcalc_admin_members');
+  var tb=$('admRows');tb.replaceChildren();
+  var pend=list.filter(function(m){return m.status==='pending'}).length;
+  $('admCount').textContent=list.length+' tài khoản · '+pend+' đang chờ duyệt';
+  list.forEach(function(m){
+    var tr=el('tr'),act=el('td'),mine=m.email===me||m.role==='admin';
+    
+    function b(txt,fn,ghost){var x=el('button',txt);x.type='button';x.style.marginRight='6px';x.style.minHeight='34px';if(ghost){x.style.background='#fff';x.style.color='var(--ink)';x.style.borderColor='#c9ced6'}x.onclick=async function(){x.disabled=true;try{await fn();await loadMembers()}catch(e){msg('admErr',e.message,true)}};act.append(x)}
+    if(!mine){
+      if(m.status!=='approved')b('Duyệt',function(){return rpc('farmcalc_admin_set_status',{p_user:m.user_id,p_status:'approved'})});
+      if(m.status!=='rejected')b('Từ chối',function(){return rpc('farmcalc_admin_set_status',{p_user:m.user_id,p_status:'rejected'})},true);
+      if(m.status==='approved'&&m.device_at)b('Đặt lại thiết bị',function(){return rpc('farmcalc_admin_reset_device',{p_user:m.user_id})},true);
+    }
+    tr.append(el('td',m.email+(m.role==='admin'?' (admin)':'')),act,el('td',ST[m.status]||m.status),el('td',fmt(m.created_at)),el('td',m.device_at?fmt(m.device_at):'—'));tb.append(tr);
+  });
+  if(!list.length){var tr=el('tr'),td=el('td','Chưa có ai đăng ký.');td.colSpan=5;tr.append(td);tb.append(tr)}
+}
+$('admForm').addEventListener('submit',async function(e){
+  e.preventDefault();msg('admErr','');
+  if(!base){msg('admErr','Web chưa cấu hình Supabase.',true);return}
+  try{
+    var email=$('admEmail').value.trim().toLowerCase(),j=await auth({email:email,password:$('admPass').value});
+    token=j.access_token;me=email;$('admPass').value='';
+    try{await loadMembers()}catch(err){token='';throw new Error(err.message==='not_admin'?'Tài khoản này chưa phải admin.':err.message)}
+    $('admWho').textContent='Admin: '+me;$('admForm').hidden=true;$('admBox').hidden=false;
+  }catch(err){msg('admErr',err.message==='Invalid login credentials'?'Sai email hoặc mật khẩu.':err.message,true)}
+});
+$('admOut').onclick=function(){token='';me='';doc=null;$('admBox').hidden=true;$('admForm').hidden=false};
+$('admFile').addEventListener('change',function(){
+  doc=null;$('admUp').disabled=true;msg('admUpMsg','');
+  var f=this.files&&this.files[0];if(!f)return;
+  var rd=new FileReader();rd.onload=function(){
+    try{var d=JSON.parse(rd.result);
+      if(!d||!Array.isArray(d.products)||!d.products.length||!d.products.every(function(p){return p&&p.code&&typeof p.priceKg==='number'}))throw new Error('x');
+      doc=d;$('admUp').disabled=false;msg('admUpMsg','Tệp hợp lệ: '+d.products.length+' sản phẩm'+(d.effectiveDate?', hiệu lực '+d.effectiveDate:'')+'. Bấm "Cập nhật lên Supabase" để áp dụng.',false);
+    }catch(err){msg('admUpMsg','Tệp không đúng định dạng bảng giá.',true)}
+  };rd.readAsText(f,'utf-8');
+});
+$('admUp').onclick=async function(){
+  if(!doc)return;this.disabled=true;
+  try{await rpc('farmcalc_admin_set_prices',{p_doc:doc});msg('admUpMsg','Đã cập nhật bảng giá ('+doc.products.length+' sản phẩm). Người dùng thấy ngay khi mở lại tab Bảng giá.',false)}
+  catch(err){msg('admUpMsg','Không cập nhật được: '+err.message,true);this.disabled=false}
+};
+})();
+</script>
+</body>
+</html>
