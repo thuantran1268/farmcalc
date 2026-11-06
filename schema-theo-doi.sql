@@ -4,7 +4,7 @@
 
 create table if not exists public.farmcalc_activity (
   id bigint generated always as identity primary key,
-  email text not null check (email ~ '^[a-z]+\.[a-z]+@japfa\.com$'),
+  email text not null check (email ~* '^[^[:space:]@]+@[^[:space:]@]+\.[a-z]{2,}$'),
   feature text not null check (feature in ('open','view','tab','save','pdf','tools','install','print','market','policy')),
   detail text check (detail is null or length(detail) <= 60),
   session text check (session is null or length(session) <= 40),

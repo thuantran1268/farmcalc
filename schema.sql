@@ -1,6 +1,6 @@
 -- Dữ liệu CÔNG KHAI theo email. Ai biết email đúng mẫu có thể đọc và sửa dữ liệu tương ứng.
 create table if not exists public.farmcalc_accounts (
- email text primary key check (email ~ '^[a-z]+\.[a-z]+@japfa\.com$'),
+ email text primary key check (email ~* '^[^[:space:]@]+@[^[:space:]@]+\.[a-z]{2,}$'),
  draft jsonb not null default '{}'::jsonb,
  history jsonb not null default '[]'::jsonb,
  updated_at timestamptz not null default now(),

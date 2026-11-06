@@ -1,6 +1,6 @@
 # FarmCalc – FCR và giá hòa vốn
 
-Nhập email Japfa hợp lệ để vào ngay, không cần đăng ký, mật khẩu hoặc mã xác nhận. Mỗi email có bản nháp và tối đa 30 lần tính đã lưu trực tuyến. Người nhập cùng email trên thiết bị khác xem và sửa chung dữ liệu.
+Nhập email hợp lệ để vào ngay, không cần đăng ký, mật khẩu hoặc mã xác nhận. Mỗi email có bản nháp và tối đa 30 lần tính đã lưu trực tuyến. Người nhập cùng email trên thiết bị khác xem và sửa chung dữ liệu.
 
 **Email là mã nhận diện, không xác thực người sở hữu.** Dữ liệu trên dịch vụ lưu là công khai cho người có thể dùng API của dự án; không nhập thông tin riêng tư hoặc bí mật.
 
@@ -18,7 +18,7 @@ Nếu chưa điền `config.js`, mở trực tiếp `index.html` vẫn vào đư
 
 ## Cách tính
 
-- Chi phí gồm giống, điện nước, vaccine và cám. Cám Japfa nhập thương hiệu, mã, giá bán/bao và số bao; cám đối thủ nhập tổng tiền và kg cám.
+- Chi phí gồm giống, điện nước, vaccine và cám. Cám của mình nhập thương hiệu, mã, giá bán/bao và số bao; cám đối thủ nhập tổng tiền và kg cám.
 - Gà thịt: FCR theo kg xuất bán = tổng kg cám / tổng kg gà bán.
 - Heo thịt: FCR đàn = tổng kg cám / (kg bán − kg toàn đàn lúc nhập).
 - Giá hòa vốn = tổng bốn khoản chi phí / kg xuất bán hoặc số heo con cai sữa.
