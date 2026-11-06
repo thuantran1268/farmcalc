@@ -207,7 +207,7 @@
     const stamp = String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + d.getFullYear();
     pages.forEach((pg, i) => {
       page = pg;
-      text('FarmCalc · tạo ngày ' + stamp, MX, PAGE_H - 26, 8, 'R', GRAY);
+      text('Jfeed FarmCalc · tạo ngày ' + stamp, MX, PAGE_H - 26, 8, 'R', GRAY);
       const t = 'Trang ' + (i + 1) + '/' + pages.length;
       text(t, PAGE_W - MX - F.R.width(t, 8), PAGE_H - 26, 8, 'R', GRAY);
     });
@@ -267,7 +267,7 @@
     });
     set(1, '<< /Type /Catalog /Pages 2 0 R >>');
     set(2, '<< /Type /Pages /Kids [' + kids.join(' ') + '] /Count ' + pages.length + ' >>');
-    set(3, '<< /Title ' + utf16hex(title) + ' /Creator ' + utf16hex('FarmCalc') + ' /Producer ' + utf16hex('FarmCalc') + ' >>');
+    set(3, '<< /Title ' + utf16hex(title) + ' /Creator ' + utf16hex('Jfeed FarmCalc') + ' /Producer ' + utf16hex('Jfeed FarmCalc') + ' >>');
 
     const out = [];
     let pos = 0;

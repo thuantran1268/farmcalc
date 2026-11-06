@@ -18,7 +18,7 @@ Nếu chưa điền `config.js`, mở trực tiếp `index.html` vẫn vào đư
 
 ## Cách tính
 
-- Chi phí gồm giống, điện nước, vaccine và cám. Cám của mình nhập thương hiệu, mã, giá bán/bao và số bao; cám đối thủ nhập tổng tiền và kg cám.
+- Chi phí gồm giống, điện nước, vaccine và cám. Cám Jfeed nhập thương hiệu, mã, giá bán/bao và số bao; cám đối thủ nhập tổng tiền và kg cám.
 - Gà thịt: FCR theo kg xuất bán = tổng kg cám / tổng kg gà bán.
 - Heo thịt: FCR đàn = tổng kg cám / (kg bán − kg toàn đàn lúc nhập).
 - Giá hòa vốn = tổng bốn khoản chi phí / kg xuất bán hoặc số heo con cai sữa.
