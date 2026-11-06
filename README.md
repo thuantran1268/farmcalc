@@ -1,6 +1,6 @@
 # FarmCalc – FCR và giá hòa vốn
 
-Nhập email hợp lệ để vào ngay, không cần đăng ký, mật khẩu hoặc mã xác nhận. Mỗi email có bản nháp và tối đa 30 lần tính đã lưu trực tuyến. Người nhập cùng email trên thiết bị khác xem và sửa chung dữ liệu.
+Đăng ký bằng tên bất kỳ, số điện thoại và Gmail kèm mật khẩu; admin duyệt xong mới vào được web. Mỗi tài khoản dùng trên 1 thiết bị. Mỗi email có bản nháp và tối đa 30 lần tính đã lưu trực tuyến. Người nhập cùng email trên thiết bị khác xem và sửa chung dữ liệu.
 
 **Email là mã nhận diện, không xác thực người sở hữu.** Dữ liệu trên dịch vụ lưu là công khai cho người có thể dùng API của dự án; không nhập thông tin riêng tư hoặc bí mật.
 

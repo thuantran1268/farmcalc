@@ -16,7 +16,7 @@
   var session = null;      // {access_token, refresh_token, expires_at, email}
   var state = configured ? 'loading' : 'nocfg'; // nocfg | loading | locked | pending | rejected | ready
   var mode = 'login';      // login | signup (form đang hiển thị)
-  var message = '', busy = false, who = '', lastEmail = '', role = '';
+  var message = '', busy = false, who = '', lastEmail = '', role = '', myName = '', myPhone = '', lastName = '', lastPhone = '';
   var members = null, membersAt = 0, adminBoxes = [], justApproved = {};
   var panels = [], rows = [];
 
@@ -48,8 +48,8 @@
   function clearSession() { session = null; lsDel(SKEY); }
 
   var VN = {
-    'Invalid login credentials': 'Sai email hoặc mật khẩu.',
-    'User already registered': 'Email này đã đăng ký rồi. Hãy chọn "Đăng nhập".',
+    'Invalid login credentials': 'Sai gmail hoặc mật khẩu.',
+    'User already registered': 'Gmail này đã đăng ký rồi. Hãy chọn "Đăng nhập".',
     'Email not confirmed': 'Email chưa được xác nhận.',
     'not_approved': 'Tài khoản chưa được duyệt.',
     'device_changed': 'Tài khoản đang được dùng ở thiết bị khác. Hãy đăng nhập lại để dùng ở máy này.',
@@ -120,11 +120,12 @@
     if (s === 'pending' && who) lsSet(PKEY, who);
     if (s === 'ready') {
       var p = lsGet(PKEY);
-      if (p && p === who) toast('Tài khoản ' + who + ' đã được admin duyệt. Bảng giá đã mở!');
+      if (p && p === who) toast('Tài khoản ' + (myName || who) + ' đã được admin duyệt. Chào mừng bạn!');
       lsDel(PKEY);
     }
     if (s === 'rejected') lsDel(PKEY);
     if (was === 'ready' && s !== 'ready') emitLock();
+    window.dispatchEvent(new CustomEvent('farm-gate', { detail: { state: s } }));
     redraw();
   }
 
@@ -146,23 +147,29 @@
   // Sau khi đăng nhập/đăng ký: nhận máy này làm thiết bị duy nhất, rồi xem trạng thái
   async function afterSignIn() {
     var st = await rpc('farmcalc_claim_device', { p_device: deviceId() });
-    who = st.email || (session && session.email) || ''; role = st.role || '';
+    who = st.email || (session && session.email) || ''; role = st.role || ''; myName = st.name || ''; myPhone = st.phone || '';
     if (st.status === 'approved') {
       try { await fetchPrices(); } catch (e) { lockedWith(errCode(e)); }
     } else if (st.status === 'rejected') setState('rejected');
     else setState('pending');
   }
 
-  async function submit(email, password) {
+  function cleanPhone(p) { return String(p || '').replace(/[\s.\-()]/g, '').replace(/^\+84/, '0'); }
+  async function submit(email, password, name, phone) {
     if (busy) return;
     busy = true; message = ''; redraw();
     try {
       email = String(email || '').trim().toLowerCase(); lastEmail = email;
-      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) throw new Error('Email không đúng định dạng.');
+      if (mode === 'signup') {
+        name = String(name || '').trim().replace(/\s+/g, ' '); phone = cleanPhone(phone); lastName = name; lastPhone = phone;
+        if (name.length < 2 || name.length > 60) throw new Error('Nhập tên từ 2 đến 60 ký tự.');
+        if (!/^0\d{9,10}$/.test(phone)) throw new Error('Số điện thoại chưa đúng (10–11 số, bắt đầu bằng 0).');
+      }
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) throw new Error('Gmail không đúng định dạng.');
       if (String(password || '').length < 8) throw new Error('Mật khẩu cần ít nhất 8 ký tự.');
       var j;
       if (mode === 'signup') {
-        j = await authCall('signup', { email: email, password: password });
+        j = await authCall('signup', { email: email, password: password, data: { name: name, phone: phone } });
         if (!j.access_token) {
           busy = false;
           setState('locked', 'Supabase đang bắt xác nhận email. Hãy tắt "Confirm email" trong Authentication → Providers → Email, hoặc bấm đường link trong thư rồi chọn "Đăng nhập".');
@@ -189,7 +196,7 @@
     if (manual) { message = ''; busy = true; redraw(); }
     try {
       var st = await rpc('farmcalc_my_status');
-      who = st.email || who; role = st.role || '';
+      who = st.email || who; role = st.role || ''; myName = st.name || myName; myPhone = st.phone || myPhone;
       if (st.status === 'approved') {
         try { await fetchPrices(); } catch (e) { lockedWith(errCode(e)); }
       } else if (st.status === 'rejected') setState('rejected');
@@ -220,55 +227,58 @@
     }
     if (state === 'loading') { box.append(el('p', 'Đang kiểm tra tài khoản…', 'pg-note')); return; }
     if (state === 'pending') {
-      box.append(el('h3', 'Đang chờ duyệt'),
-        el('p', 'Yêu cầu của ' + (who || 'bạn') + ' đã gửi tới admin. Khi được duyệt, bảng giá sẽ hiện ra ở đây.', 'pg-note'));
+      box.append(el('h3', 'Đang chờ admin duyệt'),
+        el('p', 'Đã gửi đăng ký của ' + (myName || who || 'bạn') + (myPhone ? ' (' + myPhone + ')' : '') + ' tới admin. Khi được duyệt, bạn bấm "Kiểm tra lại" hoặc mở lại trang là vào được.', 'pg-note'));
       if (message) box.append(el('p', message, 'pg-msg'));
       var b = el('button', busy ? 'Đang kiểm tra…' : 'Kiểm tra lại', 'pg-btn');
       b.type = 'button'; b.disabled = busy; b.onclick = function () { recheck(true); };
-      var o = el('button', 'Dùng email khác', 'pg-link'); o.type = 'button'; o.onclick = logout;
+      var o = el('button', 'Đăng xuất', 'pg-link'); o.type = 'button'; o.onclick = logout;
       box.append(b, o);
       return;
     }
     if (state === 'rejected') {
       box.append(el('h3', 'Chưa được cấp quyền'),
-        el('p', 'Tài khoản ' + (who || '') + ' chưa được phép xem bảng giá. Hãy liên hệ admin.', 'pg-note'));
-      var o2 = el('button', 'Dùng email khác', 'pg-link'); o2.type = 'button'; o2.onclick = logout;
+        el('p', 'Tài khoản ' + (myName || who || '') + ' chưa được admin cấp quyền. Hãy liên hệ admin.', 'pg-note'));
+      var o2 = el('button', 'Đăng xuất', 'pg-link'); o2.type = 'button'; o2.onclick = logout;
       box.append(o2);
       return;
     }
-    if (state === 'ready') { box.append(el('p', 'Đã mở khóa bảng giá.', 'pg-note')); return; }
+    if (state === 'ready') { box.append(el('p', 'Đã đăng nhập: ' + (myName || who) + '.', 'pg-note')); return; }
 
     // locked: form đăng ký / đăng nhập
-    box.append(el('h3', 'Bảng giá được bảo vệ'),
-      el('p', 'Chỉ người được admin duyệt mới xem được. Đăng ký một lần; lần sau máy này tự đăng nhập. Mỗi tài khoản chỉ dùng trên 1 thiết bị.', 'pg-note'));
+    box.append(el('h3', mode === 'signup' ? 'Đăng ký tài khoản' : 'Đăng nhập'),
+      el('p', mode === 'signup' ? 'Điền tên, số điện thoại và Gmail. Admin sẽ duyệt rồi bạn mới vào được web. Mỗi tài khoản dùng trên 1 thiết bị.' : 'Đăng nhập bằng Gmail và mật khẩu đã đăng ký. Lần sau máy này tự đăng nhập.', 'pg-note'));
     var tabs = el('div', undefined, 'pg-tabs');
-    [['login', 'Đăng nhập'], ['signup', 'Đăng ký xin quyền']].forEach(function (t) {
+    [['login', 'Đăng nhập'], ['signup', 'Đăng ký mới']].forEach(function (t) {
       var x = el('button', t[1]); x.type = 'button';
       x.setAttribute('aria-pressed', String(mode === t[0]));
       x.onclick = function () { mode = t[0]; message = ''; redraw(); };
       tabs.append(x);
     });
     var form = el('form', undefined, 'pg-form'); form.noValidate = true;
-    var em = el('input'); em.type = 'email'; em.placeholder = 'Email'; em.autocomplete = 'username';
-    em.required = true; em.setAttribute('aria-label', 'Email'); em.value = lastEmail;
+    var nm = el('input'); nm.type = 'text'; nm.placeholder = 'Tên của bạn (tên gì cũng được)'; nm.autocomplete = 'name'; nm.maxLength = 60;
+    nm.setAttribute('aria-label', 'Tên'); nm.value = lastName;
+    var ph = el('input'); ph.type = 'tel'; ph.placeholder = 'Số điện thoại'; ph.autocomplete = 'tel'; ph.inputMode = 'tel'; ph.maxLength = 16;
+    ph.setAttribute('aria-label', 'Số điện thoại'); ph.value = lastPhone;
+    var em = el('input'); em.type = 'email'; em.placeholder = 'Gmail (vd: ten@gmail.com)'; em.autocomplete = 'username'; em.inputMode = 'email';
+    em.required = true; em.setAttribute('aria-label', 'Gmail'); em.value = lastEmail;
     var pw = el('input'); pw.type = 'password'; pw.placeholder = mode === 'signup' ? 'Tạo mật khẩu (từ 8 ký tự)' : 'Mật khẩu';
     pw.autocomplete = mode === 'signup' ? 'new-password' : 'current-password'; pw.required = true;
     pw.minLength = 8; pw.setAttribute('aria-label', 'Mật khẩu');
-    var go = el('button', busy ? 'Đang gửi…' : (mode === 'signup' ? 'Gửi yêu cầu xem bảng giá' : 'Đăng nhập'), 'pg-btn');
+    var go = el('button', busy ? 'Đang gửi…' : (mode === 'signup' ? 'Gửi đăng ký cho admin duyệt' : 'Đăng nhập'), 'pg-btn');
     go.type = 'submit'; go.disabled = busy;
+    if (mode === 'signup') form.append(nm, ph);
     form.append(em, pw, go);
-    form.onsubmit = function (ev) { ev.preventDefault(); submit(em.value, pw.value); };
+    form.onsubmit = function (ev) { ev.preventDefault(); submit(em.value, pw.value, nm.value, ph.value); };
     box.append(tabs, form);
     if (message) { var m = el('p', message, 'pg-msg'); m.setAttribute('role', 'alert'); box.append(m); }
   }
 
   function drawRow(row) {
     row.replaceChildren();
-    row.append(el('strong', 'Bảng giá'));
+    row.append(el('strong', myName || 'Tài khoản'));
     if (state === 'ready') {
-      row.append(el('span', ' · đã mở khóa cho ' + (who || (session && session.email) || ''), 'pg-note'));
-      var b = el('button', 'Đăng xuất bảng giá', 'pg-link'); b.type = 'button'; b.onclick = logout;
-      row.append(b);
+      row.append(el('span', ' · ' + (who || (session && session.email) || '') + (myPhone ? ' · ' + myPhone : ''), 'pg-note'));
     } else if (state === 'pending') row.append(el('span', ' · đang chờ admin duyệt', 'pg-note'));
     else if (state === 'nocfg') row.append(el('span', ' · chạy thử, chưa có dữ liệu', 'pg-note'));
     else row.append(el('span', ' · đang khóa. Mở tab Bảng giá để xin quyền xem.', 'pg-note'));
@@ -310,8 +320,11 @@
     members.forEach(function (m) {
       var it = el('div', undefined, 'pg-member pg-' + m.status);
       var top = el('div', undefined, 'pg-mtop');
-      top.append(el('strong', m.email + (m.role === 'admin' ? ' (admin)' : '')), el('span', ST[m.status] || m.status, 'pg-st'));
-      it.append(top, el('small', 'Đăng ký ' + when(m.created_at) + ' · thiết bị: ' + (m.device_at ? 'đăng nhập ' + when(m.device_at) : 'chưa đăng nhập'), 'pg-note'));
+      top.append(el('strong', (m.name || m.email) + (m.role === 'admin' ? ' (admin)' : '')), el('span', ST[m.status] || m.status, 'pg-st'));
+      var info = el('div', undefined, 'pg-minfo');
+      if (m.phone) { var tel = el('a', '📞 ' + m.phone); tel.href = 'tel:' + m.phone; info.append(tel); }
+      info.append(el('span', '✉ ' + m.email));
+      it.append(top, info, el('small', 'Đăng ký ' + when(m.created_at) + ' · thiết bị: ' + (m.device_at ? 'đăng nhập ' + when(m.device_at) : 'chưa đăng nhập'), 'pg-note'));
       if (m.role !== 'admin') {
         var acts = el('div', undefined, 'pg-acts');
         function act(label, fn, ghost) {
@@ -327,7 +340,7 @@
         if (m.status !== 'rejected') act(m.status === 'approved' ? 'Thu hồi' : 'Từ chối', function () { return rpc('farmcalc_admin_set_status', { p_user: m.user_id, p_status: 'rejected' }); }, true);
         if (m.status === 'approved' && m.device_at) act('Đặt lại thiết bị', function () { return rpc('farmcalc_admin_reset_device', { p_user: m.user_id }); }, true);
         it.append(acts);
-        if (m.status === 'approved' && justApproved[m.user_id]) it.append(notifyRow(m.email));
+        if (m.status === 'approved' && justApproved[m.user_id]) it.append(notifyRow(m.email, m.name, m.phone));
       }
       list.append(it);
     });
@@ -336,22 +349,23 @@
     rf.onclick = function () { members = null; adminBoxes.forEach(drawAdmin); refreshAdmin(true); };
     box.append(list, rf);
   }
-  function notifyText(email) {
+  function notifyText(email, name) {
     var link = location.origin + location.pathname.replace(/[^/]*$/, '');
-    return 'Chào anh/chị, tài khoản ' + email + ' đã được duyệt xem bảng giá FarmCalc. ' +
-      'Mở ' + link + ' → tab Bảng giá → Đăng nhập bằng email và mật khẩu đã đăng ký.';
+    return 'Chào ' + (name || 'anh/chị') + ', tài khoản FarmCalc (' + email + ') đã được duyệt. ' +
+      'Mở ' + link + ' rồi đăng nhập bằng Gmail và mật khẩu đã đăng ký.';
   }
-  function notifyRow(email) {
+  function notifyRow(email, name, phone) {
     var row = el('div', undefined, 'pg-notify');
     row.append(el('small', 'Đã duyệt. Báo cho khách:', 'pg-note'));
     var mail = el('a', 'Gửi email', 'pg-ghost');
-    mail.href = 'mailto:' + encodeURIComponent(email) + '?subject=' + encodeURIComponent('FarmCalc: tài khoản xem bảng giá đã được duyệt') + '&body=' + encodeURIComponent(notifyText(email));
+    mail.href = 'mailto:' + encodeURIComponent(email) + '?subject=' + encodeURIComponent('FarmCalc: tài khoản đã được duyệt') + '&body=' + encodeURIComponent(notifyText(email, name));
     var cp = el('button', 'Chép tin nhắn (Zalo)', 'pg-ghost'); cp.type = 'button';
     cp.onclick = async function () {
-      try { await navigator.clipboard.writeText(notifyText(email)); cp.textContent = 'Đã chép, dán vào Zalo'; }
-      catch (e) { window.prompt('Chép tin nhắn này:', notifyText(email)); }
+      try { await navigator.clipboard.writeText(notifyText(email, name)); cp.textContent = 'Đã chép, dán vào Zalo'; }
+      catch (e) { window.prompt('Chép tin nhắn này:', notifyText(email, name)); }
     };
     row.append(mail, cp);
+    if (phone) { var z = el('a', 'Mở Zalo ' + phone, 'pg-ghost'); z.href = 'https://zalo.me/' + phone; z.target = '_blank'; z.rel = 'noopener'; row.append(z); }
     return row;
   }
   function refreshAdmin(force) {
@@ -406,7 +420,9 @@
     logout: logout,
     isAdmin: function () { return state === 'ready' && role === 'admin'; },
     adminButton: adminButton,
-    state: function () { return state; }
+    state: function () { return state; },
+    configured: configured,
+    user: function () { return { email: who || (session && session.email) || '', name: myName, phone: myPhone, role: role }; }
   };
 
   function mountRow() {

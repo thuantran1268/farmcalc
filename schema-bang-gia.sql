@@ -142,6 +142,61 @@ begin
   end loop;
 end $$;
 
+-- 7) Thêm tên + số điện thoại cho tài khoản (đăng ký bằng tên bất kỳ + SĐT + Gmail, admin duyệt)
+alter table public.farmcalc_members add column if not exists name text, add column if not exists phone text;
+
+create or replace function public.farmcalc_on_signup() returns trigger
+language plpgsql security definer set search_path = public as $$
+begin
+  insert into public.farmcalc_members(user_id, email, name, phone)
+  values (new.id, lower(coalesce(new.email, '')),
+          nullif(left(trim(coalesce(new.raw_user_meta_data->>'name','')),60),''),
+          nullif(left(regexp_replace(coalesce(new.raw_user_meta_data->>'phone',''),'[^0-9+]','','g'),16),''))
+  on conflict (user_id) do nothing;
+  return new;
+end $$;
+
+create or replace function public.farmcalc_my_status() returns jsonb
+language plpgsql security definer set search_path = public as $$
+declare m public.farmcalc_members;
+begin
+  if auth.uid() is null then raise exception 'not_logged_in'; end if;
+  insert into public.farmcalc_members(user_id, email, name, phone)
+    select u.id, lower(coalesce(u.email,'')),
+           nullif(left(trim(coalesce(u.raw_user_meta_data->>'name','')),60),''),
+           nullif(left(regexp_replace(coalesce(u.raw_user_meta_data->>'phone',''),'[^0-9+]','','g'),16),'')
+    from auth.users u where u.id = auth.uid()
+    on conflict (user_id) do nothing;
+  select * into m from public.farmcalc_members where user_id = auth.uid();
+  return jsonb_build_object('status', m.status, 'role', m.role, 'email', m.email, 'name', m.name, 'phone', m.phone);
+end $$;
+
+create or replace function public.farmcalc_claim_device(p_device text) returns jsonb
+language plpgsql security definer set search_path = public as $$
+declare m public.farmcalc_members;
+begin
+  if auth.uid() is null then raise exception 'not_logged_in'; end if;
+  if p_device is null or length(p_device) < 8 or length(p_device) > 100 then raise exception 'bad_device'; end if;
+  perform public.farmcalc_my_status();
+  update public.farmcalc_members set device_id = p_device, device_at = now() where user_id = auth.uid();
+  select * into m from public.farmcalc_members where user_id = auth.uid();
+  return jsonb_build_object('status', m.status, 'role', m.role, 'email', m.email, 'name', m.name, 'phone', m.phone);
+end $$;
+
+drop function if exists public.farmcalc_admin_members();
+create function public.farmcalc_admin_members()
+returns table(user_id uuid, email text, name text, phone text, status text, role text, device_at timestamptz, created_at timestamptz, approved_at timestamptz)
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.farmcalc_is_admin() then raise exception 'not_admin'; end if;
+  return query
+    select m.user_id, m.email, m.name, m.phone, m.status, m.role, m.device_at, m.created_at, m.approved_at
+    from public.farmcalc_members m
+    order by case m.status when 'pending' then 0 when 'approved' then 1 else 2 end, m.created_at desc;
+end $$;
+revoke all on function public.farmcalc_admin_members() from public, anon;
+grant execute on function public.farmcalc_admin_members() to authenticated;
+
 -- ======================================================================
 -- SAU KHI ĐÃ ĐĂNG KÝ tài khoản của bạn trong web (tab Bảng giá), chạy RIÊNG câu dưới
 -- (đổi email cho đúng) để biến tài khoản đó thành ADMIN:
