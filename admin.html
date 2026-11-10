@@ -34,6 +34,8 @@ td.n,th.n{text-align:right}
 .days div{flex:1;background:var(--pri);border-radius:3px 3px 0 0;min-height:2px;opacity:.85}
 .mute{color:var(--mute);font-size:12px}
 [hidden]{display:none!important}
+button.ghost{background:#fff;color:var(--pri);border:1px solid var(--pri)}
+#admCo{min-width:220px}
 </style>
 </head>
 <body>
@@ -52,8 +54,11 @@ td.n,th.n{text-align:right}
     <p id="admCount" class="mute"></p>
     <div class="scroll"><table><thead><tr><th>Email</th><th>Thao tác</th><th>Trạng thái</th><th>Đăng ký</th><th>Thiết bị</th></tr></thead><tbody id="admRows"></tbody></table></div>
     <h2 style="margin-top:14px">Cập nhật bảng giá</h2>
-    <p class="mute">Chọn file bảng giá (định dạng .json, do Claude chuẩn bị từ file Excel mới). Bảng giá cũ sẽ được thay bằng bảng mới.</p>
-    <div class="row"><input id="admFile" type="file" accept=".json,application/json"><button type="button" id="admUp" disabled>Cập nhật lên Supabase</button></div>
+    <p class="mute">Nhập tên công ty rồi chọn file Excel (.xlsx) hoặc .json. Tên mới sẽ thêm công ty mới vào Bảng giá; tên đã có thì bảng giá cũ của công ty đó được thay bằng bảng mới. File Excel cần 1 dòng tiêu đề có cột <b>Mã</b>, <b>tên/loại thức ăn</b>, <b>protein/đạm</b>, <b>cỡ bao</b>, <b>giá/kg</b> (giá/bao nếu có).</p>
+    <div class="row"><input id="admCo" type="text" list="admCoList" placeholder="Tên công ty, vd: Dabaco" value="Jfeed" maxlength="40"><datalist id="admCoList"><option value="Jfeed"><option value="Dabaco"></datalist></div>
+    <div class="row"><input id="admFile" type="file" accept=".xlsx,.json,application/json,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"><button type="button" id="admUp" disabled>Cập nhật lên Supabase</button></div>
+    <div id="admPrev" class="mute"></div>
+    <div class="row"><button type="button" id="admRm" class="ghost">Gỡ bảng giá của công ty này</button></div>
     <p id="admUpMsg" class="mute"></p>
   </div>
 </section>
@@ -153,20 +158,102 @@ $('admForm').addEventListener('submit',async function(e){
   }catch(err){msg('admErr',err.message==='Invalid login credentials'?'Sai email hoặc mật khẩu.':err.message,true)}
 });
 $('admOut').onclick=function(){token='';me='';doc=null;$('admBox').hidden=true;$('admForm').hidden=false};
+/* ---- Đọc file Excel (.xlsx) ngay trên trình duyệt ---- */
+async function unzipXlsx(buf){
+  var dv=new DataView(buf),u8=new Uint8Array(buf),e=u8.length-22;
+  while(e>=0&&dv.getUint32(e,true)!==0x06054b50)e--; if(e<0)throw new Error('Không đọc được file Excel.');
+  var n=dv.getUint16(e+10,true),p=dv.getUint32(e+16,true),out={},td=new TextDecoder();
+  for(var i=0;i<n;i++){
+    var method=dv.getUint16(p+10,true),csize=dv.getUint32(p+20,true),nl=dv.getUint16(p+28,true),xl=dv.getUint16(p+30,true),cl=dv.getUint16(p+32,true),off=dv.getUint32(p+42,true);
+    var name=td.decode(u8.subarray(p+46,p+46+nl));p+=46+nl+xl+cl;
+    if(!/^xl\/(sharedStrings|workbook|worksheets\/sheet\d+|_rels\/workbook)\.xml(\.rels)?$/.test(name))continue;
+    var lstart=off+30+dv.getUint16(off+26,true)+dv.getUint16(off+28,true),data=u8.subarray(lstart,lstart+csize);
+    if(method===0)out[name]=td.decode(data);
+    else{var ds=new Blob([data]).stream().pipeThrough(new DecompressionStream('deflate-raw'));out[name]=await new Response(ds).text()}
+  }
+  return out;
+}
+function xlsxRows(files){
+  var P=new DOMParser(),ss=[];
+  if(files['xl/sharedStrings.xml']){var sx=P.parseFromString(files['xl/sharedStrings.xml'],'application/xml');[].forEach.call(sx.getElementsByTagName('si'),function(si){ss.push([].map.call(si.getElementsByTagName('t'),function(t){return t.textContent}).join(''))})}
+  var sheet=files['xl/worksheets/sheet1.xml']||files[Object.keys(files).filter(function(k){return /worksheets\/sheet/.test(k)}).sort()[0]];
+  if(!sheet)throw new Error('File Excel không có trang tính.');
+  var x=P.parseFromString(sheet,'application/xml'),rows=[];
+  [].forEach.call(x.getElementsByTagName('row'),function(r){var arr=[];[].forEach.call(r.getElementsByTagName('c'),function(c){
+    var ref=c.getAttribute('r')||'',col=0,m=ref.match(/^[A-Z]+/);if(m)for(var k=0;k<m[0].length;k++)col=col*26+m[0].charCodeAt(k)-64;col=col?col-1:arr.length;
+    var t=c.getAttribute('t'),v=c.getElementsByTagName('v')[0],val;
+    if(t==='s')val=ss[+(v&&v.textContent)];else if(t==='inlineStr')val=[].map.call(c.getElementsByTagName('t'),function(n){return n.textContent}).join('');else if(t==='str'||t==='b')val=v?v.textContent:'';else val=v?Number(v.textContent):'';
+    arr[col]=val});rows.push(arr)});
+  return rows;
+}
+function guessCategory(d){var s=String(d).toLowerCase();
+  if(/lợn|heo/.test(s))return '1. Thức ăn cho lợn';if(/ngan|vịt/.test(s))return '3. Thức ăn cho ngan, vịt';if(/cút/.test(s))return '4. Thức ăn cho chim cút';
+  if(/\bbò\b|bò /.test(s))return '5. Thức ăn cho bò';if(/gà/.test(s))return '2. Thức ăn cho gà';return '6. Khác'}
+function rowsToDoc(rows,company){
+  var low=function(v){return String(v==null?'':v).toLowerCase().replace(/\s+/g,' ').trim()},num=function(v){if(typeof v==='number')return v;var t=String(v==null?'':v).replace(/[^\d,.\-]/g,'');if(!t)return NaN;t=t.replace(/\./g,'').replace(',','.');return Number(t)};
+  var h=-1,col={};
+  for(var i=0;i<Math.min(rows.length,25)&&h<0;i++){var r=rows[i]||[],c={};
+    r.forEach(function(v,j){var t=low(v);if(!t)return;
+      if(c.code==null&&/^mã|mã sp|mã sản phẩm|mã hàng|code/.test(t))c.code=j;
+      else if(/giá/.test(t)&&/bao/.test(t))c.bagPrice=j;
+      else if(/giá/.test(t))c.kg=j;
+      else if(/protein|đạm/.test(t))c.protein=j;
+      else if(/thương hiệu|nhãn hiệu/.test(t))c.brand=j;
+      else if(/nhóm|vật nuôi/.test(t))c.cat=j;
+      else if(/bao|quy cách|đóng gói/.test(t))c.bag=j;
+      else if(c.desc==null&&/tên|loại|mô tả|sản phẩm|diễn giải/.test(t))c.desc=j});
+    if(c.code!=null&&(c.kg!=null||c.bagPrice!=null)){h=i;col=c}}
+  if(h<0)throw new Error('Không tìm thấy dòng tiêu đề có cột "Mã" và cột "Giá". Gửi file cho Claude để chuẩn bị giúp.');
+  var date='';for(var k=0;k<h&&!date;k++){var m=(rows[k]||[]).join(' ').match(/(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4})/);if(m)date=('0'+m[1]).slice(-2)+'/'+('0'+m[2]).slice(-2)+'/'+m[3]}
+  var cat='',products=[],hadCat=false;
+  for(var r2=h+1;r2<rows.length;r2++){var r=rows[r2]||[],code=String(r[col.code]==null?'':r[col.code]).trim(),kg=col.kg!=null?num(r[col.kg]):NaN,bp=col.bagPrice!=null?num(r[col.bagPrice]):NaN,bag=col.bag!=null?num(r[col.bag]):NaN;
+    var texts=r.filter(function(v){return v!==''&&v!=null});
+    if(!code&&isNaN(kg)&&isNaN(bp)){if(texts.length===1&&typeof texts[0]==='string'){cat=texts[0].trim();hadCat=true}continue}
+    if(!code)continue;
+    if(isNaN(bag)||bag<=0)bag=25;
+    if(isNaN(kg)&&!isNaN(bp))kg=bp/bag;
+    if(isNaN(kg)||kg<=0)continue;
+    var pr=col.protein!=null?num(r[col.protein]):NaN;if(!isNaN(pr)&&pr>0&&pr<1)pr=Math.round(pr*1000)/10;
+    var desc=col.desc!=null?String(r[col.desc]||'').trim():'';
+    products.push({id:String(products.length),brand:col.brand!=null&&r[col.brand]?String(r[col.brand]).trim():company,category:col.cat!=null&&r[col.cat]?String(r[col.cat]).trim():(hadCat?cat:guessCategory(desc)),
+      code:code,description:desc,protein:isNaN(pr)?null:pr,bag:bag,priceKg:Math.round(kg),invoiceBag:isNaN(bp)?null:Math.round(bp),sourceRow:r2+1})}
+  if(!products.length)throw new Error('Không đọc được sản phẩm nào trong file.');
+  if(!hadCat&&col.cat==null)products.sort(function(a,b){return a.category<b.category?-1:a.category>b.category?1:(+a.id)-(+b.id)});
+  products.forEach(function(p,i){p.id=String(i)});
+  return {effectiveDate:date,products:products,priceAdjustmentKg:0,updatedAt:new Date().toISOString().slice(0,10)};
+}
+function showPreview(d){var box=$('admPrev');box.replaceChildren();var t=document.createElement('table');t.style.cssText='width:100%;border-collapse:collapse;font-size:12.5px;margin:6px 0';
+  var hd=document.createElement('tr');['Mã','Tên','Đạm','Bao','Giá/kg','Giá/bao','Nhóm'].forEach(function(x){var th=document.createElement('th');th.textContent=x;th.style.cssText='text-align:left;border-bottom:1px solid #ddd;padding:3px';hd.append(th)});t.append(hd);
+  d.products.slice(0,8).forEach(function(p){var tr=document.createElement('tr');[p.code,p.description,p.protein==null?'—':p.protein+'%',p.bag,p.priceKg.toLocaleString('vi-VN'),p.invoiceBag==null?'—':p.invoiceBag.toLocaleString('vi-VN'),p.category].forEach(function(x){var td=document.createElement('td');td.textContent=x;td.style.cssText='border-bottom:1px solid #f0f0f0;padding:3px';tr.append(td)});t.append(tr)});
+  box.append(t);if(d.products.length>8){var m=document.createElement('div');m.textContent='… và '+(d.products.length-8)+' sản phẩm nữa. Kiểm tra vài dòng trên xem đúng cột chưa.';box.append(m)}}
 $('admFile').addEventListener('change',function(){
-  doc=null;$('admUp').disabled=true;msg('admUpMsg','');
+  doc=null;$('admUp').disabled=true;msg('admUpMsg','');$('admPrev').replaceChildren();
   var f=this.files&&this.files[0];if(!f)return;
+  var co=$('admCo').value.trim()||'Jfeed';
+  if(/\.xlsx$/i.test(f.name)){
+    f.arrayBuffer().then(unzipXlsx).then(function(files){var d=rowsToDoc(xlsxRows(files),co);doc=d;showPreview(d);$('admUp').disabled=false;
+      msg('admUpMsg','Đọc được '+d.products.length+' sản phẩm'+(d.effectiveDate?', hiệu lực '+d.effectiveDate:'')+'. Bấm "Cập nhật lên Supabase" để áp dụng cho '+co+'.',false)})
+    .catch(function(err){msg('admUpMsg',err.message||'Không đọc được file Excel.',true)});
+    return;
+  }
   var rd=new FileReader();rd.onload=function(){
     try{var d=JSON.parse(rd.result);
       if(!d||!Array.isArray(d.products)||!d.products.length||!d.products.every(function(p){return p&&p.code&&typeof p.priceKg==='number'}))throw new Error('x');
-      doc=d;$('admUp').disabled=false;msg('admUpMsg','Tệp hợp lệ: '+d.products.length+' sản phẩm'+(d.effectiveDate?', hiệu lực '+d.effectiveDate:'')+'. Bấm "Cập nhật lên Supabase" để áp dụng.',false);
+      doc=d;if(d.company)$('admCo').value=d.company;showPreview(d);$('admUp').disabled=false;msg('admUpMsg','Tệp hợp lệ: '+d.products.length+' sản phẩm'+(d.effectiveDate?', hiệu lực '+d.effectiveDate:'')+'. Bấm "Cập nhật lên Supabase" để áp dụng.',false);
     }catch(err){msg('admUpMsg','Tệp không đúng định dạng bảng giá.',true)}
   };rd.readAsText(f,'utf-8');
 });
 $('admUp').onclick=async function(){
-  if(!doc)return;this.disabled=true;
-  try{await rpc('farmcalc_admin_set_prices',{p_doc:doc});msg('admUpMsg','Đã cập nhật bảng giá ('+doc.products.length+' sản phẩm). Người dùng thấy ngay khi mở lại tab Bảng giá.',false)}
-  catch(err){msg('admUpMsg','Không cập nhật được: '+err.message,true);this.disabled=false}
+  if(!doc)return;var co=$('admCo').value.trim()||'Jfeed';
+  if(!confirm('Thay bảng giá của "'+co+'" bằng '+doc.products.length+' sản phẩm trong file?'))return;
+  this.disabled=true;
+  try{await rpc('farmcalc_admin_set_company_prices',{p_company:co,p_doc:doc});msg('admUpMsg','Đã cập nhật bảng giá '+co+' ('+doc.products.length+' sản phẩm). Người dùng thấy ngay khi mở lại tab Bảng giá.',false)}
+  catch(err){msg('admUpMsg','Không cập nhật được: '+(err.message==='bad_company'?'tên công ty cần 2–40 ký tự.':err.message),true);this.disabled=false}
+};
+$('admRm').onclick=async function(){
+  var co=$('admCo').value.trim();if(!co||co.toLowerCase()==='jfeed'){msg('admUpMsg','Không gỡ được bảng giá Jfeed.',true);return}
+  if(!confirm('Gỡ toàn bộ bảng giá của "'+co+'" khỏi web?'))return;
+  try{await rpc('farmcalc_admin_remove_company',{p_company:co});msg('admUpMsg','Đã gỡ bảng giá '+co+'.',false)}catch(err){msg('admUpMsg','Không gỡ được: '+err.message,true)}
 };
 })();
 </script>
