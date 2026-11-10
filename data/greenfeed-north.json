@@ -1,8 +1,8 @@
 {
   "source": "GREENFEED",
   "region": "Miền Bắc",
-  "checked_at": "2026-11-09T15:07+07:00",
-  "last_source_date": "2026-11-06",
+  "checked_at": "2026-11-10T15:29+07:00",
+  "last_source_date": "2026-11-09",
   "records": [
     {
       "date": "2026-10-01",
@@ -1189,6 +1189,50 @@
       "price_type": "range_midpoint",
       "price_min": 34500,
       "price_max": 36500
+    },
+    {
+      "date": "2026-11-09",
+      "product": "Gà Mía",
+      "region": "Miền Bắc",
+      "price": 52000,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-09-11-2026-gia-heo-hoi-ghi-nhan-xu-huong-tang-tai-mien-bac-gia-ga-ri-tang-tai-mien-bac-trong-khi-ga-mia-giam-nhe/",
+      "price_type": "range_midpoint",
+      "price_min": 50000,
+      "price_max": 54000
+    },
+    {
+      "date": "2026-11-09",
+      "product": "Gà Ri",
+      "region": "Miền Bắc",
+      "price": 50000,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-09-11-2026-gia-heo-hoi-ghi-nhan-xu-huong-tang-tai-mien-bac-gia-ga-ri-tang-tai-mien-bac-trong-khi-ga-mia-giam-nhe/",
+      "price_type": "range_midpoint",
+      "price_min": 48500,
+      "price_max": 51500
+    },
+    {
+      "date": "2026-11-09",
+      "product": "Heo hơi",
+      "region": "Miền Bắc",
+      "price": 46000,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-09-11-2026-gia-heo-hoi-ghi-nhan-xu-huong-tang-tai-mien-bac-gia-ga-ri-tang-tai-mien-bac-trong-khi-ga-mia-giam-nhe/",
+      "price_type": "reported_average",
+      "price_min": 45500,
+      "price_max": 47000
+    },
+    {
+      "date": "2026-11-09",
+      "product": "Vịt thịt",
+      "region": "Miền Bắc",
+      "price": 36500,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-09-11-2026-gia-heo-hoi-ghi-nhan-xu-huong-tang-tai-mien-bac-gia-ga-ri-tang-tai-mien-bac-trong-khi-ga-mia-giam-nhe/",
+      "price_type": "range_midpoint",
+      "price_min": 35500,
+      "price_max": 37500
     }
   ]
 }
