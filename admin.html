@@ -187,7 +187,7 @@ function xlsxRows(files){
   return rows;
 }
 function guessCategory(d){var s=String(d).toLowerCase();
-  if(/lợn|heo/.test(s))return '1. Thức ăn cho lợn';if(/ngan|vịt/.test(s))return '3. Thức ăn cho ngan, vịt';if(/cút/.test(s))return '4. Thức ăn cho chim cút';
+  if(/lợn|heo|^baby/.test(s))return '1. Thức ăn cho lợn';if(/ngan|vịt/.test(s))return '3. Thức ăn cho ngan, vịt';if(/cút/.test(s))return '4. Thức ăn cho chim cút';if(/bồ câu/.test(s))return '4. Thức ăn cho chim bồ câu';
   if(/\bbò\b|bò /.test(s))return '5. Thức ăn cho bò';if(/gà/.test(s))return '2. Thức ăn cho gà';return '6. Khác'}
 function rowsToDoc(rows,company){
   var low=function(v){return String(v==null?'':v).toLowerCase().replace(/\s+/g,' ').trim()},num=function(v){if(typeof v==='number')return v;var t=String(v==null?'':v).replace(/[^\d,.\-]/g,'');if(!t)return NaN;t=t.replace(/\./g,'').replace(',','.');return Number(t)};
