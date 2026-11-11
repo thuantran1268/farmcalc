@@ -257,3 +257,26 @@ revoke all on function public.farmcalc_admin_set_company_prices(text, jsonb) fro
 grant execute on function public.farmcalc_admin_set_company_prices(text, jsonb) to authenticated;
 revoke all on function public.farmcalc_admin_remove_company(text) from public, anon;
 grant execute on function public.farmcalc_admin_remove_company(text) to authenticated;
+-- Vào nhanh bằng email công ty (không mật khẩu) + bảng giá mở (không cần duyệt, trừ Jfeed)
+-- Tên miền được vào nhanh lưu trong bảng farmcalc_quick_domains (thêm trong Supabase, không ghi vào mã nguồn).
+create table if not exists public.farmcalc_quick_domains (domain text primary key);
+alter table public.farmcalc_quick_domains enable row level security;
+
+create or replace function public.farmcalc_quick_email_ok(p_email text) returns boolean
+language sql stable security definer set search_path = public as $$
+  select coalesce(
+    lower(trim(p_email)) ~ '^[^[:space:]@]+@[^[:space:]@]+\.[a-z]{2,}$'
+    and exists (select 1 from public.farmcalc_quick_domains d where d.domain = split_part(lower(trim(p_email)), '@', 2)),
+    false);
+$$;
+
+create or replace function public.farmcalc_get_open_prices() returns jsonb
+language sql stable security definer set search_path = public as $$
+  select jsonb_build_object('companies', coalesce(jsonb_agg(doc || jsonb_build_object('company', company) order by id), '[]'::jsonb))
+  from public.farmcalc_price_data where id <> 1;
+$$;
+
+revoke all on function public.farmcalc_quick_email_ok(text) from public;
+grant execute on function public.farmcalc_quick_email_ok(text) to anon, authenticated;
+revoke all on function public.farmcalc_get_open_prices() from public;
+grant execute on function public.farmcalc_get_open_prices() to anon, authenticated;

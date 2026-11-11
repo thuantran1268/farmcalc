@@ -103,6 +103,18 @@
     return j;
   }
 
+  async function anonRpc(name, args) {
+    if (!configured) throw new Error('nocfg');
+    var r = await fetch(base + '/rest/v1/rpc/' + name, {
+      method: 'POST',
+      headers: { apikey: cfg.supabaseAnonKey, 'Content-Type': 'application/json' },
+      body: JSON.stringify(args || {})
+    });
+    var txt = await r.text(), j = null;
+    try { j = txt ? JSON.parse(txt) : null; } catch (e) {}
+    if (!r.ok) throw new Error((j && (j.message || j.hint)) || ('Lỗi ' + r.status));
+    return j;
+  }
   function emitLock() { window.dispatchEvent(new CustomEvent('farm-prices-lock')); }
   function emitData(d) { window.dispatchEvent(new CustomEvent('farm-prices', { detail: d })); }
 
@@ -227,8 +239,8 @@
     }
     if (state === 'loading') { box.append(el('p', 'Đang kiểm tra tài khoản…', 'pg-note')); return; }
     if (state === 'pending') {
-      box.append(el('h3', 'Đang chờ admin duyệt'),
-        el('p', 'Đã gửi đăng ký của ' + (myName || who || 'bạn') + (myPhone ? ' (' + myPhone + ')' : '') + ' tới admin. Khi được duyệt, bạn bấm "Kiểm tra lại" hoặc mở lại trang là vào được.', 'pg-note'));
+      box.append(el('h3', 'Bảng giá Jfeed đang chờ admin duyệt'),
+        el('p', 'Đã gửi đăng ký của ' + (myName || who || 'bạn') + (myPhone ? ' (' + myPhone + ')' : '') + ' tới admin. Khi được duyệt, bấm "Kiểm tra lại" hoặc mở lại trang là xem được bảng giá Jfeed.', 'pg-note'));
       if (message) box.append(el('p', message, 'pg-msg'));
       var b = el('button', busy ? 'Đang kiểm tra…' : 'Kiểm tra lại', 'pg-btn');
       b.type = 'button'; b.disabled = busy; b.onclick = function () { recheck(true); };
@@ -247,7 +259,7 @@
 
     // locked: form đăng ký / đăng nhập
     box.append(el('h3', mode === 'signup' ? 'Đăng ký tài khoản' : 'Đăng nhập'),
-      el('p', mode === 'signup' ? 'Điền tên, số điện thoại và Gmail. Admin sẽ duyệt rồi bạn mới vào được web. Mỗi tài khoản dùng trên 1 thiết bị.' : 'Đăng nhập bằng Gmail và mật khẩu đã đăng ký. Lần sau máy này tự đăng nhập.', 'pg-note'));
+      el('p', mode === 'signup' ? 'Điền tên, số điện thoại và Gmail. Đăng ký xong vào web được ngay; riêng bảng giá Jfeed cần admin duyệt. Mỗi tài khoản dùng trên 1 thiết bị.' : 'Đăng nhập bằng Gmail và mật khẩu đã đăng ký. Lần sau máy này tự đăng nhập.', 'pg-note'));
     var tabs = el('div', undefined, 'pg-tabs');
     [['login', 'Đăng nhập'], ['signup', 'Đăng ký mới']].forEach(function (t) {
       var x = el('button', t[1]); x.type = 'button';
@@ -421,6 +433,8 @@
     isAdmin: function () { return state === 'ready' && role === 'admin'; },
     adminButton: adminButton,
     state: function () { return state; },
+    openPrices: function () { return anonRpc('farmcalc_get_open_prices', {}); },
+    quickEmailOk: function (email) { return anonRpc('farmcalc_quick_email_ok', { p_email: email }); },
     configured: configured,
     user: function () { return { email: who || (session && session.email) || '', name: myName, phone: myPhone, role: role }; }
   };
