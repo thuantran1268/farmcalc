@@ -23,10 +23,29 @@ function leaveApp(){email='';window.cloudContext=null;for(const key of Object.ke
 const gate=window.farmPriceGate&&window.farmPriceGate.configured?window.farmPriceGate:null;
 document.getElementById('signout').onclick=async()=>{await saveDraft();try{localStorage.removeItem(rememberedEmailSlot)}catch{}if(gate){leaveApp();gate.logout();return}email='';window.cloudContext=null;for(const key of Object.keys(window.farmState))delete window.farmState[key];window.farmRender();app.hidden=true;account.hidden=true;login.hidden=false;emailInput.value='';message.textContent='Đã thoát.'};
 document.getElementById('save-history').onclick=saveHistory;
-if(gate){/* Đăng nhập bằng tài khoản đã được admin duyệt (tên + SĐT + Gmail + mật khẩu) */
-  const card=login.querySelector('.auth-card');card.replaceChildren(gate.panel(),message);message.textContent='';
-  let entering='';
-  const sync=()=>{const st=gate.state();if(st==='ready'){const u=gate.user();if(u.email&&email!==u.email&&entering!==u.email){entering=u.email;enter(u.email).then(()=>{document.getElementById('account-email').textContent=(u.name?u.name+' · ':'')+u.email}).catch(errorText).finally(()=>{entering=''})}}else if(st!=='loading'&&email){leaveApp()}};
+if(gate){/* 2 cách vào: (1) email công ty, không mật khẩu; (2) tài khoản đăng ký (tên + SĐT + Gmail + mật khẩu).
+   Vào web không cần duyệt; riêng bảng giá Jfeed cần admin duyệt (do price-gate.js kiểm soát). */
+  let quick='',entering='';const quickSlot='farmcalc-quick-email-v1';
+  const card=login.querySelector('.auth-card');
+  const qh=document.createElement('h3');qh.textContent='Vào nhanh bằng email công ty';
+  const qp=document.createElement('p');qp.className='pg-note';qp.textContent='Nhập email công ty để vào ngay, không cần mật khẩu.';
+  const qf=document.createElement('form');qf.className='pg-form quick-form';
+  const qi=document.createElement('input');qi.type='email';qi.placeholder='ten.ho@congty…';qi.autocomplete='email';qi.inputMode='email';qi.setAttribute('aria-label','Email công ty');qi.required=true;
+  const qb=document.createElement('button');qb.type='submit';qb.className='pg-btn';qb.textContent='Vào ngay';
+  qf.append(qi,qb);
+  const or=document.createElement('div');or.className='auth-or';or.textContent='hoặc dùng tài khoản';
+  card.replaceChildren(qh,qp,qf,message,or,gate.panel());message.textContent='';
+  const goQuick=async(value,silent)=>{value=String(value||'').trim().toLowerCase();if(!validEmail(value)){message.textContent='Email không đúng định dạng.';return}
+    qb.disabled=true;if(!silent)message.textContent='Đang kiểm tra…';
+    let ok=false;try{ok=await gate.quickEmailOk(value)===true}catch(e){if(silent)ok=true;else{message.textContent='Không kết nối được máy chủ. Vui lòng thử lại.';qb.disabled=false;return}}
+    if(!ok){qb.disabled=false;try{localStorage.removeItem(quickSlot)}catch{}if(silent){message.textContent='';return}message.textContent='Email này không vào nhanh được. Hãy dùng "Đăng ký mới" bên dưới.';return}
+    quick=value;try{await enter(value);try{localStorage.setItem(quickSlot,value)}catch{}message.textContent=''}catch(error){quick='';errorText(error)}finally{qb.disabled=false}};
+  qf.onsubmit=e=>{e.preventDefault();goQuick(qi.value)};
+  const sync=()=>{const st=gate.state(),u=gate.user();
+    if((st==='ready'||st==='pending')&&u.email){if(!quick&&email!==u.email&&entering!==u.email){entering=u.email;enter(u.email).then(()=>{document.getElementById('account-email').textContent=(u.name?u.name+' · ':'')+u.email}).catch(errorText).finally(()=>{entering=''})}}
+    else if(st!=='loading'&&email&&!quick){leaveApp()}};
   window.addEventListener('farm-gate',sync);sync();
+  document.getElementById('signout').addEventListener('click',()=>{quick='';qi.value='';try{localStorage.removeItem(quickSlot)}catch{}},true);
+  try{const saved=localStorage.getItem(quickSlot);if(saved&&validEmail(saved)){qi.value=saved;goQuick(saved,true)}}catch{}
 }
 if(!gate)try{const savedEmail=localStorage.getItem(rememberedEmailSlot);if(savedEmail&&validEmail(savedEmail)){emailInput.value=savedEmail;message.textContent='Đang mở tài khoản đã lưu…';enter(savedEmail).catch(error=>{errorText(error)})}}catch{}
