@@ -1,15 +1,15 @@
 {
- "updated_at": "2026-11-10T23:23+07:00",
+ "updated_at": "2026-11-11T15:23+07:00",
  "parser": 2,
  "sources": {
   "greenvet": {
-   "checked_at": "2026-11-10T23:23+07:00",
+   "checked_at": "2026-11-11T15:23+07:00",
    "ok": true,
    "warnings": [],
    "last_date": "2026-11-06"
   },
   "congthuong": {
-   "checked_at": "2026-11-10T23:23+07:00",
+   "checked_at": "2026-11-11T15:23+07:00",
    "ok": true,
    "warnings": [],
    "last_date": "2026-11-10"
