@@ -1,15 +1,17 @@
 {
- "updated_at": "2026-11-11T15:23+07:00",
+ "updated_at": "2026-11-11T23:05+07:00",
  "parser": 2,
  "sources": {
   "greenvet": {
-   "checked_at": "2026-11-11T15:23+07:00",
+   "checked_at": "2026-11-11T23:04+07:00",
    "ok": true,
-   "warnings": [],
+   "warnings": [
+    "2026-11-05: HTTPSConnectionPool(host='greenvet.com.vn', port=443): Read timed out. (read timeout=30)"
+   ],
    "last_date": "2026-11-06"
   },
   "congthuong": {
-   "checked_at": "2026-11-11T15:23+07:00",
+   "checked_at": "2026-11-11T23:05+07:00",
    "ok": true,
    "warnings": [],
    "last_date": "2026-11-10"
