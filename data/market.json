@@ -1,15 +1,15 @@
 {
- "updated_at": "2026-11-12T15:50+07:00",
+ "updated_at": "2026-11-12T23:45+07:00",
  "parser": 2,
  "sources": {
   "greenvet": {
-   "checked_at": "2026-11-12T15:50+07:00",
+   "checked_at": "2026-11-12T23:45+07:00",
    "ok": true,
    "warnings": [],
-   "last_date": "2026-11-06"
+   "last_date": "2026-11-10"
   },
   "congthuong": {
-   "checked_at": "2026-11-12T15:50+07:00",
+   "checked_at": "2026-11-12T23:45+07:00",
    "ok": true,
    "warnings": [],
    "last_date": "2026-11-12"
@@ -10776,6 +10776,303 @@
    "max": 49000,
    "unit": "đ/kg",
    "level": "tinh"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Con giống gia cầm",
+   "item": "Gà trắng bán ngoài",
+   "region": "Bắc",
+   "min": 15000,
+   "max": 17000,
+   "unit": "đ/con"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Con giống gia cầm",
+   "item": "Gà trắng bán ngoài",
+   "region": "Nam",
+   "min": 13000,
+   "max": 14000,
+   "unit": "đ/con"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Con giống gia cầm",
+   "item": "Gà trắng ăn cám công ty",
+   "region": "Bắc",
+   "min": 15000,
+   "max": 15000,
+   "unit": "đ/con"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Con giống gia cầm",
+   "item": "Gà trắng ăn cám công ty",
+   "region": "Nam",
+   "min": 13000,
+   "max": 13500,
+   "unit": "đ/con"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Giá heo hơi",
+   "item": "",
+   "region": "Bắc",
+   "min": 44000,
+   "max": 48000,
+   "unit": "đ/kg"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Giá heo hơi",
+   "item": "",
+   "region": "Nam",
+   "min": 43000,
+   "max": 51000,
+   "unit": "đ/kg"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Giá heo hơi",
+   "item": "",
+   "region": "Trung",
+   "min": 44000,
+   "max": 50000,
+   "unit": "đ/kg"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Giá vịt thịt",
+   "item": "",
+   "region": "Bắc",
+   "min": 35000,
+   "max": 41000,
+   "unit": "đ/kg"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Giá vịt thịt",
+   "item": "",
+   "region": "Nam",
+   "min": 25000,
+   "max": 32000,
+   "unit": "đ/kg"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Gà thịt",
+   "item": "Gà nuôi 100–105 ngày",
+   "region": "Bắc",
+   "min": 47000,
+   "max": 54000,
+   "unit": "đ/kg"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Gà thịt",
+   "item": "Gà nuôi 100–105 ngày",
+   "region": "Nam",
+   "min": 45000,
+   "max": 52000,
+   "unit": "đ/kg"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Gà thịt",
+   "item": "Gà nuôi 100–105 ngày Gà Dabaco",
+   "region": "Bắc",
+   "min": 53000,
+   "max": 54000,
+   "unit": "đ/kg"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Gà thịt",
+   "item": "Gà trắng",
+   "region": "Bắc",
+   "min": 36000,
+   "max": 38500,
+   "unit": "đ/kg"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Gà thịt",
+   "item": "Gà trắng",
+   "region": "Nam",
+   "min": 33000,
+   "max": 37000,
+   "unit": "đ/kg"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Heo dân",
+   "item": "",
+   "region": "Bắc",
+   "min": 46000,
+   "max": 48000,
+   "unit": "đ/kg"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Heo dân",
+   "item": "",
+   "region": "Nam",
+   "min": 46000,
+   "max": 50000,
+   "unit": "đ/kg"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Heo dân",
+   "item": "",
+   "region": "Trung",
+   "min": 46000,
+   "max": 47000,
+   "unit": "đ/kg"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Heo dân (tính theo con)",
+   "item": "",
+   "region": "Bắc",
+   "min": 1000000,
+   "max": 1400000,
+   "unit": "đ/con"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Heo dân (tính theo con)",
+   "item": "",
+   "region": "Nam",
+   "min": 1200000,
+   "max": 1600000,
+   "unit": "đ/con"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Heo giống (tính theo con)",
+   "item": "",
+   "region": "Bắc",
+   "min": 1000000,
+   "max": 1700000,
+   "unit": "đ/con"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Heo giống (tính theo con)",
+   "item": "",
+   "region": "Nam",
+   "min": 1050000,
+   "max": 1750000,
+   "unit": "đ/con"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Heo hơi nước ngoài",
+   "item": "",
+   "region": "Thái Lan",
+   "min": 54800,
+   "max": 54800,
+   "unit": "đ/kg"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Heo hơi nước ngoài",
+   "item": "",
+   "region": "Trung Quốc",
+   "min": 33600,
+   "max": 33600,
+   "unit": "đ/kg"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Trứng",
+   "item": "trứng gà Mix05 (≥21.3kg)",
+   "region": "Bắc",
+   "min": 1700,
+   "max": 1700,
+   "unit": "đ/quả"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Trứng",
+   "item": "trứng gà Mix05 (≥21.5kg)",
+   "region": "Nam",
+   "min": 1800,
+   "max": 1900,
+   "unit": "đ/quả"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Vịt giống",
+   "item": "Vịt Grimaud",
+   "region": "Nam",
+   "min": 17000,
+   "max": 17000,
+   "unit": "đ/con"
+  },
+  {
+   "date": "2026-11-10",
+   "source": "greenvet",
+   "url": "https://greenvet.com.vn/cap-nhat-gia-chan-nuoi-ngay-10-11-2026/",
+   "group": "Vịt giống",
+   "item": "Vịt Super",
+   "region": "Bắc",
+   "min": 15000,
+   "max": 17000,
+   "unit": "đ/con"
   },
   {
    "date": "2026-11-11",
