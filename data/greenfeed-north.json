@@ -1,8 +1,8 @@
 {
   "source": "GREENFEED",
   "region": "Miền Bắc",
-  "checked_at": "2026-11-11T14:49+07:00",
-  "last_source_date": "2026-11-10",
+  "checked_at": "2026-11-12T15:26+07:00",
+  "last_source_date": "2026-11-11",
   "records": [
     {
       "date": "2026-10-01",
@@ -1277,6 +1277,50 @@
       "price_type": "range_midpoint",
       "price_min": 35500,
       "price_max": 37500
+    },
+    {
+      "date": "2026-11-11",
+      "product": "Gà Mía",
+      "region": "Miền Bắc",
+      "price": 51500,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-11-11-2026-gia-heo-hoi-ghi-nhan-xu-huong-tang-tren-ca-nuoc-gia-ga-ri-giu-on-dinh-tai-mien-bac-trong-khi-ga-mia-giam-nhe/",
+      "price_type": "range_midpoint",
+      "price_min": 50000,
+      "price_max": 53000
+    },
+    {
+      "date": "2026-11-11",
+      "product": "Gà Ri",
+      "region": "Miền Bắc",
+      "price": 50000,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-11-11-2026-gia-heo-hoi-ghi-nhan-xu-huong-tang-tren-ca-nuoc-gia-ga-ri-giu-on-dinh-tai-mien-bac-trong-khi-ga-mia-giam-nhe/",
+      "price_type": "range_midpoint",
+      "price_min": 49000,
+      "price_max": 51000
+    },
+    {
+      "date": "2026-11-11",
+      "product": "Heo hơi",
+      "region": "Miền Bắc",
+      "price": 47000,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-11-11-2026-gia-heo-hoi-ghi-nhan-xu-huong-tang-tren-ca-nuoc-gia-ga-ri-giu-on-dinh-tai-mien-bac-trong-khi-ga-mia-giam-nhe/",
+      "price_type": "reported_average",
+      "price_min": 46500,
+      "price_max": 48000
+    },
+    {
+      "date": "2026-11-11",
+      "product": "Vịt thịt",
+      "region": "Miền Bắc",
+      "price": 36000,
+      "source": "GREENFEED",
+      "source_url": "https://www.greenfeed.com.vn/thuc-an-chan-nuoi-gia-suc-gia-cam/ngay-11-11-2026-gia-heo-hoi-ghi-nhan-xu-huong-tang-tren-ca-nuoc-gia-ga-ri-giu-on-dinh-tai-mien-bac-trong-khi-ga-mia-giam-nhe/",
+      "price_type": "range_midpoint",
+      "price_min": 35000,
+      "price_max": 37000
     }
   ]
 }
