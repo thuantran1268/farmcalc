@@ -81,7 +81,7 @@
     const brandLabel = opts.brand && !/^Tất cả/i.test(opts.brand) ? opts.brand : 'Tất cả thương hiệu';
     const title = 'Bảng giá thức ăn chăn nuôi';
     COLS[5].title = opts.priceNote ? 'Giá net (đ/bao)' : 'Giá hóa đơn (đ/bao)';
-    const priceNote = opts.priceNote || 'Giá gốc ' + data.effectiveDate + (data.priceAdjustmentKg ? ' · Đã tăng ' + money(data.priceAdjustmentKg) + ' đ/kg' : '');
+    const priceNote = opts.priceNote || ((data.note || 'Giá gốc') + ' ' + (data.effectiveDate || '') + (data.priceAdjustmentKg ? ' · Đã tăng ' + money(data.priceAdjustmentKg) + ' đ/kg' : ''));
     const pages = [];
     let page = null, y = 0, converted = false;
     const ctx = { brand: null, cat: null };

@@ -78,7 +78,7 @@
     const products = opts.products || [], data = opts.data || {};
     const money = opts.money || (n => String(Math.round(n)));
     const brandLabel = opts.brand && !/^Tất cả/i.test(opts.brand) ? opts.brand : 'Tất cả thương hiệu';
-    const priceNote = opts.priceNote || ('Giá gốc ' + (data.effectiveDate || '') + (data.priceAdjustmentKg ? ' · Đã tăng ' + money(data.priceAdjustmentKg) + ' đ/kg' : ''));
+    const priceNote = opts.priceNote || ((data.note || 'Giá gốc') + ' ' + (data.effectiveDate || '') + (data.priceAdjustmentKg ? ' · Đã tăng ' + money(data.priceAdjustmentKg) + ' đ/kg' : ''));
     const invTitle = opts.priceNote ? 'Giá net (đ/bao)' : 'Giá hóa đơn (đ/bao)';
     const head = ['Thương hiệu', 'Nhóm', 'Mã', 'Mô tả sản phẩm', 'Đạm thô (%)', 'Quy cách (kg/bao)', 'Giá (đ/kg)', invTitle];
     const widths = [16, 18, 12, 46, 11, 12, 13, 17];
